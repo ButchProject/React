@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Map as KakaoMap, MapMarker as Marker } from "react-kakao-maps-sdk";
+import "../Styles/Map.css"
 
 function Map() {
   const [initialPosition, setInitialPosition] = useState(null);
@@ -34,9 +35,9 @@ function Map() {
       lat: marker.getPosition().getLat(),
       lng: marker.getPosition().getLng(),
     };
-    setBusStops(
-      busStops.map((busStop, i) => (i === index ? newPosition : busStop))
-    );
+    const updatedBusStops = [...busStops];          // busStops 배열을 복사합니다.
+    updatedBusStops[index] = newPosition;           // 드래그된 마커의 인덱스에 새 위치를 할당합니다.
+    setBusStops(updatedBusStops);                   // setBusStops를 호출하여 상태를 업데이트합니다.
   };
 
   return (
@@ -47,7 +48,7 @@ function Map() {
           apikey={process.env.REACT_APP_KAKAO_MAP_API_KEY}
           center={initialPosition}
           level={3}
-          style={{ width: "500px", height: "500px" }}
+          className="kakaoMap"
           onCenterChanged={(map) => {
             setCurrentCenter({
               lat: map.getCenter().getLat(),
