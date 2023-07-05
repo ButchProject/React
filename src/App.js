@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import Login from './Pages/Login';
-import Signup from './Pages/Signup';
+import Register from './Pages/Register';
 import Chat from './Pages/Chat';
 import Map from './Pages/Map';
 
@@ -15,7 +15,7 @@ function App() {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/signup">회원가입</Link>
+              <Link to="/register">회원가입</Link>
             </li>
             <li>
               <Link to="/chat">채팅</Link>
@@ -27,7 +27,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/map" element={<Map />} /> {/* 수정된 부분 */}
         </Routes>

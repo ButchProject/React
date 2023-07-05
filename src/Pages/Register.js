@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { registerUser } from "../ApiServices/auth"; // import registerUser function
+import { registerUser } from "../ApiServices/auth";
 import axios from 'axios';
 
-const Signup = (props) => {
+const Register = (props) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,17 +12,17 @@ const Signup = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setErrorMessage("비밀번호가 일치하지 않습니다.");
-      return;
+        setErrorMessage("비밀번호가 일치하지 않습니다.");
+        return;
     }
 
     const userData = {
-      username: username,
-      email: email,
-      password: password,
+        username: username,
+        email: email,
+        password: password,
     };
 
-    axios.post('http://localhost:8080/api/users', userData)
+    registerUser(userData)
       .then((response) => {
         // 서버에서 받은 데이터를 출력하고 성공 메시지를 표시합니다.
         console.log(response.data);
@@ -33,12 +33,10 @@ const Signup = (props) => {
         console.log(error);
         setErrorMessage('회원가입에 실패했습니다.');
       });
-  };
 
+}; // handleSubmit 끝
 
-
-
-  const handleChange = (e) => {
+const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
       case 'username':
@@ -56,11 +54,11 @@ const Signup = (props) => {
       default:
         break;
     }
-  };
+};
 
-  return (
+return (
     <div>
-      <h2>Signup</h2>
+      <h2>register</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>아이디:</label>
@@ -92,7 +90,7 @@ const Signup = (props) => {
         <div>
           <label>비밀번호 확인</label>
           <input
-            type="confirmPassword"
+            type="password"
             name="confirmPassword"
             value={confirmPassword}
             onChange={handleChange}
@@ -104,7 +102,8 @@ const Signup = (props) => {
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       </form>
     </div>
-  );
-};
+);
 
-export default Signup;
+}; // Register 컴포넌트 끝
+
+export default Register;

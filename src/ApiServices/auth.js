@@ -10,13 +10,14 @@ async function loginUser(userData) {
     return response.data;
   } catch (error) {
     console.error("Error in logging in user:", error.response.data);
+    
     throw error;
   }
 }
 
 async function registerUser(userData) {
   try {
-    const response = await axios.post(`${API_BASE_URL}/signup`, userData);
+    const response = await axios.post(`${API_BASE_URL}/register`, userData);
     return response.data;
   } catch (error) {
     console.error("Error in registering user:", error.response.data);

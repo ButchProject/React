@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { loginUser } from "../ApiServices/auth"; // import loginUser function
 
 const Login = (props) => {
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginUser({ id, password });
+      const response = await loginUser({ username, password });
       // 로그인 성공 시, 메인 페이지로 이동하거나 사용자에게 완료 메시지를 표시합니다.
-
+      setErrorMessage("로그인에 성공하였습니다.");
+      if (props.onSuccess) {
+        props.onSuccess();
+      }
     } catch (error) {
       // 로그인 실패 시, 에러 메시지를 사용자에게 표시합니다.
       setErrorMessage("로그인에 실패하였습니다.");
@@ -21,8 +24,8 @@ const Login = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'id':
-        setId(value);
+      case 'username':
+        setUsername(value);
         break;
       case 'password':
         setPassword(value);
@@ -34,14 +37,14 @@ const Login = (props) => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>아이디: </label>
           <input
-            type="id"
-            name="id"
-            value={id}
+            type="username"
+            name="username"
+            value={username}
             onChange={handleChange}
           />
         </div>

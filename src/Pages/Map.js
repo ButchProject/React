@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Map as KakaoMap, MapMarker as Marker } from "react-kakao-maps-sdk";
-import "../Styles/Map.css"
 
 function Map() {
   const [initialPosition, setInitialPosition] = useState(null);
@@ -48,7 +47,7 @@ function Map() {
           apikey={process.env.REACT_APP_KAKAO_MAP_API_KEY}
           center={initialPosition}
           level={3}
-          className="kakaoMap"
+          style={{ width: "500px", height: "500px" }}
           onCenterChanged={(map) => {
             setCurrentCenter({
               lat: map.getCenter().getLat(),
@@ -80,4 +79,3 @@ function Map() {
 }
 
 export default Map;
-
