@@ -4,11 +4,13 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Chat from './Pages/Chat';
 import Map from './Pages/Map';
+import CollapsibleExample from './nav';
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <CollapsibleExample />
         <nav>
           <ul>
             <li>
