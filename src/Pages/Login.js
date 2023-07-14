@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { loginUser } from "../ApiServices/auth"; // import loginUser function
+import { loginUser } from "../ApiServices/auth";
+import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate를 임포트해주세요.
 
 const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate(); // useHistory 대신 useNavigate를 사용합니다.
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +18,7 @@ const Login = (props) => {
       if (props.onSuccess) {
         props.onSuccess();
       }
+      navigate('/map'); // 로그인 성공 시 '/map' 경로로 이동합니다. 실제 Map 페이지 경로를 사용하세요.
     } catch (error) {
       // 로그인 실패 시, 에러 메시지를 사용자에게 표시합니다.
       setErrorMessage("로그인에 실패하였습니다.");

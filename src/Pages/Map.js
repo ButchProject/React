@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Map as KakaoMap, MapMarker as Marker } from "react-kakao-maps-sdk";
+import '../Styles/Map.css';
 
 function Map() {
   const [initialPosition, setInitialPosition] = useState(null);
