@@ -1,0 +1,25 @@
+.dock-window {
+    width: 10%;
+    height: 450px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed; /* 변경된 부분 */
+  }
+  .p-dock {
+    z-index: 1000;
+  }  
+  .app-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .pages-container {
+    width: 100%;
+  }
+  /* Navbar.css */
+.pages-container {
+    width: 100%;
+    margin-left: 10%; /* 추가된 부분 */
+  }
+  

@@ -1,76 +1,61 @@
 import React, { useState } from 'react';
-import { loginUser } from "../ApiServices/auth";
-import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate를 임포트해주세요.
+import { useNavigate } from 'react-router-dom';
+import '../Styles/Login.css';
 
-const Login = (props) => {
-  const [username, setUsername] = useState('');
+function Login() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // useHistory 대신 useNavigate를 사용합니다.
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await loginUser({ username, password });
-      // 로그인 성공 시, 메인 페이지로 이동하거나 사용자에게 완료 메시지를 표시합니다.
-      setErrorMessage("로그인에 성공하였습니다.");
-      if (props.onSuccess) {
-        props.onSuccess();
-      }
-      navigate('/map'); // 로그인 성공 시 '/map' 경로로 이동합니다. 실제 Map 페이지 경로를 사용하세요.
-    } catch (error) {
-      // 로그인 실패 시, 에러 메시지를 사용자에게 표시합니다.
-      setErrorMessage("로그인에 실패하였습니다.");
+    if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'password') {
+      setPassword(value);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    switch (name) {
-      case 'username':
-        setUsername(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      default:
-        break;
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Email:', email, 'Password:', password);
+    // 여기에 필요한 로그인 처리 코드를 작성할 수 있습니다.
+  };
+
+  const goToMainPage = () => {
+    navigate('/Pages/mainPage');
   };
 
   return (
-    <div>
-      <h2>login</h2>
+    <div className="Login">
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>아이디: </label>
-          <input
-            type="username"
-            name="username"
-            value={username}
-            onChange={handleChange}
+          <label htmlFor="email">Email:</label>
+          <input 
+            type="email" 
+            id="email"
+            name="email" 
+            value={email} 
+            onChange={handleChange} 
           />
         </div>
         <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
+          <label htmlFor="password">Password:</label>
+          <input 
+            type="password" 
+            id="password"
+            name="password" 
+            value={password} 
+            onChange={handleChange} 
           />
         </div>
-        <div>
-          <button type="submit">확인</button>
-          <button type="button" onClick={props.changeMode}>회원가입</button>
-          <button type="button" onClick={props.changeMode}>비밀번호 찾기</button>
-          <button type="button" onClick={props.changeMode}>아이디 찾기</button>
-        </div>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        <button type="submit">Login</button>
       </form>
+      <button type="button" onClick={goToMainPage}>Go to main page</button>
     </div>
   );
-};
+}
 
 export default Login;
