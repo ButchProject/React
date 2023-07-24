@@ -4,66 +4,55 @@ import { Dock } from 'primereact/dock';
 import '../Styles/NavBar.css';
 
 function NavBar() {
-    const [position] = useState('left');
-    const items = [
-      {
-      label: 'Finder',
+  const [position] = useState('left');
+  const items = [
+    {
+      label: 'Chat',
       icon: () => (
-      <img
-               alt='Finder'
-               src='https://primefaces.org/cdn/primereact/images/dock/finder.svg'
-               width='100%'
-             />
+        <img
+          alt='Chat'
+          src='https://primefaces.org/cdn/primereact/images/dock/finder.svg'
+          width='100%'
+        />
       ),
       command: () => {
-      window.location.href = '/finder';
+        window.location.href = '/chat';
       },
-      },
-      {
-      label: 'App Store',
+    },
+    {
+      label: 'Map',
       icon: () => (
-      <img
-               alt='App Store'
-               src='https://primefaces.org/cdn/primereact/images/dock/appstore.svg'
-               width='100%'
-             />
+        <img
+          alt='Map'
+          src='https://primefaces.org/cdn/primereact/images/dock/appstore.svg'
+          width='100%'
+        />
       ),
       command: () => {
-      window.location.href = '/app-store';
+        window.location.href = '/map';
       },
-      },
-      {
-      label: 'Photos',
+    },
+    {
+      label: 'Board',
       icon: () => (
-      <img
-               alt='Photos'
-               src='https://primefaces.org/cdn/primereact/images/dock/photos.svg'
-               width='100%'
-             />
+        <img
+          alt='Board'
+          src='https://primefaces.org/cdn/primereact/images/dock/photos.svg'
+          width='100%'
+        />
       ),
       command: () => {
-      window.location.href = '/photos';
+        window.location.href = '/board';
       },
-      },
-      {
-      label: 'Trash',
-      icon: () => (
-      <img
-               alt='trash'
-               src='https://primefaces.org/cdn/primereact/images/dock/trash.png'
-               width='100%'
-             />
-      ),
-      command: () => {
-      window.location.href = '/register';
-      },
-      },
-      ];
-    return (
-        <div className='dock-window'>
-            <Dock model={items} position={position} />
-        </div>
-    );
+    },
+
+  ];
+  
+  return (
+    <div className='dock-window'>
+      <Dock model={items} position={position} />
+    </div>
+  );
 }
 
 export default NavBar;

@@ -24,7 +24,7 @@ function Login() {
   };
 
   const goToMainPage = () => {
-    navigate('/Pages/mainPage');
+    navigate('/main');
   };
 
   return (
