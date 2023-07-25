@@ -24,10 +24,19 @@ function Login() {
   };
 
   const goToMainPage = () => {
-    navigate('/main');
+    navigate('/Pages/mainPage');
   };
 
   return (
+    <div
+  className="Login Login-image"
+  style={{
+    backgroundImage: `url(/image/login_bus1.png)`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "top center",
+    backgroundSize: "cover",
+  }}
+>
     <div className="Login">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
@@ -54,6 +63,7 @@ function Login() {
         <button type="submit">Login</button>
       </form>
       <button type="button" onClick={goToMainPage}>Go to main page</button>
+    </div>
     </div>
   );
 }

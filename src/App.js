@@ -14,7 +14,9 @@ function App() {
   return (
     <Router>
       <div className="card dock-demo">
-        <AppContainer />
+        <div className="card-container">
+          <AppContainer />
+        </div>
       </div>
     </Router>
   );
@@ -23,25 +25,31 @@ function App() {
 function AppContainer() {
   const location = useLocation();
   const { pathname } = location;
+  const displayNavbar =
+    pathname !== "/register" && pathname !== "/" && pathname !== "/login";
+
   return (
-    <div>
-      { pathname !== "/register" && pathname !== "/" && pathname !== "/login" && <NavBar /> }
-      <div className="app-container">
-        <div className="pages-container">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/main" element={<MainPage />} />
-              <Route path="/chat" element={<ChatPage />} />
-              <Route path="/Map" element={<MapPage />} />
-              <Route path="/board" element={<BoardPage />} />
-            </Routes>
-          </Suspense>
+    <div className={`app-container ${displayNavbar ? "" : "full-width"}`}>
+      {displayNavbar && (
+        <div className="navbar-container">
+          <NavBar />
         </div>
+      )}
+      <div className={`pages-container ${displayNavbar ? "" : "full-width"}`}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/main" element={<MainPage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/Map" element={<MapPage />} />
+            <Route path="/board" element={<BoardPage />} />
+          </Routes>
+        </Suspense>
       </div>
     </div>
   );
 }
+
 
 export default App;
