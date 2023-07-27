@@ -19,7 +19,7 @@
 
 .text-box {
   position: absolute;
-  top: 10%;
+  top: 10%;/*텍스트위치조절*/
   width: 80%;
   text-align: center;
   background-color: rgba(255, 255, 255, 0);
@@ -28,8 +28,8 @@
 }
 
 .image-centered {
-  background-position: center 80%;
-  background-size: 40%;
+  background-position: center 80%;/*사진위치조절*/
+  background-size: 40%; /*사진크기조절*/
 }
 
 .sidebar-button-container {
@@ -38,4 +38,29 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 999;
+}
+
+/* 스크롤 애니메이션 적용 */
+.scroll-animation {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.scroll-animation.visible {
+  opacity: 1;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽에 정렬하도록 수정 */
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 2rem; /* h2와 폼이 가장자리로부터 떨어져 보이도록 패딩을 추가 */
+  width: 100%;
+}
+
+.login-form h2 {
+  margin-top: 0; /* 위에서 조정한 패딩으로 인해 h2의 상단 마진을 0으로 설정합니다. */
 }
