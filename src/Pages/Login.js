@@ -1,71 +1,39 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Sidebar } from 'primereact/sidebar';
+import { Button } from 'primereact/button';
+import { ScrollTop } from 'primereact/scrolltop';
 import '../Styles/Login.css';
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+export default function Login() {
+  const [visible, setVisible] = useState(false);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
+  const introStyle = {
+    backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus1.png)`
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Email:', email, 'Password:', password);
-    // 여기에 필요한 로그인 처리 코드를 작성할 수 있습니다.
+  const rectangle6Style = {
+    backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus2.png)`
   };
 
-  const goToMainPage = () => {
-    navigate('/Pages/mainPage');
+  const rectangle18Style = {
+    backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus3.png)`
   };
 
   return (
-    <div
-  className="Login Login-image"
-  style={{
-    backgroundImage: `url(/image/login_bus1.png)`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "top center",
-    backgroundSize: "cover",
-  }}
->
-    <div className="Login">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input 
-            type="email" 
-            id="email"
-            name="email" 
-            value={email} 
-            onChange={handleChange} 
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input 
-            type="password" 
-            id="password"
-            name="password" 
-            value={password} 
-            onChange={handleChange} 
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <button type="button" onClick={goToMainPage}>Go to main page</button>
-    </div>
+    <div className="login-container">
+      <section className="section" id="intro" style={introStyle} />
+      <section className="section" id="rectangle6" style={rectangle6Style} />
+      <section className="section" id="rectangle18" style={rectangle18Style} />
+
+      <Sidebar visible={visible} onHide={() => setVisible(false)} className="w-full md:w-20rem lg:w-30rem">
+        <h2>Login page</h2>
+        <p>Login하세요!</p>
+      </Sidebar>
+      <div className="sidebar-button-container">
+        <Button icon="pi pi-arrow-right" onClick={() => setVisible(true)} style={{ backgroundColor: 'white' }} />
+      </div>
+
+      <ScrollTop />
     </div>
   );
 }
-
-export default Login;
