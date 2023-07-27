@@ -6,7 +6,30 @@
 .section {
   height: 100vh;
   background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
+}
+
+.with-text {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-box {
+  position: absolute;
+  top: 10%;
+  width: 80%;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.image-centered {
+  background-position: center 80%;
+  background-size: 40%;
 }
 
 .sidebar-button-container {
