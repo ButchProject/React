@@ -57,28 +57,30 @@ function Map() {
   }, []);
 
   const search = () => {
-    const keyword = searchInput;
-    const places = new window.kakao.maps.services.Places();
+    setTimeout(() => {
+      const keyword = searchInput;
+      const places = new window.kakao.maps.services.Places();
 
-    places.keywordSearch(keyword, (result, status) => {
-      if (status === window.kakao.maps.services.Status.OK && result.length > 0) {
-        const newPosition = {
-          lat: parseFloat(result[0].y),
-          lng: parseFloat(result[0].x),
-          name: result[0].place_name,
-        };
-        setMarkers([...markers, newPosition]);
-        setCenter(newPosition);
-        setSearchInput("");
-        setSuggestions([]);
-      } else if (
-        status === window.kakao.maps.services.Status.ZERO_RESULT
-      ) {
-        alert("검색 결과가 없습니다.");
-      } else {
-        alert("검색 결과를 가져오는데 실패했습니다.");
-      }
-    });
+      places.keywordSearch(keyword, (result, status) => {
+        if (status === window.kakao.maps.services.Status.OK && result.length > 0) {
+          const newPosition = {
+            lat: parseFloat(result[0].y),
+            lng: parseFloat(result[0].x),
+            name: result[0].place_name,
+          };
+          setMarkers([...markers, newPosition]);
+          setCenter(newPosition);
+          setSearchInput("");
+          setSuggestions([]);
+        } else if (
+          status === window.kakao.maps.services.Status.ZERO_RESULT
+        ) {
+          alert("검색 결과가 없습니다.");
+        } else {
+          alert("검색 결과를 가져오는데 실패했습니다.");
+        }
+      });
+    }, 1000); // 딜레이 1000ms (1초) 적용
   };
 
   const handleInputChange = (e) => {
@@ -138,7 +140,7 @@ function Map() {
           apikey={process.env.REACT_APP_KAKAO_MAP_API_KEY}
           center={center}
           level={3}
-          style={{ width: "500px", height: "500px" }}
+          style={{ width: "100%", height: "100vh" }}
         >
           {markers.map((marker, index) => (
             <Marker

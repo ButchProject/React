@@ -1,6 +1,9 @@
+html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .app-container {
@@ -18,4 +21,8 @@ body {
 
 .pages-container.full-width {
   margin-left: 0;
+}
+.App {
+  height: 100%;
+  width: 100%;
 }

@@ -20,7 +20,7 @@ function NavBar() {
         <img
           src={`${process.env.PUBLIC_URL}/image/miniLogo.png`}
           alt="Mini Logo"
-          onClick={() => (window.location.href = "/")}
+          onClick={() => (window.location.href = "/main")}
         />
       </div>
       <div className='navbar'>
