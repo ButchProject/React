@@ -9,14 +9,13 @@ body {
 }
 
 .navbar-container {
-  width: 240px;
+  width: 4%;
 }
 
 .pages-container {
   flex-grow: 1;
 }
 
-/* App.css */
 .pages-container.full-width {
   margin-left: 0;
 }

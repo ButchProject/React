@@ -1,56 +1,47 @@
-// src/Components/NavBar.js
 import React, { useState } from 'react';
-import { Dock } from 'primereact/dock';
 import '../Styles/NavBar.css';
 
 function NavBar() {
-  const [position] = useState('left');
+  const [activeIndex, setActiveIndex] = useState(null);
   const items = [
-    {
-      label: 'Chat',
-      icon: () => (
-        <img
-          alt='Chat'
-          src='https://primefaces.org/cdn/primereact/images/dock/finder.svg'
-          width='100%'
-        />
-      ),
-      command: () => {
-        window.location.href = '/chat';
-      },
-    },
-    {
-      label: 'Map',
-      icon: () => (
-        <img
-          alt='Map'
-          src='https://primefaces.org/cdn/primereact/images/dock/appstore.svg'
-          width='100%'
-        />
-      ),
-      command: () => {
-        window.location.href = '/map';
-      },
-    },
-    {
-      label: 'Board',
-      icon: () => (
-        <img
-          alt='Board'
-          src='https://primefaces.org/cdn/primereact/images/dock/photos.svg'
-          width='100%'
-        />
-      ),
-      command: () => {
-        window.location.href = '/board';
-      },
-    },
-
+    { label: 'Chat', icon: 'chat', onClick: () => (window.location.href = '/chat') },
+    { label: 'Map', icon: 'map', onClick: () => (window.location.href = '/map') },
+    { label: 'Board', icon: 'board', onClick: () => (window.location.href = '/board') },
   ];
-  
+
+  const handleItemClick = (index, item) => {
+    setActiveIndex(index);
+    item.onClick();
+  };
+
   return (
     <div className='dock-window'>
-      <Dock model={items} position={position} />
+      <div className='navbar-logo'>
+        <img
+          src={`${process.env.PUBLIC_URL}/image/miniLogo.png`}
+          alt="Mini Logo"
+          onClick={() => (window.location.href = "/")}
+        />
+      </div>
+      <div className='navbar'>
+        <ul>
+          {items.map((item, index) => (
+            <li
+              key={index}
+              className={`nav-item ${activeIndex === index ? 'nav-item-active' : ''}`}
+              onClick={() => handleItemClick(index, item)}
+            >
+              <button>
+                <img
+                  src={`${process.env.PUBLIC_URL}/image/${item.icon}.svg`}
+                  alt={item.label}
+                  className='nav-item-icon'
+                />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

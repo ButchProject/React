@@ -21,7 +21,6 @@ function App() {
     </Router>
   );
 }
-
 function AppContainer() {
   const location = useLocation();
   const { pathname } = location;
@@ -35,7 +34,11 @@ function AppContainer() {
           <NavBar />
         </div>
       )}
-      <div className={`pages-container ${displayNavbar ? "" : "full-width"}`}>
+      <div
+        className={`pages-container ${
+          displayNavbar ? "page-layout" : "full-width"
+        }`}
+      >
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<LoginPage />} />
