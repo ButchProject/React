@@ -1,43 +1,9 @@
-
-/* navbar*/
-.sideNav .dock-window {
-  width: 10%;
-  height: 450px;
-  position: relative;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.sideNav .p-dock {
-  z-index: 1000;
-}  
-.app-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.pages-container {
-  display: flex;
-  width: 100%;
-}
-
-/* 창 너비에 따른 아이콘 크기 변경 */
-@media only screen and (max-width: 1200px) {
-  .sideNav .dock-window img {
-    width: 80%;
-  }
-}
-@media only screen and (max-width: 992px) {
-  .sideNav .dock-window img {
-    width: 60%;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .sideNav .dock-window img {
-    width: 40%;
-  }
-}
-@media only screen and (max-width: 576px) {
-  .sideNav .dock-window img {
-    width: 20%;
-  }
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }

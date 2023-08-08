@@ -19,30 +19,30 @@ export default function Login() {
     backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus3.png)`
   };
 
-    // 스크롤 이벤트 처리 함수
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.scroll-animation');
-      const windowHeight = window.innerHeight;
-  
-      elements.forEach(function (element) {
-        const positionFromTop = element.getBoundingClientRect().top;
-  
-        if (positionFromTop - windowHeight <= 0) {
-          element.classList.add('visible');
-        } else {
-          element.classList.remove('visible');
-        }
-      });
+  // 스크롤 이벤트 처리 함수
+  const handleScroll = () => {
+    const elements = document.querySelectorAll('.scroll-animation');
+    const windowHeight = window.innerHeight;
+
+    elements.forEach(function (element) {
+      const positionFromTop = element.getBoundingClientRect().top;
+
+      if (positionFromTop - windowHeight <= 0) {
+        element.classList.add('visible');
+      } else {
+        element.classList.remove('visible');
+      }
+    });
+  };
+
+  // 스크롤 이벤트 리스너 등록 및 해제
+  useEffect(() => {
+    document.addEventListener('scroll', handleScroll);
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
     };
-  
-    // 스크롤 이벤트 리스너 등록 및 해제
-    useEffect(() => {
-      document.addEventListener('scroll', handleScroll);
-      return () => {
-        document.removeEventListener('scroll', handleScroll);
-      };
-    }, []);
-  
+  }, []);
+
   return (
     <div className="login-container">
       <section className="section" id="Pbus1" style={Pbus1} />
@@ -75,6 +75,14 @@ export default function Login() {
           <input type="password" id="password" name="password" autoComplete="off" />
           <br />
           <Button type="submit" label="Login" onClick={() => setVisible(true)} />
+          <br />
+          <span className="text-action" onClick={() => (window.location.href = "/Register")}>
+            회원가입
+          </span>
+          <span className="separator">|</span>
+          <span className="text-action" onClick={() => (window.location.href = "/findUse₩r")}>
+            아이디/비밀번호 찾기
+          </span>
         </form>
       </Sidebar>
       <div className="sidebar-button-container">

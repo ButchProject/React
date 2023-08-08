@@ -56,3 +56,21 @@
   padding-top: 80%;
   padding-bottom: 30px;
 }
+
+.text-action {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.separator {
+  margin: 0 5px;
+}
+
+.text-action:focus {
+  outline: none;
+}

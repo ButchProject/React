@@ -25,7 +25,7 @@ function AppContainer() {
   const location = useLocation();
   const { pathname } = location;
   const displayNavbar =
-    pathname !== "/register" && pathname !== "/" && pathname !== "/login";
+    pathname !== "/register" && pathname !== "/" && pathname !== "/login" && pathname !== "/findUser";
 
   return (
     <div className={`app-container ${displayNavbar ? "" : "full-width"}`}>
