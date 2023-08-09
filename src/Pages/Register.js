@@ -24,7 +24,7 @@ const Register = (props) => {
       phoneNumber: phoneNumber,
       academyName: academyName
   };
-   
+
   // 콘솔에 userData 객체 출력
     console.log('userData:', userData);
 
@@ -39,8 +39,8 @@ const Register = (props) => {
         console.log(error);
         setErrorMessage('회원가입에 실패했습니다.');
       });
-
 }; 
+
 // handleSubmit 끝
 const handleChange = (e) => {
   const { name, value } = e.target;

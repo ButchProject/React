@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import { ScrollTop } from 'primereact/scrolltop';
+import { loginUser } from "../ApiServices/auth";
 import '../Styles/Login.css';
 
 export default function Login() {
   const [visible, setVisible] = useState(false);
+  const [memberEmail, setEmail] = useState('');
+  const [memberPassword, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const Pbus1 = {
     backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus1.png)`
@@ -43,6 +47,31 @@ export default function Login() {
     };
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userData = {
+      email: memberEmail,
+      password: memberPassword,
+    };
+    
+
+  // 콘솔에 userData 객체 출력
+    console.log('userData:', userData);
+
+    loginUser(userData)
+      .then((response) => {
+        // 서버에서 받은 데이터를 출력하고 성공 메시지를 표시합니다.
+        console.log(response.data);
+        alert('로그인이 성공적으로 완료되었습니다.');
+      })
+      .catch((error) => {
+        // 오류 메시지를 출력하고 실패 메시지를 표시합니다.
+        console.log(error);
+        setErrorMessage('로그인에 실패했습니다.');
+      });
+}; 
+
   return (
     <div className="login-container">
       <section className="section" id="Pbus1" style={Pbus1} />
@@ -66,21 +95,36 @@ export default function Login() {
       </section>
 
       <Sidebar visible={visible} onHide={() => setVisible(false)} className="w-full md:w-20rem lg:w-30rem">
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleSubmit}>
           <h2>Login Page</h2>
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" autoComplete="off" />
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autoComplete="off"
+            value={memberEmail}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <br />
           <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" autoComplete="off" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autoComplete="off"
+            value={memberPassword}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <br />
-          <Button type="submit" label="Login" onClick={() => setVisible(true)} />
+          <Button type="submit" label="Login" />
           <br />
-          <span className="text-action" onClick={() => (window.location.href = "/Register")}>
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          <span className="text-action" onClick={() => (window.location.href = "/register")}>
             회원가입
           </span>
           <span className="separator">|</span>
-          <span className="text-action" onClick={() => (window.location.href = "/findUse₩r")}>
+          <span className="text-action" onClick={() => (window.location.href = "/findUser")}>
             아이디/비밀번호 찾기
           </span>
         </form>
