@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import { ScrollTop } from 'primereact/scrolltop';
@@ -6,6 +7,7 @@ import { loginUser } from "../ApiServices/auth";
 import '../Styles/Login.css';
 
 export default function Login() {
+  const navigate = useNavigate(); 
   const [visible, setVisible] = useState(false);
   const [memberEmail, setEmail] = useState('');
   const [memberPassword, setPassword] = useState('');
@@ -51,8 +53,8 @@ export default function Login() {
     e.preventDefault();
 
     const userData = {
-      email: memberEmail,
-      password: memberPassword,
+      memberEmail: memberEmail,
+      memberPassword: memberPassword,
     };
     
 
@@ -63,7 +65,7 @@ export default function Login() {
       .then((response) => {
         // 서버에서 받은 데이터를 출력하고 성공 메시지를 표시합니다.
         console.log(response.data);
-        alert('로그인이 성공적으로 완료되었습니다.');
+        navigate("/main");
       })
       .catch((error) => {
         // 오류 메시지를 출력하고 실패 메시지를 표시합니다.

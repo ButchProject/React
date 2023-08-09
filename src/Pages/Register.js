@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../ApiServices/auth";
 
 const Register = (props) => {
+  const navigate = useNavigate(); 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,7 +34,7 @@ const Register = (props) => {
       .then((response) => {
         // 서버에서 받은 데이터를 출력하고 성공 메시지를 표시합니다.
         console.log(response.data);
-        alert('회원가입이 성공적으로 완료되었습니다.');
+        navigate("/");
       })
       .catch((error) => {
         // 오류 메시지를 출력하고 실패 메시지를 표시합니다.
