@@ -132,7 +132,12 @@ export default function Login() {
         </form>
       </Sidebar>
       <div className="sidebar-button-container">
-        <Button icon="pi pi-arrow-right" onClick={() => setVisible(true)} style={{ backgroundColor: 'white' }} />
+      <Button 
+          className="custom-sidebar-button user-icon"
+          onClick={() => setVisible(true)}
+          ripple={false}
+        />
+
       </div>
 
       <ScrollTop />
