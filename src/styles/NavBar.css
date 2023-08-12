@@ -1,0 +1,76 @@
+.dock-window {
+  width: 4%;
+  height: 100%;
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #333;
+  z-index: 1000;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.navbar-logo {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding-left: 0;
+}
+
+.nav-item {
+  padding: 15px;
+}
+
+.nav-item svg {
+  outline: none;
+}
+
+.nav-item-icon {
+  width: 100%;
+  max-width: 30px;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 80%;
+  padding-bottom: 30px;
+}
+
+.text-action {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.separator {
+  margin: 0 5px;
+}
+
+.text-action:focus {
+  outline: none;
+}

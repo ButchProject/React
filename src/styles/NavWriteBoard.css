@@ -1,0 +1,15 @@
+.layout {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .features {
+    width: 20%;
+    background-color: white;
+    height: 100vh;
+  }
+  
+  .mapContainer {
+    width: 100%;
+  }
+  

@@ -1,0 +1,172 @@
+.login-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.section {
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.with-text {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-box {
+  position: absolute;
+  top: 10%;/*텍스트위치조절*/
+  width: 80%;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.image-centered {
+  background-position: center 80%;/*사진위치조절*/
+  background-size: 40%; /*사진크기조절*/
+}
+
+.sidebar-button-container {
+  position: fixed;
+  left: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+
+.custom-sidebar-button {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.custom-sidebar-button:hover,
+.custom-sidebar-button:active,
+.custom-sidebar-button:focus {
+  background-color: transparent !important;
+  color: #000000 !important; /* 버튼 텍스트 색상 */
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* 스크롤 애니메이션 적용 */
+.scroll-animation {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.scroll-animation.visible {
+  opacity: 1;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽에 정렬하도록 수정 */
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 2rem; /* h2와 폼이 가장자리로부터 떨어져 보이도록 패딩을 추가 */
+  width: 100%;
+}
+
+.login-form h2 {
+  margin-top: 0; /* 위에서 조정한 패딩으로 인해 h2의 상단 마진을 0으로 설정합니다. */
+}
+
+.logo-black {
+  position: relative;
+  top: 5rem;
+  left: 10%;
+
+  width: 50%;
+  height: auto;
+  margin-bottom: 6rem;
+}
+
+.login-title {
+  position: relative;
+  left: 10%;
+  margin-bottom: 1rem;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.id-input {
+  position: relative;
+  left: 10%;
+
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: 1.5px solid #C2C2C2;
+  background-color: #F1F1F1;
+}
+
+.pw-input {
+  position: relative;
+  left: 10%;
+  margin-bottom: 1rem;
+
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: 1.5px solid #C2C2C2;
+  background-color: #F1F1F1;
+}
+
+.login-button {
+  position: relative;
+  left: 10%;
+
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: 1.5px solid black;
+  background-color: black;
+  color: #ffffff; /* 화이트 텍스트 컬러 추가 */
+  transition: background-color 0.3s; /* 배경색 전환 효과 추가 */
+}
+
+.login-button:hover {
+  background-color: yellow;
+  color: black;
+}
+
+.login-button:active {
+  background-color: yellow;
+  color: black;
+}
+
+.login-button.clicked {
+  background-color: yellow;
+  color: black;
+}
+
+.parent-container {
+  width: 100%;
+  text-align: center;
+}
+
+.text-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.separator {
+  margin: 0 8px;
+}
+
