@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import "../styles/NavWriteBoard.css";
 
-function NavWriteBoard({ map }) {
-  const [departure, setDeparture] = useState("");
-  const [arrival, setArrival] = useState("");
-  const [waypoints, setWaypoints] = useState([]);
-  const [searchResults, setSearchResults] = useState({ departure: [], arrival: [], waypoints: [] });
+function NavWriteBoard({ map, setSearchRoute }) {
+  const [waypoints, setWaypoints] = useState([""]);
+  const [searchResults, setSearchResults] = useState({ waypoints: [] });
 
   function handleSearch(keyword, type, index = -1) {
     if (keyword.trim() === "") {
@@ -32,25 +30,19 @@ function NavWriteBoard({ map }) {
 
   const [markers, setMarkers] = useState({});
 
-
   const [selectedRoutes, setSelectedRoutes] = useState([]);
-  const [selectedLocations, setSelectedLocations] = useState({ departure: null, arrival: null, waypoints: [] });
-
-
-
+  const [selectedLocations, setSelectedLocations] = useState({ waypoints: [] });
 
   function handleClick(value, setValue, type, index = -1, x, y) {
     setValue(value);
     setSearchResults((prev) => ({ ...prev, [type]: [] }));
-
-    if (!map) return; // 맵 객체가 없으면 마커를 추가하지 않습니다.
-
-    // 마커 생성
+  
+    if (!map) return;
+  
     const marker = new window.kakao.maps.Marker({
       position: new window.kakao.maps.LatLng(y, x),
     });
-
-    // 기존의 마커 제거
+  
     if (markers[type]) {
       if (index === -1) {
         markers[type].setMap(null);
@@ -58,18 +50,16 @@ function NavWriteBoard({ map }) {
         markers[type][index]?.setMap(null);
       }
     }
-
-    // 새로운 마커를 맵에 추가
+  
     marker.setMap(map);
-
-    // 마커 상태 업데이트
+  
     index === -1
       ? setMarkers((prev) => ({ ...prev, [type]: marker }))
       : setMarkers((prev) => ({
-        ...prev,
-        [type]: { ...prev[type], [index]: marker },
-      }));
-
+          ...prev,
+          [type]: [...(prev[type] || []), marker], // 배열에 마커 추가
+        }));
+  
     // 선택된 위치 상태 업데이트
     if (index === -1) {
       setSelectedLocations((prev) => ({ ...prev, [type]: { name: value, x, y } }));
@@ -82,24 +72,54 @@ function NavWriteBoard({ map }) {
       }));
     }
   }
-  // 경로 저장 및 출력 함수
-  const handleSaveRoutes = () => {
-    const routes = [
-      selectedLocations.departure,
-      ...selectedLocations.waypoints,
-      selectedLocations.arrival,
-    ]
-      .filter((route) => route !== null && route.name !== "")
-      .map((route, idx) => ({ name: `#${idx + 1}: ${route.name}`, x: route.x, y: route.y }));
+  
 
+  const handleSaveRoutes = () => {
+    const filteredWaypoints = selectedLocations.waypoints.filter(
+      (route) => route !== null && route.name !== ""
+    );
+  
+    const routes = filteredWaypoints.map((route, idx) => ({
+      name: `#${idx + 1}: ${route.name}`,
+      x: route.x,
+      y: route.y,
+    }));
+  
     setSelectedRoutes(routes);
+    setSearchRoute(routes);
   };
 
   const removeWaypoint = (index) => {
     const newWaypoints = waypoints.filter((_, idx) => idx !== index);
     setWaypoints(newWaypoints);
+  
+    // 선택된 위치 상태 업데이트
+    const newSelectedWaypoints = selectedLocations.waypoints.filter((_, idx) => idx !== index);
+  setSelectedLocations((prev) => ({
+    ...prev,
+    waypoints: newSelectedWaypoints,
+  }));
+  
+    // 선택된 경로 상태 업데이트
+    const newSelectedRoutes = newSelectedWaypoints.map((route, idx) => ({
+      name: `#${idx + 1}: ${route.name}`,
+      x: route.x,
+      y: route.y,
+    }));
+    setSelectedRoutes(newSelectedRoutes);
+  
+    // 마커 상태 업데이트
+    if (markers.waypoints[index]) {
+      markers.waypoints[index].setMap(null);
+      const newMarkers = markers.waypoints.filter((_, idx) => idx !== index); // 여기에서 배열의 삭제항목을 제거
+      setMarkers((prev) => ({
+        ...prev,
+        waypoints: newMarkers,
+      }));
+    }
   };
-
+  
+  
 
   const addWaypoint = () => {
     setWaypoints((prev) => [...prev, ""]);
@@ -108,37 +128,10 @@ function NavWriteBoard({ map }) {
   const updateWaypoint = (value, index) => {
     setWaypoints((prev) => prev.map((wp, i) => (i === index ? value : wp)));
   };
+
   return (
     <div className="sidebar">
-      {/* 출발지 */}
-      <div>
-        <input
-          type="text"
-          value={departure}
-          onChange={(event) => {
-            setDeparture(event.target.value);
-            handleSearch(event.target.value, "departure");
-          }}
-          placeholder={"출발지"}
-        />
-        <ul>
-          {searchResults.departure.map((result) => (
-            <li key={result.id} onClick={() =>
-              handleClick(
-                result.place_name,
-                setDeparture,
-                "departure",
-                -1,
-                result.x,
-                result.y
-              )
-            }>
-              {result.place_name}
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* 경유지 */}
+      {/* 정류장 검색바 */}
       {waypoints.map((waypoint, index) => (
         <div key={`waypoint-${index}`}>
           <input
@@ -148,7 +141,7 @@ function NavWriteBoard({ map }) {
               updateWaypoint(event.target.value, index);
               handleSearch(event.target.value, "waypoints", index);
             }}
-            placeholder={"경유지"}
+            placeholder={"정류장"}
           />
           <button onClick={() => removeWaypoint(index)}>삭제</button>
           <ul>
@@ -172,39 +165,10 @@ function NavWriteBoard({ map }) {
           </ul>
         </div>
       ))}
-
-      {/* 도착지 */}
-      <div>
-        <input
-          type="text"
-          value={arrival}
-          onChange={(event) => {
-            setArrival(event.target.value);
-            handleSearch(event.target.value, "arrival");
-          }}
-          placeholder={"도착지"}
-        />
-        <ul>
-          {searchResults.arrival.map((result) => (
-            <li key={result.id} onClick={() =>
-              handleClick(
-                result.place_name,
-                setArrival,
-                "arrival",
-                -1,
-                result.x,
-                result.y
-              )
-            }>
-              {result.place_name}
-            </li>
-          ))}
-        </ul>
-      </div>
-
+  
       {/* 경유지 추가 버튼 */}
       <button type="button" onClick={addWaypoint}>
-        경유지추가
+        정류장 추가
       </button>
       <button type="button" onClick={handleSaveRoutes}>
         확인
@@ -220,9 +184,9 @@ function NavWriteBoard({ map }) {
           ))}
         </ul>
       </div>
-
     </div>
   );
+  
 }
 
 export default NavWriteBoard;
