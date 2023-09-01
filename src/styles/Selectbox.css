@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    position: relative;
+    left: 2rem;
+    top: 6rem;
+  }
+  
+.province,
+.city {
+    width: calc(80% / 3 - 10px); /* 선택 사항: 각 select box의 너비 설정 */
+    font-size: 12px;
+}
+
+.district {
+    width: calc(100% / 3 - 10px); /* 선택 사항: 각 select box의 너비 설정 */
+    font-size: 12px;
+}
+
+/* 만약 각 select box에 마진을 주고 싶다면 아래와 같이 추가합니다 */
+.province:not(:last-child),
+.city:not(:last-child) {
+    margin-right: 1px;
+} 

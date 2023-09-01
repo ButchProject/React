@@ -1,15 +1,221 @@
-.layout {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .features {
-    width: 20%;
-    background-color: white;
-    height: 100vh;
-  }
-  
-  .mapContainer {
-    width: 100%;
-  }
-  
+\.layout {
+  display: flex;
+  flex-direction: row;
+}
+
+.features {
+  width: 20%;
+  background-color: white;
+  height: 100vh;
+}
+
+.mapContainer {
+  width: 100%;
+}
+
+.sidebar {
+  position: fixed;
+  left: 6rem;
+
+  width: 24rem;
+  height: 100%;
+
+  background-color: white;
+  box-shadow: 0px 0px 5px gray;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.title-input {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+
+  width: 80%;
+  height: 3rem;
+
+  border: none;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.359);
+}
+
+.title-input::placeholder {
+  font-weight: 600;
+  font-size: 20px;
+  color: rgba(128, 128, 128, 0.359);
+}
+
+.region-guide {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+  margin-top: 10px;
+}
+
+.region-selectbox {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+
+  border: 1px solid;
+}
+
+.course-container {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+  margin-top: 10px;
+}
+
+.comment-guide {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+}
+
+.hour,
+.minute {
+  width: 3rem;
+  height: 2rem;
+
+  font-size: 14px;
+}
+
+.busstop {
+  margin-left: 10px;
+  width: 6rem;
+  height: 2rem;
+}
+
+.detail {
+  margin-left: 5px;
+  width: 6rem;
+  height: 2rem;
+}
+
+.delete-button {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: 1px solid #e8004d;
+  background-color: #e8004d36;
+  color: #e8004d;
+}
+
+.plus-button {
+  position: relative;
+  left: 205px;
+
+  width: 6rem;
+  height: 2rem;
+
+  border: 1px solid #e8004d;
+  border-radius: 1rem;
+
+  background-color: white;
+  color: #e8004d;
+}
+
+.comment-input {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+
+  width: 80%;
+  height: 8rem;
+}
+
+.price-guide {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+}
+
+.price-container {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+
+  display: flex;
+
+  height: 2rem;
+}
+
+.price-input {
+  width: calc(80% - 2em); /* Subtract the width of "원" */
+  height: 2rem;
+}
+
+.price-won {
+  margin-left: 0.5em; /* Add some space between the input and "원" */
+  line-height: 0rem;
+}
+
+.discount-guide {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+}
+
+.discount-container {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+
+  display: flex;
+
+  height: 2rem;
+}
+
+.discount-input {
+  width: calc(80% - 2em); /* Subtract the width of "원" */
+  height: 2rem;
+}
+
+.discount-won {
+  margin-left: 0.5em; /* Add some space between the input and "원" */
+  line-height: 0rem;
+}
+
+.totalprice-guide {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+
+  margin-bottom: -30px;
+}
+
+.totalprice-container {
+  position: relative;
+  right: -5%;
+  transform: translateX(50%);
+  top: 6rem;
+
+  display: flex; /* Add this line */
+}
+
+.totalprice-amount {
+  color: #e8004d;
+  font-size: 2rem;
+}
+
+.totalprice-currency {
+  color: #e8004d;
+  font-size: 2rem;
+  margin-left: 0; /* Add some space between the price and "원" */
+}
+
+.register-button {
+  position: relative;
+  left: 2rem;
+  top: 6rem;
+  margin-top: 5px;
+
+  width: 80%;
+  height: 2rem;
+
+  border-radius: 5px;
+
+  background-color: black;
+  color: white;
+}
