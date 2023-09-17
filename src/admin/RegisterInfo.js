@@ -1,24 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import AdminLayout from './AdminLayout';
 import './adminStyles/RegisterInfo.css';
 
 const API_URL = "http://localhost:8080"; // 백엔드 서버가 실행되는 IP와 포트
-// 필요한 경우 수정하세요.
+
 
 const RegisterInfo = () => {
   const [memberList, setMemberList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const response = await fetch(`${API_URL}/admin/RegisterInfo`);
-        const data = await response.json();
-        setMemberList(data);
+        const token = window.localStorage.getItem('token');
+        
+        if (!token) {
+          throw new Error("No token found");
+        }
+
+        const config = { 
+          headers: { 
+            'Authorization': `Bearer ${token}`
+          }
+        };
+
+        const response = await axios.get(`${API_URL}/admin/RegisterInfo`, config);
+        setMemberList(response.data);
       } catch (error) {
         console.error('Error fetching member data:', error);
+        
+        // If there's an error (like no valid token), redirect to login page
+        navigate("/");
       }
     };
-
     fetchMemberData();
   }, []);
 

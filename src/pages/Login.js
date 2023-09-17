@@ -75,9 +75,15 @@ export default function Login() {
     loginUser(userData)
       .then((response) => {
         // 서버에서 받은 데이터를 출력하고 성공 메시지를 표시합니다.
-        console.log(response.data);
+        console.log("Response from server:", response);
+
+        // Assuming the token is located at response.data.token
+        const token = response.token;
+        window.localStorage.setItem('token', token);
+
         navigate("/main");
       })
+
       .catch((error) => {
         // 오류 메시지를 출력하고 실패 메시지를 표시합니다.
         console.log(error);
@@ -203,3 +209,4 @@ export default function Login() {
     </div>
   );
 }
+

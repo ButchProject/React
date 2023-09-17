@@ -8,7 +8,6 @@ function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
   const [searchResults, setSearchResults] = useState({ waypoints: [] });
   const [selectedRoutesBuffer, setSelectedRoutesBuffer] = useState([]);
 
-
   function handleSearch(keyword, type, index = -1) {
     if (keyword.trim() === "") {
       setSearchResults((prev) => ({ ...prev, [type]: [] }));
@@ -87,10 +86,6 @@ function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
     });
   }
 
-
-  let routes = []; // Define the 'routes' variable in the outer scope
-  let ppost = [];
-
   const handleSaveRoutes = async () => {
     try {
       // Using selectedRoutesBuffer instead of temporarySelectedRoutes
@@ -108,30 +103,30 @@ function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
       // Define the detailedLocation variable with appropriate value
       const detailedLocation = waypoints.map(data => data.detailedLocation); // Collect detailedLocation values
 
-      // Create an array of objects
-      const dataToSend = extractedData.map((data, index) => ({
-        nodeNum: data.nodeNum,
-        nodeName: data.nodeName,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        hour: data.hour,
-        minute: data.minute,
-        detailedLocation: detailedLocation[index],
-      }));
-       // Add title, region (selectedProvince, selectedCity, selectedDistrict), and additional comments (content)
-     const pppost = {
-      title : title ,
-      province : selectedProvince ,
-      city : selectedCity ,
-      district : selectedDistrict ,
-      comment : content 
-    };
 
-    const finalDataToSend = {
-      ppost: [pppost],
-      routes: dataToSend
-    };
-    
+      const nodeInfo = extractedData.map((data, index) => ({
+        nodeNum: data.nodeNum, //정류장 번호
+        nodeName: data.nodeName, //정류장 이름
+        latitude: data.latitude, //위도
+        longitude: data.longitude, //경도
+        nodeHour: data.hour, //시간
+        nodeMinute: data.minute, //분
+        nodeDetail: detailedLocation[index], //세부지역
+      }));
+
+      const pppost = {
+        boardTitle: title, //게시글 제목
+        boardState: selectedProvince, //도
+        boardCity: selectedCity, //시
+        boardWhere: selectedDistrict, //구
+        boardDetail: content //내용
+      };
+
+      const finalDataToSend = {
+        boardDTO: pppost,
+        nodeDTOList: nodeInfo
+      };
+
 
       // Sending data to backend using writingBoard function
       const response = await writingBoard(finalDataToSend);
@@ -145,10 +140,6 @@ function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
       // Handle error
     }
   };
-
-
-
-
 
   const removeWaypoint = (index) => {
     const newWaypoints = [...waypoints]; // Create a copy of waypoints
@@ -222,11 +213,11 @@ function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
         required
       />
       <h4 className="region-guide">운행지역</h4>
-      <SelectBox 
-   setSelectedProvince={setSelectedProvince} 
-   setSelectedCity={setSelectedCity}  
-   setSelectedDistrict={setSelectedDistrict}
-/>
+      <SelectBox
+        setSelectedProvince={setSelectedProvince}
+        setSelectedCity={setSelectedCity}
+        setSelectedDistrict={setSelectedDistrict}
+      />
 
       <div className="course-container">
         <h4 className="course-guide">정류장 운행 시간표</h4>

@@ -13,6 +13,7 @@ const Register = (props) => {
   const [academyName, setAcademyName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [academyAdress, setAcademyAdress] = useState("");
+  const [numberOfStudents, setNumberOfStudents] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -30,6 +31,7 @@ const Register = (props) => {
       phoneNumber: phoneNumber,
       academyName: academyName,
       academyAdress: academyAdress,
+      numberOfStudents: numberOfStudents,
     };
 
     // 콘솔에 userData 객체 출력
@@ -73,6 +75,9 @@ const Register = (props) => {
       case "academyAdress":
         setAcademyAdress(value);
         break;
+      case "numberOfStudents":
+        setNumberOfStudents(value);
+        break;
       default:
         break;
     }
@@ -86,7 +91,8 @@ const Register = (props) => {
       confirmPassword.length > 0 &&
       academyName.length > 0 &&
       phoneNumber.length > 0 &&
-      academyAdress.length > 0
+      academyAdress.length > 0 &&
+      numberOfStudents.length > 0 
     );
   };
   
@@ -196,6 +202,17 @@ const Register = (props) => {
                 name="academyAdress"
                 placeholder="학원 주소"
                 value={academyAdress}
+                onChange={handleChange}
+              />
+            </div>
+            <h4 className="numberOfStudents">학생 수를 입력해주세요.</h4>
+            <div>
+              <input
+                className="numberOfStudents"
+                type="number"
+                name="numberOfStudents"
+                placeholder="학생 수"
+                value={numberOfStudents}
                 onChange={handleChange}
               />
             </div>

@@ -29,7 +29,7 @@ function NavBar() {
     setIsChatHovered(false);
   };
 
-  const profilePath = "/profile";
+  const profilePath = "/profile/map";
   const boardPath = "/board";
   const chatPath = "/chat";
   const loginPath = "/";

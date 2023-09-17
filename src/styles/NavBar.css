@@ -1,5 +1,5 @@
 .dock-window {
-  width: 6rem;
+  width: 96px;
   height: 100%;
   position: fixed;
   background-repeat: no-repeat;
@@ -11,17 +11,19 @@
 
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+
+  z-index :9999;
 }
 
 .navbar-logo {
   position: absolute;
-  top: 3rem;
+  top: 48px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .navbar-logo img {
-  width: 3rem;
+  width: 48px;
   height: auto;
 }
 
@@ -35,8 +37,8 @@
 }
 
 .profile-button {
-  width: 6rem;
-  height: 5rem;
+  width: 96px;
+  height: 80px;
 
   background-position: center;
   background-color: transparent;
@@ -49,8 +51,8 @@
 }
 
 .board-button {
-  width: 6rem;
-  height: 5rem;
+  width: 96px;
+  height: 80px;
 
   background-position: center;
   background-color: transparent;
@@ -63,8 +65,8 @@
 }
 
 .chat-button {
-  width: 6rem;
-  height: 5rem;
+  width: 96px;
+  height: 80px;
 
   background-position: center;
   background-color: transparent;
@@ -78,12 +80,12 @@
 
 .logout-button {
   position: absolute;
-  bottom: 3rem;
+  bottom: 48px;
   left: 50%;
   transform: translateX(-50%);
 
-  width: 5rem;
-  height: 2rem;
+  width: 80px;
+  height: 32px;
   
   background-color: transparent;
   border: none;

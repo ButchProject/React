@@ -10,7 +10,10 @@ const LoginPage = lazy(() => import('./pages/Login'));
 const WriteBoardPage = lazy(() => import('./pages/WriteBoard'));
 const RegisterPage = lazy(() => import('./pages/Register'));
 const BoardPage = lazy(() => import('./pages/Board'));
+const Profile = lazy(() => import('./components/NavProfile'));
 const AdminMain = lazy(() => import('./admin/Main'));
+const ProfileEdit = lazy(() => import('./components/NavProfileEdit'));
+const ProfileMap = lazy(() => import('./pages/ProfileMap'));
 const RegisterInfo = lazy(() => import('./admin/RegisterInfo'));
 
 
@@ -58,8 +61,10 @@ function AppContainer() {
             <Route path="/WriteBoard" element={<WriteBoardPage />} />
             <Route path="/board" element={<BoardPage />} />
             <Route path="/admin" element={<AdminMain />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/admin/RegisterInfo" element={<RegisterInfo />} />
-            
+            <Route path="/profile/map" element={<ProfileMap />} />
           </Routes>
         </Suspense>
       </div>

@@ -1,15 +1,14 @@
-/* Board.css */
 .layout {
   display: flex;
   flex-direction: row;
 }
 
 .features {
-  width: 20%;
-  background-color: white;
+  width: 100px;
+  background-color: red;
   height: 100vh;
 }
 
 .mapContainer {
-  width: 80%;
+  width: 100%;
 }
