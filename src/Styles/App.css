@@ -19,9 +19,6 @@ body {
   flex-grow: 1;
 }
 
-.pages-container.full-width {
-  margin-left: 0;
-}
 .App {
   height: 100%;
   width: 100%;

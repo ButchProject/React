@@ -1,14 +1,21 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import './Styles/App.css';
-import NavBar from './Components/NavBar';
+import './styles/App.css';
+import NavBar from './components/NavBar';
 
-const MainPage = lazy(() => import('./Pages/mainPage'));
-const ChatPage = lazy(() => import('./Pages/Chat'));
-const LoginPage = lazy(() => import('./Pages/Login'));
-const MapPage = lazy(() => import('./Pages/Map'));
-const RegisterPage = lazy(() => import('./Pages/Register'));
-const BoardPage = lazy(() => import('./Pages/Board'));
+
+const MainPage = lazy(() => import('./pages/MainPage'));
+const ChatPage = lazy(() => import('./pages/Chat'));
+const LoginPage = lazy(() => import('./pages/Login'));
+const WriteBoardPage = lazy(() => import('./pages/WriteBoard'));
+const RegisterPage = lazy(() => import('./pages/Register'));
+const BoardPage = lazy(() => import('./pages/Board'));
+const Profile = lazy(() => import('./components/NavProfile'));
+const AdminMain = lazy(() => import('./admin/Main'));
+const ProfileEdit = lazy(() => import('./components/NavProfileEdit'));
+const ProfileMap = lazy(() => import('./pages/ProfileMap'));
+const RegisterInfo = lazy(() => import('./admin/RegisterInfo'));
+
 
 function App() {
   return (
@@ -25,7 +32,13 @@ function AppContainer() {
   const location = useLocation();
   const { pathname } = location;
   const displayNavbar =
-   pathname !== "/" && pathname !== "/login" && pathname !== "/findUser" && pathname !== "/register";
+   pathname 
+      !== "/" 
+      && pathname !== "/login" 
+      && pathname !== "/findUser" 
+      && pathname !== "/register" 
+      && pathname !== "/admin"
+      && pathname !== "/admin/RegisterInfo";
 
   return (
     <div className={`app-container ${displayNavbar ? "" : "full-width"}`}>
@@ -45,8 +58,13 @@ function AppContainer() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/main" element={<MainPage />} />
             <Route path="/chat" element={<ChatPage />} />
-            <Route path="/Map" element={<MapPage />} />
+            <Route path="/WriteBoard" element={<WriteBoardPage />} />
             <Route path="/board" element={<BoardPage />} />
+            <Route path="/admin" element={<AdminMain />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/edit" element={<ProfileEdit />} />
+            <Route path="/admin/RegisterInfo" element={<RegisterInfo />} />
+            <Route path="/profile/map" element={<ProfileMap />} />
           </Routes>
         </Suspense>
       </div>

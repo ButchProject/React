@@ -10,6 +10,22 @@
   background-size: cover;
 }
 
+.main-title-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.main-title {
+  font-size: 4vw;
+  font-weight: bold;
+  color: #fff; /* 텍스트 색상을 선택합니다. 이 경우에는 흰색으로 설정했습니다. */
+}
+
 .with-text {
   position: relative;
   display: flex;
@@ -32,6 +48,16 @@
   background-size: 40%; /*사진크기조절*/
 }
 
+/* 스크롤 애니메이션 적용 */
+.scroll-animation {
+  opacity: 0;
+  transition: all 2s;
+}
+
+.scroll-animation.visible {
+  opacity: 1;
+}
+
 .sidebar-button-container {
   position: fixed;
   left: 1%;
@@ -39,40 +65,26 @@
   transform: translateY(-50%);
   z-index: 999;
 }
-.user-icon {
-  background-image: url('/public/image/userIcon.png');
-}
 
-.custom-sidebar-button {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border: none;
-  background-color: transparent;
+.sidebar-button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  border: none;
+
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 65%;
+
+  transition: background-color 0.3s ease;
 }
+.sidebar-button:hover {
+  border: none;
 
-.custom-sidebar-button:hover,
-.custom-sidebar-button:active,
-.custom-sidebar-button:focus {
-  background-color: transparent !important;
-  color: #000000 !important; /* 버튼 텍스트 색상 */
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-
-
-/* 스크롤 애니메이션 적용 */
-.scroll-animation {
-  opacity: 0;
-  transition: opacity 1s;
-}
-
-.scroll-animation.visible {
-  opacity: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .login-form {
@@ -88,4 +100,121 @@
 
 .login-form h2 {
   margin-top: 0; /* 위에서 조정한 패딩으로 인해 h2의 상단 마진을 0으로 설정합니다. */
+}
+
+.logo-black {
+  position: relative;
+  top: 5rem;
+  left: 10%;
+
+  width: 30%;
+  height: auto;
+  margin-bottom: 6rem;
+}
+
+.login-title {
+  position: relative;
+  left: 10%;
+  margin-bottom: 1rem;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.email-input {
+  position: relative;
+  left: 10%;
+
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: 1.5px solid #C2C2C2;
+  background-color: #F1F1F1;
+  font-size: 16px;
+  padding-left: 3%;
+}
+
+.email-input::placeholder{
+  font-size: 14px;
+}
+
+.pw-input {
+  position: relative;
+  left: 10%;
+  margin-bottom: 1rem;
+
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: 1.5px solid #C2C2C2;
+  background-color: #F1F1F1;
+  font-size: 16px;
+  padding-left: 3%;
+}
+
+.pw-input::placeholder{
+  font-size: 14px;
+}
+
+.error-container {
+  margin-top: -30px;
+  margin-bottom: -10px;
+  width: 100%; /* 에러 컨테이너의 너비를 100%로 설정하세요. */
+  text-align: center; /* 글자를 가운데 정렬하세요. */
+}
+
+.error-message {
+  color: red;
+  font-size: 16px;
+  display: inline-block; /* 에러 메시지를 인라인-블록 요소로 설정하세요. */
+}
+
+.login-button {
+  position: relative;
+  left: 10%;
+
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: black;
+
+  font-size: 16px;
+  color: #ffffff;
+
+  transition: all 0.3s ease;
+
+  margin-bottom: 20px;
+}
+
+.login-button:hover {
+  border: 1px solid #aa0039;
+  background-color: #E8004D;
+  color: black;
+}
+
+.login-button:active {
+  border: 1px solid #aa0039;
+  background-color: #E8004D;
+  color: black;
+}
+
+.parent-container {
+  width: 100%;
+  text-align: center;
+}
+
+.text-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-action {
+  font-size: 12px;
+}
+
+.separator {
+  margin: 0 8px;
+  font-size: 12px;
 }

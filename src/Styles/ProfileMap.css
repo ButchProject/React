@@ -1,0 +1,17 @@
+.mapContainer {
+    height: 100vh;
+    width: 75%;
+}
+
+.NavProfile{
+    width: 20%;
+}
+  
+.features{
+    color: red;
+    width:5%;
+}
+
+.layout {
+    display: flex;
+}

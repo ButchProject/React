@@ -1,0 +1,236 @@
+.logo-black {
+    position: absolute;
+    top: 4rem;
+    left: 8rem;
+  
+    width: 6rem;
+    height: auto;
+  }
+  
+  .go_login {
+    position: absolute;
+    top: 4rem;
+    right: 8rem;
+  
+    width: auto;
+    background-color: transparent;
+    border: none;
+  
+    color: black;
+    font-size: 12px;
+  }
+  
+  .container {
+    position: relative;
+    top: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    } 
+  
+  .register-title-container {
+    display: flex;
+    justify-content: center;
+    width: 25rem;
+    height: 5rem; 
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+    margin-bottom: 2.5rem;
+    } 
+  
+  .register-title {
+    position: relative;
+    font-size: 30px;
+    } 
+  
+  .inputs {
+    display: flex;
+    justify-content: left;
+  
+    width: 25rem;
+  }
+  
+  .email-guide {
+    margin-bottom: 10px;
+  } 
+  
+  .email-input {
+    width: 25rem;
+    height: 3rem;
+  
+    border: 1.5px solid #c2c2c2;
+    border-radius: 5px;
+  
+    font-size: 18px;
+    padding-left: 3%;
+  }
+  
+  .email-input::placeholder{
+    font-size: 16px;
+    color: #c2c2c2;
+  }
+  
+  .password-guide {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  } 
+  
+  .firstpw-input {
+    width: 25rem;
+    height: 3rem;
+  
+    border: 1.5px solid #c2c2c2;
+    border-radius: 5px;
+  
+    font-size: 18px;
+    padding-left: 3%;
+  
+    margin-bottom: 8px;
+  }
+  
+  .firstpw-input::placeholder{
+    font-size: 16px;
+    color: #c2c2c2;
+  }
+  
+  .secondpw-input {
+    width: 25rem;
+    height: 3rem;
+  
+    border: 1.5px solid #c2c2c2;
+    border-radius: 5px;
+  
+    font-size: 18px;
+    padding-left: 3%;
+  }
+  
+  .secondpw-input::placeholder{
+    font-size: 16px;
+    color: #c2c2c2;
+  }
+  
+  .password-match-message {
+    position: absolute;
+    right: 0rem;
+    font-size: 14px;
+    text-align: right;
+  }
+  
+  .name-guide { 
+    margin-top: 40px;
+    margin-bottom: 10px;
+  } 
+  
+  .name-input { 
+    width: 25rem;
+    height: 3rem;
+  
+    border: 1.5px solid #c2c2c2;
+    border-radius: 5px;
+  
+    font-size: 18px;
+    padding-left: 3%;
+  } 
+  
+  .name-input::placeholder{
+    font-size: 16px;
+    color: #c2c2c2;
+  }
+  
+  .phonenumber-guide { 
+    margin-top: 40px;
+    margin-bottom: 10px;
+  } 
+  
+  .phonenumber-input { 
+    width: 25rem;
+    height: 3rem;
+  
+    border: 1.5px solid #c2c2c2;
+    border-radius: 5px;
+  
+    font-size: 18px;
+    padding-left: 3%;
+  }
+  
+  .phonenumber-input::placeholder{
+    font-size: 16px;
+    color: #c2c2c2;
+  }
+  
+  .academyname-guide { 
+    margin-top: 40px;
+    margin-bottom: 10px;
+  } 
+  
+  .academyname-input { 
+    width: 25rem;
+    height: 3rem;
+  
+    border: 1.5px solid #c2c2c2;
+    border-radius: 5px;
+  
+    font-size: 18px;
+    padding-left: 3%;
+  } 
+  
+  .academyname-input::placeholder{
+    font-size: 16px;
+    color: #c2c2c2;
+  }
+  
+  .academyadress-guide { 
+    margin-top: 40px;
+    margin-bottom: 10px;
+  } 
+  
+  .academyadress-input { 
+    width: 25rem;
+    height: 3rem;
+  
+    border: 1.5px solid #c2c2c2;
+    border-radius: 5px;
+  
+    font-size: 18px;
+    padding-left: 3%;
+  
+    margin-bottom: 40px;
+  }
+  
+  .academyadress-input::placeholder{
+    font-size: 16px;
+    color: #c2c2c2;
+  }
+  
+  .error-message {
+    position: relative;
+    right: 0rem;
+    font-size: 14px;
+    color: red;
+    text-align: right;
+    margin-top: -20px;
+    margin-bottom: 5px;
+  }
+  
+  .register-button {
+    width: 25rem;
+    height: 3rem;
+  
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .register-button.inactive {
+    background-color: #c2c2cc;
+    color: #595959;
+  }
+  
+  .register-button.active {
+    background-color: black;
+    color: white;
+  }
+  

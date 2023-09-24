@@ -1,0 +1,236 @@
+.layout {
+  display: flex;
+  flex-direction: row;
+}
+
+.features {
+  width: 20%;
+  background-color: white;
+  height: 100vh;
+}
+
+.mapContainer {
+  width: calc(100% - 24rem);
+}
+
+.sidebar {
+  position: fixed;
+  left: 90px;
+
+  width: 384px;
+  height: 100%;
+
+  background-color: white;
+  box-shadow: 0px 0px 5px gray;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  z-index :9998;
+  overflow-y: auto; /* Add this line */
+  overflow-x: hidden;
+}
+
+.title-input {
+  position: relative;
+  left: 32px;
+  top: 96px;
+
+  width: calc(100% - 58px);
+  height: 48px;
+
+  border: none;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.359);
+}
+
+.title-input::placeholder {
+  font-weight: 600;
+  font-size: 20px;
+  color: rgba(128, 128, 128, 0.359);
+}
+
+.region-guide {
+  position: relative;
+  left: 32px;
+  top: 96px;
+  margin-top: 10px;
+}
+
+.region-selectbox {
+  position: relative;
+  left: 32px;
+  top: 96px;
+
+  border: 1px solid;
+}
+
+.course-container {
+  position: relative;
+  left: 32px;
+  top: 96px;
+  margin-top: 10px;
+}
+
+.hour,
+.minute {
+  width: 48px;
+  height: 32px;
+
+  font-size: 14px;
+}
+
+.busstop {
+  margin-left: 10px;
+  width: 96px;
+  height: 32px;
+}
+
+.detail {
+  margin-left: 5px;
+  width: 96px;
+  height: 32px;
+}
+
+.delete-button {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  border-radius: 50%;
+  border: 1px solid #e8004d;
+  background-color: #e8004d36;
+  color: #e8004d;
+}
+
+.plus-button {
+  position: relative;
+  left: 205px;
+
+  width: 96px;
+  height: 32px;
+
+  border: 1px solid #e8004d;
+  border-radius: 1rem;
+
+  background-color: white;
+  color: #e8004d;
+}
+
+.comment-guide {
+  position: relative;
+  left: 32px;
+  top: 96px;
+}
+
+.comment-input {
+  position: relative;
+  left: 32px;
+  top: 96px;
+
+  width: calc(100% - 58px);
+  height: 128px;
+}
+
+.price-guide {
+  position: relative;
+  left: 32px;
+  top: 96px;
+}
+
+.price-container {
+  position: relative;
+  left: 32px;
+  width: calc(100% - 58px);
+  top: 96px;
+
+  display: flex;
+
+  height: 32px;
+}
+
+.price-input {
+  width: calc(100% - 32px); /* Subtract the width of "원" */
+  height: 32px;
+}
+
+.price-won {
+  margin-left: 8px; /* Add some space between the input and "원" */
+  line-height: 0;
+}
+
+.discount-guide {
+  position: relative;
+  left: 32px;
+  top: 96px;
+}
+
+.discount-container {
+  position: relative;
+  left: 32px;
+  top: 96px;
+  width: calc(100% - 58px);
+
+  display: flex;
+
+  height: 32px;
+}
+
+.discount-input {
+  width: calc(100% - 32px); /* Subtract the width of "원" */
+  height: 32px;
+}
+
+.discount-won {
+  margin-left: 8px; /* Add some space between the input and "원" */
+  line-height: 0;
+}
+
+.totalprice-guide {
+  position: relative;
+  left: 32px;
+  top: 96px;
+
+  margin-bottom: -30px;
+}
+
+.totalprice-container {
+  position: relative;
+  left: 32px;
+  top: 96px;
+
+  width: calc(100% - 58px);
+
+  display: flex; /* Add this line */
+  justify-content: flex-end;
+}
+
+.totalprice-amount {
+  color: #e8004d;
+  font-size: 32px;
+}
+
+.totalprice-currency {
+  color: #e8004d;
+  font-size: 32px;
+  margin-left: 0; /* Add some space between the price and "원" */
+}
+
+.register-button {
+  position: relative;
+  left: 32px;
+  top: 96px;
+  margin-top: 5px;
+
+  width: calc(100% - 58px);
+  height: 32px;
+
+  border-radius: 5px;
+
+  background-color: black;
+  color: white;
+}
+
+.margin {
+  position: relative;
+  top: 96px;
+  width: 100%;
+  height: 30px;
+}
