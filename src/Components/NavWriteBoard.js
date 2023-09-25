@@ -2,8 +2,20 @@ import React, { useState } from "react";
 import { writingBoard } from "../apiServices/Auth";
 import SelectBox from "./Selectbox";
 import "../styles/NavWriteBoard.css";
-
-function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
+import axios from 'axios';
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = 'Bearer ' + token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+function NavWriteBoard({ map}) {
   const [waypoints, setWaypoints] = useState([{ name: "", time: "", time2: "", detailedLocation: "" }]);
   const [searchResults, setSearchResults] = useState({ waypoints: [] });
   const [selectedRoutesBuffer, setSelectedRoutesBuffer] = useState([]);
@@ -87,6 +99,7 @@ function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
   }
 
   const handleSaveRoutes = async () => {
+    
     try {
       // Using selectedRoutesBuffer instead of temporarySelectedRoutes
       const filteredRoutes = selectedRoutesBuffer.filter((route) => route !== null && route.name !== "");

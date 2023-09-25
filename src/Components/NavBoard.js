@@ -18,22 +18,37 @@ axios.interceptors.request.use(
   }
 );
 
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) { // If the token is expired or invalid
+      localStorage.removeItem('token'); // Remove the expired or invalid token
+      window.location = "/"; // Redirect to login page
+    }
+    return Promise.reject(error);
+  }
+);
 
-const NavBoard = () => {
+
+function NavBoard({ setLocations }) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const minimapicon = `${process.env.PUBLIC_URL}/image/minimap.png`;
+
+  const handleMiniMapClick = (locations) => {
+    setLocations(locations);
+  }
 
   const handleWriteButtonClick = () => {
     navigate("/WriteBoard");
   };
 
-  const handleGoChatClick = () => {
-    navigate("/chat");
-  }
 
   const [data, setData] = useState([]);
   const [detailData, setDetailData] = useState([]);
+
 
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
@@ -44,7 +59,7 @@ const NavBoard = () => {
 
   const handleCombinedClick = (boardId) => {
     const token = localStorage.getItem('token'); // Get token from local storage
-  
+
     axios.get(`http://localhost:8080/api/detailBoard/${boardId}`, {
       headers: {
         'Authorization': `Bearer ${token}` // Add token to request header
@@ -55,10 +70,30 @@ const NavBoard = () => {
         setDetailData([response.data]);
       })
       .catch((error) => console.error('Error:', error));
-  
+
     setSidebarOpen(!sidebarOpen);
   };
-  
+
+
+  const [RoomData, setRoomData] = useState([]);
+
+  const handleChatClick = (boardWriter) => {
+    const token = localStorage.getItem('token'); // Get token from local storage
+
+    axios.post('http://localhost:8080/api/chat/createRoom', {
+      user2:boardWriter //여기가 body
+      }, {
+      headers: {
+        'Authorization': `Bearer ${token}` // Add token to request header
+      }
+    })
+      .then(response => {
+        console.log('Received data:', response.data);
+        setRoomData([response.data]);
+      })
+      .catch((error) => console.error('Error:', error));
+  };
+
 
 
   const handleOpenButtonClick = () => {
@@ -88,8 +123,12 @@ const NavBoard = () => {
           </button>
         </div>
         <div className="list-container">
+
+
           {data.map((item, index) => (
             <div key={index}>
+
+
               <div className="list">
                 <button className="llist" onClick={() => handleCombinedClick(item.boardDTO.boardId)}>
                   <div className="left">
@@ -100,16 +139,12 @@ const NavBoard = () => {
                     <div className="current">25/50</div>
                   </div>
                 </button>
-                <button className="minimap" style={{ backgroundImage: `url(${minimapicon})` }}></button>
+                <button className="minimap" style={{ backgroundImage: `url(${minimapicon})` }} onClick={() => handleMiniMapClick(item.nodeDTOList.map(node => ({ latitude: node.latitude, longitude: node.longitude })))}></button>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-
-
-
 
 
       <div className={`detail-sidebar ${sidebarOpen ? "open" : "closed"}`}>
@@ -133,6 +168,16 @@ const NavBoard = () => {
             <div className="dcourse-container">
               <h4 className="dcourse-guide">정류장 운영시간표</h4>
             </div>
+            {/* node list */}
+            {
+              item.nodeDTOList.map((node, nodeIndex) => (
+                <div key={nodeIndex}>
+                  <h3>{node.nodeName} ({node.nodeHour}:{node.nodeMinute})</h3>
+                  <h3>{node.latitude}</h3>
+                  <h3>{node.longitude}</h3>
+                </div>)
+              )
+            }
             <div className="dmemo">{item.boardDTO.boardDetail}</div>
             <div className="before-container">
               <h4 className="before-guide">기존금액</h4>
@@ -154,7 +199,10 @@ const NavBoard = () => {
               <div className="total-price">0000</div>
               <div className="total-won">원</div>
             </div>
-            <button className="dchat-button" onClick={handleGoChatClick}>
+            <button
+              className="chat-button"
+              onClick={() => handleChatClick(item.boardDTO.boardWriter)} // boardUserEmail should be provided in your API response.
+            >
               chat
             </button>
           </div>
@@ -166,3 +214,4 @@ const NavBoard = () => {
 };
 
 export default NavBoard;
+
