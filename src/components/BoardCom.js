@@ -4,7 +4,7 @@ function PostList() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8080/post/list')
+    fetch('0.0.0.0/post/list')
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error:', error));
