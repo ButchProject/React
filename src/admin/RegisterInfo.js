@@ -4,7 +4,7 @@ import axios from 'axios';
 import AdminLayout from './AdminLayout';
 import './adminStyles/RegisterInfo.css';
 
-const API_URL = "http://localhost:8080"; // 백엔드 서버가 실행되는 IP와 포트
+const API_URL = "0.0.0.0"; // 백엔드 서버가 실행되는 IP와 포트
 
 
 const RegisterInfo = () => {

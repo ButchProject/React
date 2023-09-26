@@ -52,7 +52,7 @@ function NavBoard({ setLocations }) {
 
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
-    axios.get("http://localhost:8080/api/Board")
+    axios.get("0.0.0.0/api/Board")
       .then((response) => setData(response.data))
       .catch((error) => console.error("Error:", error));
   }, []);
@@ -60,7 +60,7 @@ function NavBoard({ setLocations }) {
   const handleCombinedClick = (boardId) => {
     const token = localStorage.getItem('token'); // Get token from local storage
 
-    axios.get(`http://localhost:8080/api/detailBoard/${boardId}`, {
+    axios.get(`0.0.0.0/api/detailBoard/${boardId}`, {
       headers: {
         'Authorization': `Bearer ${token}` // Add token to request header
       }
@@ -80,7 +80,7 @@ function NavBoard({ setLocations }) {
   const handleChatClick = (boardWriter) => {
     const token = localStorage.getItem('token'); // Get token from local storage
 
-    axios.post('http://localhost:8080/api/chat/createRoom', {
+    axios.post('0.0.0.0/api/chat/createRoom', {
       user2:boardWriter //여기가 body
       }, {
       headers: {

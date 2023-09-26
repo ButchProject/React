@@ -29,7 +29,7 @@ const Chat = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
-    axios.get("http://localhost:8080/api/chat/list")
+    axios.get("0.0.0.0/api/chat/list")
       .then((response) => {
         console.log('Received chatList data:', response.data); // Add this line
         setData(response.data);
@@ -42,7 +42,7 @@ const Chat = () => {
     handleButtonClick();
   
     try {
-      const response = await axios.get(`http://localhost:8080/api/chat/room`, {
+      const response = await axios.get(`0.0.0.0/api/chat/room`, {
         params: {
           roomNum: roomNum
         }
@@ -62,7 +62,7 @@ const Chat = () => {
     if (currentRoomNumber === null) return;
   
     const eventSource = new EventSource(
-      `http://localhost:8080/api/chat/room`
+      `0.0.0.0/api/chat/room`
     );
   
     eventSource.onmessage = (event) => {
@@ -108,7 +108,7 @@ const Chat = () => {
       roomNum: currentRoomNumber, //여기
     };
 
-    let response = await fetch("http://localhost:8080/api/chat", {
+    let response = await fetch("0.0.0.0/api/chat", {
       method: "post",
       body: JSON.stringify(chat),
       headers: {
