@@ -15,7 +15,7 @@ const Profile = () => {
       return;
     }
 
-    axios.get('0.0.0.0/api/profile', {
+    axios.get(`${process.env.REACT_APP_API_URL}/api/profile`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

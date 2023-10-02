@@ -17,7 +17,7 @@ const EditProfile = () => {
       return;
     }
 
-    axios.get('0.0.0.0/api/profile', { 
+    axios.get(`${process.env.REACT_APP_API_URL}/api/profile`, { 
       headers: { 
         Authorization: `Bearer ${token}` 
       }
@@ -37,7 +37,7 @@ const EditProfile = () => {
   const handleSubmit = (e) => {
      e.preventDefault();
      // send the updated data to the backend
-     axios.post('0.0.0.0/api/profile/edit', profileData ,{
+     axios.post(`${process.env.REACT_APP_API_URL}/api/profile/edit`, profileData ,{
        headers: { 
          Authorization: `Bearer ${localStorage.getItem('token')}` 
        }

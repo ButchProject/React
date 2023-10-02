@@ -4,7 +4,7 @@ function PostList() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('0.0.0.0/post/list')
+    fetch(`${process.env.REACT_APP_API_URL}//post/list`)
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error:', error));
