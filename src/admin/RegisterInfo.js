@@ -4,8 +4,6 @@ import axios from 'axios';
 import AdminLayout from './AdminLayout';
 import './adminStyles/RegisterInfo.css';
 
-const API_URL = "http://localhost:8080"; // 백엔드 서버가 실행되는 IP와 포트
-
 
 const RegisterInfo = () => {
   const [memberList, setMemberList] = useState([]);
@@ -26,7 +24,7 @@ const RegisterInfo = () => {
           }
         };
 
-        const response = await axios.get(`${API_URL}/admin/RegisterInfo`, config);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/admin/RegisterInfo`, config);
         setMemberList(response.data);
       } catch (error) {
         console.error('Error fetching member data:', error);
@@ -40,7 +38,7 @@ const RegisterInfo = () => {
 
   const handleViewMember = async (id) => {
     try {
-      const response = await fetch(`${API_URL}/admin/registerInfo/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/registerInfo/${id}`);
       const data = await response.json();
       if (response.ok) {
         // 이 부분에 조회한 회원정보를 보여줄 컴포넌트나 모달 창을 연결하세요.
@@ -55,7 +53,7 @@ const RegisterInfo = () => {
 
   const handleDeleteMember = async (id) => {
     try {
-      const response = await fetch(`${API_URL}/admin/registerInfo/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/registerInfo/${id}`, {
         method: 'DELETE',
       });
 
