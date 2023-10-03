@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function loginUser(userData) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, userData);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login`, userData);
     return response.data;
   } catch (error) {
     console.error("Error in logging in user:", error.response.data);
@@ -13,7 +13,7 @@ async function loginUser(userData) {
 
 async function registerUser(userData) {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/register`, userData);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/register`, userData);
     return response.data;
   } catch (error) {
     console.error("Error in registering user:", error.response.data);
@@ -32,7 +32,7 @@ async function writingBoard(routeData) {
       }
     };
 
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/writingBoard`, routeData, config);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/writingBoard`, routeData, config);
 
    return response.data;
 
