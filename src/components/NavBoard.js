@@ -51,6 +51,8 @@ function NavBoard({ setLocations }) {
 
 
   useEffect(() => {
+    
+    
     // Use axios instead of fetch for requests to automatically include the Authorization header.
     axios.get(`${process.env.REACT_APP_API_URL}/api/Board`)
       .then((response) => setData(response.data))

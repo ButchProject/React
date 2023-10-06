@@ -60,22 +60,23 @@ const Chat = () => {
   
   useEffect(() => {
     if (currentRoomNumber === null) return;
-  
-    const eventSource = new EventSource(
-      `${process.env.REACT_APP_API_URL}/api/chat/room`
-    );
+
+    // roomNum을 URL 쿼리 파라미터로 추가
+    const eventSourceURL = `${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`;
+    const eventSource = new EventSource(eventSourceURL);
   
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
       // 실시간으로 수신된 메시지를 상태에 추가합니다.
       addMessage(currentRoomNumber, data.message, data.createdAt);
     };
-  
+
     return () => {
       eventSource.close(); // 방을 바꿀 때 EventSource를 종료합니다.
     };
-  
-  }, [currentRoomNumber]);
+
+}, [currentRoomNumber]);
+
   
   function handleButtonClick() {
     setSidebarOpen(!sidebarOpen);
@@ -108,7 +109,8 @@ const Chat = () => {
       roomNum: currentRoomNumber, //여기
     };
 
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/chat`, {
+    let postURL = `${process.env.REACT_APP_API_URL}/api/chat?roomNum=${currentRoomNumber}`;
+    let response = await fetch(postURL, {
       method: "post",
       body: JSON.stringify(chat),
       headers: {
