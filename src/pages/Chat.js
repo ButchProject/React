@@ -37,28 +37,36 @@ const Chat = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  const handleRoomClick = async (roomNum) => {
+  const [eventSource, setEventSource] = useState(null); // EventSource 상태 변수 추가
+
+  const handleRoomClick = (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick();
-  
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/room`, {
-        params: {
-          roomNum: roomNum
-        }
-      });
-      // 기존의 메시지를 상태에 설정합니다.
+
+    // 이미 존재하는 EventSource 연결 닫기
+    if(eventSource) {
+      eventSource.close();
+    }
+
+    const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${roomNum}`);
+    
+    newEventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
       setMessages(prevMessages => ({
         ...prevMessages,
-        [roomNum]: response.data
+        [roomNum]: [...(prevMessages[roomNum] || []), data]
       }));
-  
-    } catch (error) {
-      console.error('데이터 가져오기 오류:', error);
-    }
+    };
+
+    newEventSource.onerror = (error) => {
+      console.error('EventSource 실패:', error);
+      newEventSource.close();
+    };
+
+    setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
   };
   
-  useEffect(() => {
+  useEffect(() => { //실시간 채팅
     if (currentRoomNumber === null) return;
 
     // roomNum을 URL 쿼리 파라미터로 추가
@@ -99,7 +107,7 @@ const Chat = () => {
     let currentRoom = data.find(item => item.roomNum === currentRoomNumber);
 
     // 해당 항목에서 이메일 정보를 추출합니다.
-    let myEmailFromData = currentRoom ? currentRoom.myEmail : "ssar";
+    let myEmailFromData = currentRoom ? currentRoom.myEmail : "";
     let otherUserFromData = currentRoom ? currentRoom.otherUserEmail : "";
 
     let chat = {
