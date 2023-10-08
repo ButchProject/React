@@ -37,53 +37,45 @@ const Chat = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  const [eventSource, setEventSource] = useState(null); // EventSource 상태 변수 추가
+  const [eventSource, setEventSource] = useState(null);
 
-  const handleRoomClick = (roomNum) => {
+const handleRoomClick = (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick();
+};
 
-    // 이미 존재하는 EventSource 연결 닫기
+useEffect(() => {
+    if (currentRoomNumber === null) return;
+
+    // 기존 EventSource 연결 닫기
     if(eventSource) {
-      eventSource.close();
+        eventSource.close();
     }
 
-    const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${roomNum}`);
-    
+    const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`);
+
     newEventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setMessages(prevMessages => ({
-        ...prevMessages,
-        [roomNum]: [...(prevMessages[roomNum] || []), data]
-      }));
+        const data = JSON.parse(event.data);
+        setMessages(prevMessages => ({
+            ...prevMessages,
+            [currentRoomNumber]: [...(prevMessages[currentRoomNumber] || []), data]
+        }));
     };
 
     newEventSource.onerror = (error) => {
-      console.error('EventSource 실패:', error);
-      newEventSource.close();
+        console.error('EventSource 실패:', error);
+        newEventSource.close();
     };
 
     setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
-  };
-  
-  useEffect(() => { //실시간 채팅
-    if (currentRoomNumber === null) return;
-
-    // roomNum을 URL 쿼리 파라미터로 추가
-    const eventSourceURL = `${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`;
-    const eventSource = new EventSource(eventSourceURL);
-  
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      // 실시간으로 수신된 메시지를 상태에 추가합니다.
-      addMessage(currentRoomNumber, data.message, data.createdAt);
-    };
 
     return () => {
-      eventSource.close(); // 방을 바꿀 때 EventSource를 종료합니다.
+        if (newEventSource) {
+            newEventSource.close(); // 컴포넌트 언마운트나 roomNumber 변경시 EventSource 종료
+        }
     };
-
 }, [currentRoomNumber]);
+
 
   
   function handleButtonClick() {
