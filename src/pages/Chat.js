@@ -39,56 +39,56 @@ const Chat = () => {
 
   const [eventSource, setEventSource] = useState(null);
 
-const handleRoomClick = (roomNum) => {
+  const handleRoomClick = (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick();
-};
+  };
 
-useEffect(() => {
-  if (currentRoomNumber === null) {
+  useEffect(() => {
+    if (currentRoomNumber === null) {
       console.log('currentRoomNumber is null. Exiting useEffect.');
       return;
-  }
+    }
 
-  console.log(`Setting up EventSource for room number: ${currentRoomNumber}`);
+    console.log(`Setting up EventSource for room number: ${currentRoomNumber}`);
 
-  // 기존 EventSource 연결 닫기
-  if(eventSource) {
+    // 기존 EventSource 연결 닫기
+    if (eventSource) {
       console.log('Closing existing EventSource connection.');
       eventSource.close();
-  }
+    }
 
-  const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`);
-  console.log('Created new EventSource connection.');
+    const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`);
+    console.log('Created new EventSource connection.');
 
-  newEventSource.onmessage = (event) => {
+    newEventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log('Received new message from EventSource:', data);
       setMessages(prevMessages => ({
-          ...prevMessages,
-          [currentRoomNumber]: [...(prevMessages[currentRoomNumber] || []), data]
+        ...prevMessages,
+        [currentRoomNumber]: [...(prevMessages[currentRoomNumber] || []), data]
       }));
-  };
+    };
 
-  newEventSource.onerror = (error) => {
+    newEventSource.onerror = (error) => {
       console.error('EventSource failed:', error);
       newEventSource.close();
-  };
+    };
 
-  setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
-  console.log('Saved new EventSource instance to state.');
+    setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
+    console.log('Saved new EventSource instance to state.');
 
-  return () => {
+    return () => {
       console.log('useEffect cleanup. Closing EventSource connection.');
       if (newEventSource) {
-          newEventSource.close(); // 컴포넌트 언마운트나 roomNumber 변경시 EventSource 종료
+        newEventSource.close(); // 컴포넌트 언마운트나 roomNumber 변경시 EventSource 종료
       }
-  };
-}, [currentRoomNumber]);
+    };
+  }, [currentRoomNumber]);
 
 
 
-  
+
   function handleButtonClick() {
     setSidebarOpen(!sidebarOpen);
   }
@@ -137,7 +137,7 @@ useEffect(() => {
     let parseResponse = await response.json();
 
     console.log(parseResponse);
-};
+  };
 
 
   const handleKeyPress = (e) => {
@@ -171,21 +171,21 @@ useEffect(() => {
 
 
         <div className="chat-list">
-    {data.map((item) => (
-        <div key={item.roomNum}>
-            <button 
-                className="chatting-room" 
+          {data.map((item) => (
+            <div key={item.roomNum}>
+              <button
+                className="chatting-room"
                 onClick={() => handleRoomClick(item.roomNum)}>
                 <div
-                    className="profile-icon"
-                    style={{ backgroundImage: `url(${ProfileIcon})` }}
+                  className="profile-icon"
+                  style={{ backgroundImage: `url(${ProfileIcon})` }}
                 ></div>
                 <div className="chat-title">{item.otherUserEmail}</div>
                 <div className="chat-academy">학원명</div>
-            </button>
+              </button>
+            </div>
+          ))}
         </div>
-    ))}
-</div>
 
 
 
@@ -213,20 +213,15 @@ useEffect(() => {
                   {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
                     <div
                       key={i}
-                      className={
-                        message.isSent ? "outgoing_msg" : "incoming_msg"
-                      }
+                      className={message.user1 === "song@gmail.com" ? "outgoing_msg" : "incoming_msg"}
                     >
-                      <div
-                        className={
-                          message.isSent ? "sent_msg" : "received_withd_msg"
-                        }
-                      >
-                        <p>{message.msg}</p>
-                        <span className="time_date">{message.time}</span>
+                      <div className={message.user1 === "song@gmail.com" ? "sent_msg" : "received_withd_msg"}>
+                        <p>{message.message}</p>
+                        <span className="time_date">{message.createdAt}</span>
                       </div>
                     </div>
                   ))}
+
                 </div>
                 <div className="type_msg">
                   <div className="input_msg_write">
@@ -237,14 +232,14 @@ useEffect(() => {
                       placeholder="Type a message"
                       value={messageInput}
                       onChange={(e) => setMessageInput(e.target.value)}
-                      onKeyDown={(e) => e.keyCode === 13 && handleSendClick()} 
+                      onKeyDown={(e) => e.keyCode === 13 && handleSendClick()}
                     />
                     <button
                       id="chat-send"
                       className="msg_send_btn"
                       type="button"
                       onClick={handleSendClick}
-                      >
+                    >
                       <i className="fa fa-paper-plane" aria-hidden="true"></i>
                     </button>
                   </div>
