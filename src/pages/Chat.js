@@ -45,36 +45,47 @@ const handleRoomClick = (roomNum) => {
 };
 
 useEffect(() => {
-    if (currentRoomNumber === null) return;
+  if (currentRoomNumber === null) {
+      console.log('currentRoomNumber is null. Exiting useEffect.');
+      return;
+  }
 
-    // 기존 EventSource 연결 닫기
-    if(eventSource) {
-        eventSource.close();
-    }
+  console.log(`Setting up EventSource for room number: ${currentRoomNumber}`);
 
-    const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`);
+  // 기존 EventSource 연결 닫기
+  if(eventSource) {
+      console.log('Closing existing EventSource connection.');
+      eventSource.close();
+  }
 
-    newEventSource.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        setMessages(prevMessages => ({
-            ...prevMessages,
-            [currentRoomNumber]: [...(prevMessages[currentRoomNumber] || []), data]
-        }));
-    };
+  const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`);
+  console.log('Created new EventSource connection.');
 
-    newEventSource.onerror = (error) => {
-        console.error('EventSource 실패:', error);
-        newEventSource.close();
-    };
+  newEventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Received new message from EventSource:', data);
+      setMessages(prevMessages => ({
+          ...prevMessages,
+          [currentRoomNumber]: [...(prevMessages[currentRoomNumber] || []), data]
+      }));
+  };
 
-    setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
+  newEventSource.onerror = (error) => {
+      console.error('EventSource failed:', error);
+      newEventSource.close();
+  };
 
-    return () => {
-        if (newEventSource) {
-            newEventSource.close(); // 컴포넌트 언마운트나 roomNumber 변경시 EventSource 종료
-        }
-    };
+  setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
+  console.log('Saved new EventSource instance to state.');
+
+  return () => {
+      console.log('useEffect cleanup. Closing EventSource connection.');
+      if (newEventSource) {
+          newEventSource.close(); // 컴포넌트 언마운트나 roomNumber 변경시 EventSource 종료
+      }
+  };
 }, [currentRoomNumber]);
+
 
 
   
