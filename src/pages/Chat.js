@@ -7,6 +7,9 @@ axios.interceptors.request.use(
     const token = localStorage.getItem('token');
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token;
+      console.log('Added token to axios headers:', config.headers['Authorization']);  // 로그 추가
+    } else {
+      console.log('No token found in localStorage.');  // 로그 추가
     }
     return config;
   },
@@ -126,6 +129,7 @@ useEffect(() => {
       body: JSON.stringify(chat),
       headers: {
         "Content-type": "application/json; charset=utf-8",
+        "Authorization": token ? 'Bearer ' + token : undefined  // 토큰이 있다면 헤더에 추가
       },
     });
 
