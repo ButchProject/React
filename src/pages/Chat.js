@@ -38,7 +38,9 @@ const Chat = () => {
   }, []);
 
   const [eventSource, setEventSource] = useState(null);
-
+  const handleButtonClick = () => {
+    setSidebarOpen((prevState) => !prevState);
+  };
   const handleRoomClick = (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick();
