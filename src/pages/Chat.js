@@ -89,13 +89,9 @@ const Chat = () => {
 
 
 
-  function handleButtonClick() {
-    setSidebarOpen(!sidebarOpen);
-  }
-
   const handleSendClick = async () => {
     if (!currentRoomNumber) return;
-
+  
     let date = new Date();
     let now =
       date.getHours() +
@@ -105,21 +101,21 @@ const Chat = () => {
       date.getMonth() +
       "/" +
       date.getDate();
-
+  
     // 현재 선택된 roomNum에 해당하는 데이터 항목을 찾습니다.
     let currentRoom = data.find(item => item.roomNum === currentRoomNumber);
-
+  
     // 해당 항목에서 이메일 정보를 추출합니다.
     let myEmailFromData = currentRoom ? currentRoom.myEmail : "";
     let otherUserFromData = currentRoom ? currentRoom.otherUserEmail : "";
-
+  
     let chat = {
       user1: myEmailFromData,  // 수정된 부분
       user2: otherUserFromData,  // 수정된 부분
       message: messageInput,
-      roomNum: currentRoomNumber, //여기
+      roomNum: currentRoomNumber,
     };
-
+  
     let postURL = `${process.env.REACT_APP_API_URL}/api/chat?roomNum=${currentRoomNumber}`;
     let response = await fetch(postURL, {
       method: "post",
@@ -128,16 +124,16 @@ const Chat = () => {
         "Content-type": "application/json; charset=utf-8",
       },
     });
-
-    addMessage(currentRoomNumber, messageInput, now);
-    setMessageInput("");
-
+  
+    setMessageInput("");  // 메시지 입력 필드 초기화
+  
     console.log(response);
-
+  
     let parseResponse = await response.json();
-
+  
     console.log(parseResponse);
   };
+  
 
 
   const handleKeyPress = (e) => {
@@ -210,6 +206,7 @@ const Chat = () => {
               </div>
               <div className="chat_container">
                 <div className="chat_container chat_section" id="chat-box">
+                  
                   {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
                     <div
                       key={i}
