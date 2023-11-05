@@ -7,7 +7,8 @@ const Chat = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const ProfileIcon = `${process.env.PUBLIC_URL}/image/profileicon.png`;
-  const BackIcon = `${process.env.PUBLIC_URL}/image/backicon.png`;
+  const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
+  const SendIcon = `${process.env.PUBLIC_URL}/image/sendicon.png`;
 
   useEffect(() => {
     const eventSource = new EventSource(
@@ -19,11 +20,39 @@ const Chat = () => {
       console.log(2, data);
       addMessage(data.message, data.createdAt);
     };
+    const container = document.getElementById("map");
+    const options = {
+      center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3,
+    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          options.center = new window.kakao.maps.LatLng(latitude, longitude);
+          new window.kakao.maps.Map(container, options);
+        },
+        (error) => {
+          console.error(error);
+          new window.kakao.maps.Map(container, options);
+        }
+      );
+    } else {
+      new window.kakao.maps.Map(container, options);
+    }
   }, []);
 
-  function handleButtonClick() {
-    setSidebarOpen(!sidebarOpen);
-  }
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
+  const handleButtonClick = (id) => {
+    setSidebarOpen(true);
+    setSelectedRoom(id); // 새로운 버튼을 클릭하면 선택
+  };
+
+  const handleClose = () => {
+    setSidebarOpen(false);
+    setSelectedRoom(null);
+  };
 
   const handleSendClick = async () => {
     let date = new Date();
@@ -73,17 +102,65 @@ const Chat = () => {
 
   return (
     <div className="layout">
+      <div id="map" className="mapContainer">
+        {/* 이곳에 맵이 표시됩니다 */}
+      </div>
       <div className="chat-layout">
         <div className="search-container">
           <input
             className="search-input"
             type="text"
-            placeholder="검색어를 입력하세요"
+            placeholder="채팅방 이름을 검색하세요."
           />
-          <button className="search-button">검색</button>
+          <button className="search-button">
+            <img
+              src={`${process.env.PUBLIC_URL}/image/searchicon.png`}
+              alt="search icon"
+            />
+          </button>
         </div>
         <div className="chat-list">
-          <button className="chatting-room" onClick={handleButtonClick}>
+          <button
+            className="chatting-room"
+            onClick={() => handleButtonClick(1)}
+          >
+            <div
+              className={`marker ${
+                selectedRoom === 1 ? "marker-selected" : ""
+              }`}
+            ></div>
+            <div
+              className="profile-icon"
+              style={{ backgroundImage: `url(${ProfileIcon})` }}
+            ></div>
+            <div className="chat-title">제목</div>
+            <div className="chat-academy">학원명</div>
+          </button>
+          <button
+            className="chatting-room"
+            onClick={() => handleButtonClick(2)}
+          >
+            <div
+              className={`marker ${
+                selectedRoom === 2 ? "marker-selected" : ""
+              }`}
+            ></div>
+            <div
+              className="profile-icon"
+              style={{ backgroundImage: `url(${ProfileIcon})` }}
+            ></div>
+            <div className="chat-title">제목</div>
+            <div className="chat-academy">학원명</div>
+          </button>
+          <button
+            className="chatting-room"
+            onClick={() => handleButtonClick(3)}
+          >
+            <div
+              className={`marker ${
+                selectedRoom === 3 ? "marker-selected" : ""
+              }`}
+            ></div>
             <div
               className="profile-icon"
               style={{ backgroundImage: `url(${ProfileIcon})` }}
@@ -98,17 +175,17 @@ const Chat = () => {
           <div className="col-sm-12">
             <div id="user_chat_data" className="user_chat_data">
               <div className="profile_name">
-                <button
-                  className="close-button"
-                  onClick={handleButtonClick}
-                  style={{ backgroundImage: `url(${BackIcon})` }}
-                ></button>
                 <div
                   className="c-profile-icon"
                   style={{ backgroundImage: `url(${ProfileIcon})` }}
                 ></div>
                 <div className="c-title">제목</div>
                 <div className="c-academy">학원명</div>
+                <button
+                  className="close-button"
+                  onClick={handleClose}
+                  style={{ backgroundImage: `url(${XIcon})` }}
+                ></button>
               </div>
               <div class="chat_container">
                 <div className="chat_container chat_section" id="chat-box">
@@ -136,7 +213,7 @@ const Chat = () => {
                       id="chat-outgoing-msg"
                       type="text"
                       class="write_msg"
-                      placeholder="Type a message"
+                      placeholder="메시지를 작성하세요."
                       value={messageInput}
                       onChange={(e) => setMessageInput(e.target.value)}
                       onKeyDown={handleKeyPress}
@@ -145,12 +222,14 @@ const Chat = () => {
                       id="chat-send"
                       class="msg_send_btn"
                       type="button"
+                      style={{ backgroundImage: `url(${SendIcon})` }}
                       onClick={handleSendClick}
                     >
                       <i class="fa fa-paper-plane" aria-hidden="true"></i>
                     </button>
                   </div>
                 </div>
+                <div className="cmargin"></div>
               </div>
             </div>
           </div>

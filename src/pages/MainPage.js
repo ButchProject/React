@@ -1,37 +1,52 @@
-import React, { useEffect } from 'react';
-import '../styles/MainPage.css'; // 스타일을 정의한 CSS 파일을 생성 및 불러오세요.
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/MainPage.css";
 
 const MainPage = () => {
-  useEffect(() => {
-    const container = document.getElementById('map');
+  const navigate = useNavigate();
+  const [isClicked, setIsClicked] = useState(false);
 
-    const handleUserLocation = (position) => {
-      const userLat = position.coords.latitude;
-      const userLng = position.coords.longitude;
-      const userLatLng = new window.kakao.maps.LatLng(userLat, userLng);
-      const options = { center: userLatLng, level: 3 };
-      new window.kakao.maps.Map(container, options);
-      
+  const moveToPage = (path) => {
+    navigate(path);
+  };
 
-      // 지도 렌더링 후 로딩 텍스트 감추기
-      document.getElementById('loading-text').style.display = 'none';
-    };
+  const goToPage = (path) => {
+    setIsClicked(true);
+    setTimeout(() => navigate(path), 1000); // Adjust delay as needed
+  };
 
-    const handleLocationError = () => {
-      alert('브라우저가 위치 정보를 지원하지 않습니다.');
-    };
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(handleUserLocation, handleLocationError);
-    } else {
-      handleLocationError();
-    }
-  }, []);
+  const clickedImage = `${process.env.PUBLIC_URL}/image/bus-y.png`;
 
   return (
     <div>
-      <div id="map" style={{ width: '100%', height: '100vh' }}></div>
-      <div id="loading-text" className="loading-text">지도를 불러오는 중...</div>
+      <img
+        className="logo-black"
+        alt="logo-black"
+        src={`${process.env.PUBLIC_URL}/image/logo-black.png`}
+        onClick={() => moveToPage("/")}
+      />
+      <button className="go_login" onClick={() => moveToPage("/academyhome")}>
+        로그아웃
+      </button>
+
+      <div className="description-container">서비스 설명</div>
+      <button
+        className={`button1 ${isClicked ? "button1-clicked" : ""} ${isClicked ? "move-left" : ""}`}
+        style={
+          isClicked
+            ? { backgroundImage: `url(${clickedImage})`, opacity: 1 }
+            : {}
+        }
+        onClick={() => goToPage("/profilepage")}
+      >
+        프로필
+      </button>
+      <button className="button2" onClick={() => goToPage("/board")}>
+        게시판
+      </button>
+      <button className="button3" onClick={() => goToPage("/chat")}>
+        채팅
+      </button>
     </div>
   );
 };

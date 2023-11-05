@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import NavProfile from '../components/NavProfile';
+import NavProfile from './Profile';
 import '../styles/ProfileMap.css';
 
 const ProfileMap = () => {

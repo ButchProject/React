@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import NavBoard from "../components/NavBoard"; // NavBoard 컴포넌트를 가져옵니다.
-import "../styles/Board.css"; // Board.css를 import합니다.
+import "../styles/ProfilePage.css";
 
-const Board = () => {
-  const navigate = useNavigate();
-
-  const goToWriteBoard = () => {
-    navigate("/writeboard");
-  };
+const ProfilePage = () => {
 
   useEffect(() => {
     const container = document.getElementById("map");
@@ -38,14 +31,11 @@ const Board = () => {
   return (
     <div className="layout">
       <div className="features">
-        <NavBoard onWriteButtonClick={goToWriteBoard} />{" "}
-        {/* goToWriteboard 함수를 prop으로 전달합니다 */}
       </div>
       <div id="map" className="mapContainer">
-        {/* 이곳에 맵이 표시됩니다 */}
       </div>
     </div>
   );
 };
 
-export default Board;
+export default ProfilePage;

@@ -32,6 +32,7 @@ const Profile = () => {
 
   return (
     <div>
+        <h1>asdf</h1>
         <h1>{profileData.memberName}</h1>
         <p>Email: {profileData.memberEmail}</p>
         <p>Password: {profileData.memberPassword}</p> {/* 보안상의 이유로 비밀번호는 보통 표시하지 않습니다 */}

@@ -1,91 +1,146 @@
 .dock-window {
-  width: 96px;
-  height: 100%;
+  width: 98%;
+  height: 64px;
   position: fixed;
+  top: 1%;
+  left: 1%;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: white;
-  z-index: 1000;
 
   box-shadow :0px 0px 5px gray;
 
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 
-  z-index :9999;
+  z-index : 9999;
 }
 
 .navbar-logo {
   position: absolute;
-  top: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
 
-.navbar-logo img {
-  width: 48px;
+  width: 110px;
   height: auto;
 }
 
 .button-group {
   position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 250px;
 
-  background-color: transparent;
-}
-
-.profile-button {
-  width: 96px;
-  height: 80px;
-
-  background-position: center;
-  background-color: transparent;
-  background-repeat: no-repeat;
-
-  border-top : 1px solid rgba(128, 128, 128, 0.359); 
-  border-bottom : 1px solid rgba(128, 128, 128, 0.359);
-  border-left: none;
-  border-right: none;
+  width: 250px;
+  height: 100%;
+  display: flex;
 }
 
 .board-button {
-  width: 96px;
-  height: 80px;
+  position: relative;
+  transform: translateY(-50%);
+  top: 50%;
+
+  width: 100px;
+  height: 48px;
 
   background-position: center;
   background-color: transparent;
   background-repeat: no-repeat;
   
-  border-top : none;
-  border-bottom : 1px solid rgba(128, 128, 128, 0.359); 
-  border-left: none;
-  border-right: none;
+  border: none;
 }
 
 .chat-button {
-  width: 96px;
-  height: 80px;
+  position: relative;
+  transform: translateY(-50%);
+  top: 50%;
+  margin-left: 50px;
+
+  width: 100px;
+  height: 48px;
 
   background-position: center;
   background-color: transparent;
   background-repeat: no-repeat;
   
-  border-top :none;
-  border-bottom : 1px solid rgba(128, 128, 128, 0.359); 
-  border-left: none;
-  border-right: none;
+  border: none;
+}
+
+.hover-underbar {
+  position: relative;
+  top: 6px;
+  left: 5px;
+
+  width: 90px;
+  height: 8px;
+  
+  background-color: #FFD600;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.hover-underbarc {
+  position: relative;
+  top: 6px;
+  left: 55px;
+
+  width: 90px;
+  height: 8px;
+  
+  background-color: #FFD600;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.user-container {
+  position: absolute;
+  right: 100px;
+
+  height: 100%;
+  width: auto;
+
+  display: flex;
+  align-items: center;
+}
+
+.profileicon {
+  height: 50%;
+  width: auto;
+}
+
+.username {
+  margin-left: 15px;
+}
+
+.tri {
+  margin-left: 5px;
+}
+
+.dropdown {
+  width: 300px;
+  height: calc(98% - 74px);
+  position: fixed;
+  top: calc(1% + 74px);
+  right: 1%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white;
+
+  box-shadow :0px 0px 5px gray;
+
+  border-radius: 5px;
+
+  z-index : 9999;
 }
 
 .logout-button {
   position: absolute;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
 
   width: 80px;
-  height: 32px;
   
   background-color: transparent;
   border: none;
