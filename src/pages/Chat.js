@@ -23,8 +23,8 @@ const Chat = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const ProfileIcon = `${process.env.PUBLIC_URL}/image/profileicon.png`;
-  const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
-  const SendIcon = `${process.env.PUBLIC_URL}/image/sendicon.png`;
+  const BackIcon = `${process.env.PUBLIC_URL}/image/backicon.png`;
+
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -37,7 +37,14 @@ const Chat = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-
+  const [eventSource, setEventSource] = useState(null);
+  const handleButtonClick = () => {
+    setSidebarOpen((prevState) => !prevState);
+  };
+  const handleRoomClick = (roomNum) => {
+    setCurrentRoomNumber(roomNum);
+    handleButtonClick();
+  };
 
   useEffect(() => {
     if (currentRoomNumber === null) {
@@ -81,21 +88,7 @@ const Chat = () => {
     };
   }, [currentRoomNumber]);
 
-  const [selectedRoom, setSelectedRoom] = useState(null);
 
-  const [eventSource, setEventSource] = useState(null);
-  const handleButtonClick = () => {
-    setSidebarOpen((prevState) => !prevState);
-  };
-  
-  const handleRoomClick = (roomNum) => {
-    setCurrentRoomNumber(roomNum);
-    handleButtonClick();
-  };
-  const handleClose = () => {
-    setSidebarOpen(false);
-    setSelectedRoom(null);
-  };
 
 
   const handleSendClick = async () => {
@@ -133,7 +126,7 @@ const Chat = () => {
         "Content-type": "application/json; charset=utf-8",
       },
     });
-    addMessage(messageInput, now);
+  
     setMessageInput("");  // 메시지 입력 필드 초기화
   
     console.log(response);
@@ -161,22 +154,14 @@ const Chat = () => {
 
   return (
     <div className="layout">
-       <div id="map" className="mapContainer">
-        {/* 이곳에 맵이 표시됩니다 */}
-      </div>
       <div className="chat-layout">
         <div className="search-container">
           <input
             className="search-input"
             type="text"
-            placeholder="채팅방 이름을 검색하세요."
+            placeholder="검색어를 입력하세요"
           />
-          <button className="search-button">
-            <img
-              src={`${process.env.PUBLIC_URL}/image/searchicon.png`}
-              alt="search icon"
-            />
-          </button>
+          <button className="search-button">검색</button>
         </div>
 
 
