@@ -11,10 +11,6 @@ body {
   width: 100%;
 }
 
-.navbar-container {
-  width: 4%;
-}
-
 .pages-container {
   flex-grow: 1;
 }

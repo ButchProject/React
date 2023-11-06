@@ -1,65 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { Sidebar } from "primereact/sidebar";
-import { Button } from "react-bootstrap";
-import { ScrollTop } from "primereact/scrolltop";
 import { loginUser } from "../apiServices/Auth";
 import "../styles/Login.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false);
   const [memberEmail, setEmail] = useState("");
   const [memberPassword, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
 
-  const Pbus1 = {
-    backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus1.png)`,
+  const goToPage = (path) => {
+    navigate(path);
   };
-
-  const Pbus2 = {
-    backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus2.png)`,
-  };
-
-  const Pbus3 = {
-    backgroundImage: `url(${process.env.PUBLIC_URL}/image/bus3.png)`,
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const normalImage = `${process.env.PUBLIC_URL}/image/userIcon-black.png`;
-  const hoverImage = `${process.env.PUBLIC_URL}/image/userIcon.png`;
-
-  // 스크롤 이벤트 처리 함수
-  const handleScroll = () => {
-    const elements = document.querySelectorAll(".scroll-animation");
-    const windowHeight = window.innerHeight;
-
-    elements.forEach(function (element) {
-      const positionFromTop = element.getBoundingClientRect().top;
-
-      if (positionFromTop - windowHeight <= 0) {
-        element.classList.add("visible");
-      } else {
-        element.classList.remove("visible");
-      }
-    });
-  };
-
-  // 스크롤 이벤트 리스너 등록 및 해제
-  useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,7 +31,7 @@ export default function Login() {
 
         // Assuming the token is located at response.data.token
         const token = response.token;
-        window.localStorage.setItem('token', token);
+        window.localStorage.setItem("token", token);
 
         navigate("/main");
       })
@@ -92,52 +44,26 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <section className="section" id="Pbus1" style={Pbus1}>
-        <div className="main-title-container">
-          <div className="main-title">함께 타는 공유버스, BUTCH</div>
-        </div>
-      </section>
+    <div>
+      <img
+        className="logo-black"
+        alt="logo-black"
+        src={`${process.env.PUBLIC_URL}/image/logo-black.png`}
+        onClick={() => goToPage("/")}
+      />
+      <button className="go_home" onClick={() => goToPage("/academyhome")}>
+        홈페이지
+      </button>
 
-      <section
-        className="section with-text image-centered scroll-animation"
-        id="Pbus2"
-        style={Pbus2}
-      >
-        <div className="text-box">
-          <h2>서비스 설명1</h2>
-          <p>설명설명</p>
-          <p>설명설명</p>
-          <p>설명설명</p>
-        </div>
-      </section>
-
-      <section
-        className="section with-text image-centered scroll-animation"
-        id="Pbus3"
-        style={Pbus3}
-      >
-        <div className="text-box">
-          <h2>서비스 설명2</h2>
-          <p>설명설명</p>
-          <p>설명설명</p>
-          <p>설명설명</p>
-        </div>
-      </section>
-
-      <Sidebar
-        visible={visible}
-        onHide={() => setVisible(false)}
-        className="w-full md:w-20rem lg:w-30rem"
-      >
+      <img
+        className="logo-big"
+        alt="logo-big"
+        src={`${process.env.PUBLIC_URL}/image/logo-big.png`}
+        onClick={() => goToPage("/academyhome")}
+      />
+      <div className="login-container">
+        <h1 className="title">로그인</h1>
         <form className="login-form" onSubmit={handleSubmit}>
-          <img
-            src={`${process.env.PUBLIC_URL}/image/logo-black.png`}
-            alt="logo-black"
-            className="logo-black"
-          />
-          <br />
-          <h2 className="login-title">로그인</h2>
           <input
             className="email-input"
             type="email"
@@ -163,14 +89,14 @@ export default function Login() {
               <p className="error-message">{errorMessage}</p>
             </div>
           )}
-          <Button
+          <button
             className="login-button"
             type="submit"
             onMouseDownCapture={(e) => e.stopPropagation()}
             onMouseUpCapture={(e) => e.stopPropagation()}
           >
             로그인하기
-          </Button>
+          </button>
           <div className="parent-container">
             <div className="text-container">
               <span
@@ -189,24 +115,7 @@ export default function Login() {
             </div>
           </div>
         </form>
-      </Sidebar>
-
-      <div className="sidebar-button-container">
-        <Button
-          className={`sidebar-button ${isHovered ? "hover-image" : ""}`}
-          variant="outline-warning"
-          onClick={() => setVisible(true)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          style={{
-            backgroundImage: `url(${isHovered ? hoverImage : normalImage})`,
-            opacity: isHovered ? 1 : 0.3,
-          }}
-        ></Button>
       </div>
-
-      <ScrollTop />
     </div>
   );
 }
-
