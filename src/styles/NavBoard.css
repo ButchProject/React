@@ -1,14 +1,14 @@
 .sidebar {
   position: fixed;
-  left: 90px;
+  left: 1%;
+  top: calc(1% + 74px);
 
   width: 384px;
-  height: 100%;
+  height: calc(98% - 74px);
 
   background-color: white;
   box-shadow: 0px 0px 5px gray;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 
   z-index: 9998;
 }
@@ -22,12 +22,13 @@
   height: 48px;
 
   border-radius: 5px;
-  border: 1.5px solid #c2c2c2;
-  background-color: #f1f1f1;
+  border: 2px solid #ffd600;
 }
 
 .search-input {
-  position: relative;
+  position: absolute;
+  top: 0px;
+
   width: calc(100% - 48px);
   height: 48px;
   background-color: transparent;
@@ -37,14 +38,19 @@
 }
 
 .search-button {
-  position: relative;
-  margin-left: 0px;
+  position: absolute;
+  right: 0px;
 
   width: 48px;
   height: 48px;
 
-  background-color: transparent;
   border: none;
+  background-color: transparent;
+}
+
+.search-button img {
+  width: 70%;
+  height: auto;
 }
 
 .container {
@@ -79,12 +85,20 @@
   width: 96px;
   height: 32px;
 
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: black;
+  display: flex;
+  align-items: center;
+
+  border: 1px solid #007ef2;
+  border-radius: 32px;
+  background-color: #007ef2;
 
   color: white;
+  font-size: 12px;
   font-weight: bold;
+}
+
+.pencil {
+  margin-right: 5px;
 }
 
 .list-container {
@@ -98,6 +112,7 @@
 
 .list {
   position: relative;
+  margin-bottom: 10px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -129,7 +144,8 @@
 
 .lregion {
   font-size: 12px;
-  color: gray;
+  color: #007ef2;
+  font-weight: bold;
 }
 
 .ltitle {
@@ -141,7 +157,12 @@
 .current {
   font-size: 12px;
   font-weight: bold;
-  color: #e8004d; 
+  color: gray;
+}
+
+.person {
+  position: relative;
+  margin-left: 5px;
 }
 
 .minimap {
@@ -155,12 +176,6 @@
   border: none;
 }
 
-.detail-sidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* 추가된 부분 */
-}
-
 .list {
   position: relative;
 
@@ -171,41 +186,68 @@
   flex-direction: row;
 }
 
-.detail-sidebar.closed {
-  width: 0;
-  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
-  transition: width 0.5s ease; /* 애니메이션 효과 */
-}
-
-.detail-sidebar.open {
+.detail-sidebar {
   position: fixed;
-  left: 90px;
+  left: 1%;
+  top: calc(1% + 74px);
 
   width: 384px;
-  height: 100%;
+  height: calc(98% - 74px);
 
   background-color: white;
   box-shadow: 0px 0px 5px gray;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 
   z-index: 9998;
 }
 
-.detail-closebutton {
-  position: relative;
-  left: 352px;
+.detail-sidebar.closed {
+  width: 0;
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  transition: none;
+}
 
-  width: 32px;
+.detail-sidebar.open {
+  position: fixed;
+  left: 1%;
+  top: calc(1% + 74px);
+
+  width: 384px;
+  height: calc(98% - 74px);
+
+  background-color: white;
+  box-shadow: 0px 0px 5px gray;
+  border-radius: 5px;
+
+  z-index: 9998;
+}
+
+.detail-top {
+  position: relative;
+  top: 20px;
+  left: 22px;
+
+  width: calc(100% - 58px);
   height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.detail-closebutton {
+  height: 32px;
+  width: 32px;
+  margin-right: 10px;
 
   background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
   border: none;
 }
 
 .dtitle-container {
   position: relative;
   left: 32px;
+  top: 40px;
 
   width: calc(100% - 58px);
   height: 48px;
@@ -218,25 +260,33 @@
 
 .dtitle {
   align-self: flex-end;
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .dacademy {
   align-self: flex-end;
+  font-size: 15px;
+  color: #007ef2;
 }
 
 .dregion-container {
   position: relative;
   left: 32px;
+  top: 50px;
 
   width: calc(100% - 58px);
-  height: auto;
+  height: 48px;
 
   display: flex;
   align-items: center; /* 추가된 부분 */
+
+  border-bottom: 1px dashed;
+  border-color: gainsboro;
 }
 
 .dregion-guide {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .dregion {
@@ -247,96 +297,534 @@
 .dprovince,
 .dcity,
 .ddistrict {
-  margin-right: 8px;
+  margin-right: 5px;
 }
 
 .dcourse-container {
   position: relative;
   left: 32px;
+  top: 50px;
 
   width: calc(100% - 58px);
+  height: auto;
 }
 
 .dcourse-guide {
+  position: relative;
+  color: #007ef2;
+  margin-bottom: 0;
 }
 
-.dmemo {
+.c1 {
+  position: relative;
+  height: auto;
+}
+
+.c2 {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+
+  height: calc(100% - 26px);
+  width: 1px;
+  background-color: #007ef2;
+}
+
+.c3 {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+.circle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #007ef2;
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+.ctime {
+  display: inline-flex;
+}
+
+.cplace {
+  margin-left: 15px;
+}
+
+.number-container {
   position: relative;
   left: 32px;
+  top: 80px;
+  margin-top: -10px;
+  width: calc(100% - 58px);
+  height: 220px;
+
+  border-top: 1px dashed;
+  border-bottom: 1px dashed;
+  border-color: gainsboro;
+}
+
+.numberguide-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.num {
+  display: flex;
+}
+
+.bus-container {
+  position: relative;
+  margin-top: 0px;
+  width: 100%;
+  height: 150px;
+  display: flex;
+}
+
+.ybox {
+  position: relative;
+  top: 0;
+  height: 140px;
+  width: calc((100% - 20px) / 3);
+  border: 2px solid #ffd600;
+  border-radius: 5px;
+  background-color: #ffd50021;
+}
+
+.ybus-guide {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  color: #e1bb00;
+}
+
+.ybusnum {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 수정: translateX와 translateY를 동시에 적용 */
+  display: inline-flex;
+  color: #e1bb00;
+}
+
+.gbox {
+  position: relative;
+  top: 0;
+  margin-left: 10px;
+  height: 140px;
+  width: calc((100% - 20px) / 3);
+  border: 2px solid #11c042;
+  border-radius: 5px;
+  background-color: #11c04330;
+}
+
+.gbus-guide {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  color: #0fa038;
+}
+
+.gbusnum {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 수정: translateX와 translateY를 동시에 적용 */
+  display: inline-flex;
+  color: #0fa038;
+}
+
+.bbox {
+  position: relative;
+  top: 0;
+  margin-left: 10px;
+  height: 140px;
+  width: calc((100% - 20px) / 3);
+  border: 2px solid #007ef2;
+  border-radius: 5px;
+  background-color: #007df234;
+}
+
+.bbus-guide {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  color: #01529f;
+}
+
+.bbusnum {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 수정: translateX와 translateY를 동시에 적용 */
+  display: inline-flex;
+  color: #01529f;
+}
+
+.bus {
+  position: relative;
+  left: 40%;
+  top: 30%;
+  width: calc(60% + 2px);
+}
+
+.dmemo-container {
+  position: relative;
+  left: 32px;
+  top: 80px;
+  margin-top: 20px;
 
   width: calc(100% - 58px);
+  height: 80px;
 
+  border-radius: 5px;
   background-color: rgba(128, 128, 128, 0.241);
 }
 
-.before-container {
+.memo-context {
+  position: relative;
+  top: 5px;
+  left: 5px;
+  width: calc(100% - 10px);
+  height: auto;
+}
+
+.price-container {
   position: relative;
   left: 32px;
-
+  top: 90px;
+  margin-top: 10px;
   width: calc(100% - 58px);
 
-  display: flex;
-  justify-content: space-between;
-}
-
-.before-guide {
-}
-
-.bprice {
-  display: flex;
-  align-items:center ; /* 추가된 부분 */
-}
-
-.before-money {
-}
-
-.before-won {
-}
-
-.discount-container {
-  position: relative;
-  left: 32px;
-
-  width: calc(100% - 58px);
-
-  display: flex;
-  justify-content: space-between;
-}
-
-.discount-guide {
-}
-
-.dprice {
-  display: flex;
-  align-items:center ; /* 추가된 부분 */
-}
-
-.minus {
-}
-
-.discount-money {
-}
-
-.discount-won {
+  border-top: 1px dashed;
+  border-bottom: 1px solid;
+  border-color: gainsboro;
 }
 
 .total-container {
   position: relative;
+  top: 10px;
+
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total-guide {
+  position: relative;
+  left: 0;
+}
+
+.tprice {
+  display: flex;
+  align-items: center; /* 추가된 부분 */
+}
+
+.one-container {
+  position: relative;
+
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.one-guide {
+  position: relative;
+  left: 0;
+}
+
+.oprice {
+  display: flex;
+  align-items: center; /* 추가된 부분 */
+}
+
+.pay-container {
+  position: relative;
   left: 32px;
+  top: 90px;
 
   width: calc(100% - 58px);
 
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+}
+
+.pay-guide {
+  position: relative;
+  margin-right: 15px;
+  color: rgba(128, 128, 128, 0.779);
 }
 
 .dchat-button {
   position: relative;
   left: 32px;
+  top: 90px;
 
   width: calc(100% - 58px);
+  height: 40px;
+
+  border-radius: 5px;
+  border-color: transparent;
+  background-color: #007ef2;
+  color: white;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.chaticon {
+  position: relative;
+  top: 30%;
+  transform: translateY(-50%);
+  margin-right: 5px;
+
+  height: 15px;
+  width: auto;
+}
+
+.chat-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-sidebar.closed {
+  width: 0;
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+  transition: none; /* 애니메이션 효과 */
+}
+
+.chat-sidebar.open {
+  position: fixed;
+  left: calc(1% + 394px);
+  top: calc(1% + 74px);
+
+  width: 384px;
+  height: 600px;
+
+  background-color: white;
+  box-shadow: 0px 0px 5px gray;
+  border-radius: 5px;
+
+  z-index: 9997;
+}
+
+.user {
+  border-bottom: 1px solid #716d6d;
+  padding: 10px;
+  width: 95%;
+}
+
+.user_data {
+  position: relative;
+  top: auto;
+  background-color: transparent;
+  border-top: 5px solid #716d6d;
+  max-height: calc(100vh);
+}
+
+.profile_name {
+  background-color: white;
+  width: 100%;
+  height: 64px;
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  position: relative;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+}
+
+.close-button {
+  position: relative;
+  left: 220px; 
+
+  width: 32px;
   height: 32px;
 
-  background-color: black;
-  color: white;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  border-radius: 5px;
+}
+
+.c-profile-icon {
+  position: relative;
+
+  width: 32px;
+  height: 32px;
+
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border: none;
+  border-radius: 5px;
+}
+
+.c-title {
+  position: relative;
+  left: 10px;
+  margin-left: 10px;
+
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.c-academy {
+  position: relative;
+  left: 10px;
+  margin-left: 10px;
+
+  font-size: 14px;
+  font-weight: bold;
+  color: #007ef2;
+}
+
+.user a:hover {
+  text-decoration: none;
+  color: #212529;
+}
+.user a {
+  color: #212529;
+}
+
+.chat_container {
+  height: 478px;
+  background-color: white;
+}
+
+.chat_section {
+  padding-top: 15px;
+  overflow-y: auto;
+}
+.incoming_msg_img {
+  display: inline-block;
+  width: 6%;
+}
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+}
+.received_withd_msg p {
+  background: #ebebeb none repeat scroll 0 0;
+  border-radius: 6px;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+.time_date {
+  color: #747474;
+  display: block;
+  font-size: 10px;
+  margin: 8px 0 0;
+}
+.received_withd_msg {
+  width: 57%;
+}
+.mesgs {
+  float: left;
+  padding: 30px 15px 0 25px;
+  width: 60%;
+}
+
+.sent_msg p {
+  background: #007ef2 none repeat scroll 0 0;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 0;
+  color: #fff;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+.outgoing_msg {
+  overflow: hidden;
+  margin: 26px 0 26px;
+}
+.sent_msg {
+  float: right;
+  width: 60%;
+}
+
+.input_msg_write {
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: 11px;
+  width: calc(100% - 20px);
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 5px;
+}
+
+.input_msg_write input {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 48px;
+  width: 100%;
+  padding: 10px;
+}
+
+.type_msg {
+  width: 100%;
+  height: 48px;
+  position: relative; /* 'relative' 대신 'sticky' 사용 */
+  bottom: 0 !important; /* bottom 값을 0으로 설정하여 항상 아래에 붙도록 함 */
+}
+
+.msg_send_btn {
+  background: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: medium none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: sticky;
+  right: 0;
+  top: 11px;
+  width: 33px;
+}
+.messaging {
+  padding: 0 0 50px 0;
+}
+.msg_history {
+  height: 516px;
+  overflow-y: auto;
+}
+
+.cmargin {
+  position: relative;
+  height: 8px;
 }

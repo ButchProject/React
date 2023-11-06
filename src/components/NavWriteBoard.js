@@ -1,24 +1,16 @@
 import React, { useState } from "react";
 import { writingBoard } from "../apiServices/Auth";
+import { useNavigate } from "react-router-dom";
 import SelectBox from "./Selectbox";
 import "../styles/NavWriteBoard.css";
-import axios from 'axios';
-axios.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers['Authorization'] = 'Bearer ' + token;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-function NavWriteBoard({ map}) {
-  const [waypoints, setWaypoints] = useState([{ name: "", time: "", time2: "", detailedLocation: "" }]);
+
+function NavWriteBoard({ map, setSearchRoute, setShouldDrawPolyline }) {
+  const [waypoints, setWaypoints] = useState([
+    { name: "", time: "", time2: "", detailedLocation: "" },
+  ]);
   const [searchResults, setSearchResults] = useState({ waypoints: [] });
   const [selectedRoutesBuffer, setSelectedRoutesBuffer] = useState([]);
+  const navigate = useNavigate();
 
   function handleSearch(keyword, type, index = -1) {
     if (keyword.trim() === "") {
@@ -38,8 +30,13 @@ function NavWriteBoard({ map}) {
           y: result.y, // 위도 정보 추가
         }));
 
-        setSearchResults((prev) => ({ ...prev, [type]: index === -1 ? formattedData : { ...prev[type], [index]: formattedData } }));
-
+        setSearchResults((prev) => ({
+          ...prev,
+          [type]:
+            index === -1
+              ? formattedData
+              : { ...prev[type], [index]: formattedData },
+        }));
       }
     });
   }
@@ -54,7 +51,10 @@ function NavWriteBoard({ map}) {
 
   function handleClick(value, setValue, type, index = -1, x, y) {
     setValue(value);
-    setSearchResults((prev) => ({ ...prev, [type]: index === -1 ? [] : { ...prev[type], [index]: [] } }));
+    setSearchResults((prev) => ({
+      ...prev,
+      [type]: index === -1 ? [] : { ...prev[type], [index]: [] },
+    }));
 
     if (!map) return;
 
@@ -75,13 +75,16 @@ function NavWriteBoard({ map}) {
     index === -1
       ? setMarkers((prev) => ({ ...prev, [type]: marker }))
       : setMarkers((prev) => ({
-        ...prev,
-        [type]: [...(prev[type] || []), marker],
-      }));
+          ...prev,
+          [type]: [...(prev[type] || []), marker],
+        }));
 
     // 선택된 위치 상태 업데이트
     if (index === -1) {
-      setSelectedLocations((prev) => ({ ...prev, [type]: { name: value, x, y } }));
+      setSelectedLocations((prev) => ({
+        ...prev,
+        [type]: { name: value, x, y },
+      }));
     } else {
       const newWaypoints = selectedLocations.waypoints.slice();
       newWaypoints[index] = { name: value, x, y };
@@ -99,10 +102,11 @@ function NavWriteBoard({ map}) {
   }
 
   const handleSaveRoutes = async () => {
-    
     try {
       // Using selectedRoutesBuffer instead of temporarySelectedRoutes
-      const filteredRoutes = selectedRoutesBuffer.filter((route) => route !== null && route.name !== "");
+      const filteredRoutes = selectedRoutesBuffer.filter(
+        (route) => route !== null && route.name !== ""
+      );
 
       const extractedData = filteredRoutes.map((route, idx) => ({
         nodeNum: idx + 1,
@@ -114,8 +118,7 @@ function NavWriteBoard({ map}) {
       }));
 
       // Define the detailedLocation variable with appropriate value
-      const detailedLocation = waypoints.map(data => data.detailedLocation); // Collect detailedLocation values
-
+      const detailedLocation = waypoints.map((data) => data.detailedLocation); // Collect detailedLocation values
 
       const nodeInfo = extractedData.map((data, index) => ({
         nodeNum: data.nodeNum, //정류장 번호
@@ -132,14 +135,13 @@ function NavWriteBoard({ map}) {
         boardState: selectedProvince, //도
         boardCity: selectedCity, //시
         boardWhere: selectedDistrict, //구
-        boardDetail: content //내용
+        boardDetail: content, //내용
       };
 
       const finalDataToSend = {
         boardDTO: pppost,
-        nodeDTOList: nodeInfo
+        nodeDTOList: nodeInfo,
       };
-
 
       // Sending data to backend using writingBoard function
       const response = await writingBoard(finalDataToSend);
@@ -160,12 +162,13 @@ function NavWriteBoard({ map}) {
     setWaypoints(newWaypoints);
 
     // 선택된 위치 상태 업데이트
-    const newSelectedWaypoints = selectedLocations.waypoints.filter((_, idx) => idx !== index);
+    const newSelectedWaypoints = selectedLocations.waypoints.filter(
+      (_, idx) => idx !== index
+    );
     setSelectedLocations((prev) => ({
       ...prev,
       waypoints: newSelectedWaypoints,
     }));
-
 
     // 선택된 경로 상태 업데이트
     const newSelectedRoutes = newSelectedWaypoints.map((route, idx) => ({
@@ -186,37 +189,60 @@ function NavWriteBoard({ map}) {
     }
   };
 
-
-
   const addWaypoint = () => {
-    setWaypoints((prev) => [...prev, { name: "", time: "", time2: "", detailedLocation: "" }]);
+    setWaypoints((prev) => [
+      ...prev,
+      { name: "", time: "", time2: "", detailedLocation: "" },
+    ]);
   };
 
   const updateWaypointName = (value, index) => {
     setWaypoints((prev) =>
-      prev.map((waypoint, i) => (i === index ? { ...waypoint, name: value } : waypoint))
+      prev.map((waypoint, i) =>
+        i === index ? { ...waypoint, name: value } : waypoint
+      )
     );
   };
 
   const updateWaypointTime = (value, index) => {
     setWaypoints((prev) =>
-      prev.map((waypoint, i) => (i === index ? { ...waypoint, time: value } : waypoint))
+      prev.map((waypoint, i) =>
+        i === index ? { ...waypoint, time: value } : waypoint
+      )
     );
   };
 
   const updateWaypointTime2 = (value, index) => {
     setWaypoints((prev) =>
-      prev.map((waypoint, i) => (i === index ? { ...waypoint, time2: value } : waypoint))
+      prev.map((waypoint, i) =>
+        i === index ? { ...waypoint, time2: value } : waypoint
+      )
     );
   };
   const updateWaypointDetailedLocation = (value, index) => {
     setWaypoints((prev) =>
-      prev.map((waypoint, i) => (i === index ? { ...waypoint, detailedLocation: value } : waypoint))
+      prev.map((waypoint, i) =>
+        i === index ? { ...waypoint, detailedLocation: value } : waypoint
+      )
     );
+  };
+
+  const handlebackClick = () => {
+    navigate("/board");
   };
 
   return (
     <div className="sidebar">
+      <div className="top">
+        <button
+          className="goback"
+          style={{
+            backgroundImage: `url(${process.env.PUBLIC_URL}/image/backicon.png)`,
+          }}
+          onClick={handlebackClick}
+        ></button>
+        <h4>게시글 작성</h4>
+      </div>
       <input
         className="title-input"
         type="text"
@@ -225,18 +251,19 @@ function NavWriteBoard({ map}) {
         placeholder="제목을 입력해주세요"
         required
       />
-      <h4 className="region-guide">운행지역</h4>
-      <SelectBox
-        setSelectedProvince={setSelectedProvince}
-        setSelectedCity={setSelectedCity}
-        setSelectedDistrict={setSelectedDistrict}
-      />
-
+      <div className="region-container">
+        <h4 className="region-guide">운행지역</h4>
+        <SelectBox
+          className="region-selectbox"
+          setSelectedProvince={setSelectedProvince}
+          setSelectedCity={setSelectedCity}
+          setSelectedDistrict={setSelectedDistrict}
+        />
+      </div>
       <div className="course-container">
         <h4 className="course-guide">정류장 운행 시간표</h4>
         {waypoints.map((waypoint, index) => (
           <div key={`waypoint-${index}`}>
-
             <select // kdh
               className="hour"
               type="text"
@@ -285,12 +312,17 @@ function NavWriteBoard({ map}) {
               className="detail"
               type="text"
               value={waypoint.detailedLocation}
-              onChange={(event) => updateWaypointDetailedLocation(event.target.value, index)}
+              onChange={(event) =>
+                updateWaypointDetailedLocation(event.target.value, index)
+              }
               placeholder={"세부 지역"}
             />
             <button
               className="delete-button"
-              onClick={() => removeWaypoint(index)}>-</button>
+              onClick={() => removeWaypoint(index)}
+            >
+              -
+            </button>
             <ul>
               {(searchResults.waypoints[index] || []).map((result) => (
                 <li
@@ -318,6 +350,8 @@ function NavWriteBoard({ map}) {
         <button type="button" onClick={handleSaveRoutes}>
           확인
         </button>
+      </div>
+      <div className="comment-container">
         <h4 className="comment-guide">추가사항을 입력해주세요.</h4>
         <textarea
           className="comment-input"
@@ -327,25 +361,11 @@ function NavWriteBoard({ map}) {
           required
           style={{ resize: "none" }}
         />
-        <h4 className="price-guide">기존금액</h4>
-        <div className="price-container">
-          <input className="price-input" placeholder="기존금액 입력" />
-          <h4 className="price-won">원</h4>
-        </div>
-        <h4 className="discount-guide">할인금액</h4>
-        <div className="discount-container">
-          <input className="discount-input" placeholder="기존금액 입력" />
-          <h4 className="discount-won">원</h4>
-        </div>
-        <h4 className="totalprice-guide">총 금액</h4>
-        <div className="totalprice-container">
-          <h4 className="totalprice-amount">0000</h4>
-          <h4 className="totalprice-currency">원</h4>
-        </div>
-        <button className="register-button" type="submit">
-          등록하기
-        </button>
       </div>
+      <button className="register-button" type="submit">
+        등록하기
+      </button>
+      <div className="margin"></div>
     </div>
   );
 }

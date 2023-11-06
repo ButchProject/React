@@ -7,3 +7,80 @@
   font-weight: bold;
   color: #333;
 }
+
+.logo-black {
+  position: absolute;
+  top: 4rem;
+  left: 8rem;
+
+  width: 6rem;
+  height: auto;
+}
+
+.go_login {
+  position: absolute;
+  top: 4rem;
+  right: 8rem;
+
+  width: auto;
+  background-color: transparent;
+  border: none;
+
+  color: black;
+  font-size: 12px;
+}
+
+.description-container {
+  position: absolute;
+  top: 14rem;
+  left: 8rem;
+
+  width: calc((100% - 16rem) * 0.25);
+  height: calc(100% - 20rem);
+  border: 1px solid black;
+}
+
+.button1,
+.button2,
+.button3 {
+  margin-left: 10px;
+  width: calc((100% - 16rem - 30px) / 4);
+  height: calc((100% - 20rem) * 0.6);
+}
+
+.button1 {
+  position: absolute;
+  top: 14rem;
+  left: calc((100% - 16rem) * 0.25 + 8rem);
+
+  transition: left .5s ease-in-out; /* Add this line */
+}
+
+.button1-clicked {
+  border: none;
+  color: transparent;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.button2 {
+  position: absolute;
+  top: 14rem;
+  left: calc((100% - 16rem) * 0.5 + 8rem);
+}
+
+.button3 {
+  position: absolute;
+  top: 14rem;
+  left: calc((100% - 16rem) * 0.75 + 8rem);
+}
+
+.move-left {
+  position: absolute;
+  transform: translateX(-100%);
+  left: 0;
+  top: 14rem; /* you may need to adjust this */
+  transition: all 0.5s ease-in-out; /* adjust duration and easing function as needed */
+}

@@ -205,10 +205,10 @@ const Register = (props) => {
                 onChange={handleChange}
               />
             </div>
-            <h4 className="numberOfStudents">학생 수를 입력해주세요.</h4>
+            <h4 className="numberOfStudent-guide">학생 수를 입력해주세요.</h4>
             <div>
               <input
-                className="numberOfStudents"
+                className="numberOfStudent-input"
                 type="number"
                 name="numberOfStudents"
                 placeholder="학생 수"

@@ -1,0 +1,57 @@
+.logo-black {
+  position: absolute;
+  top: 4rem;
+  left: 8rem;
+
+  width: 6rem;
+  height: auto;
+}
+
+.go_login {
+  position: absolute;
+  top: 4rem;
+  right: 8rem;
+
+  width: auto;
+  background-color: transparent;
+  border: none;
+
+  color: black;
+  font-size: 12px;
+}
+
+.contents-container {
+  position: absolute;
+  top: 14rem;
+  left: 8rem;
+
+  width: calc(100% - 16rem);
+  height: calc(100% - 20rem);
+  display: flex;
+
+  border: 1px solid black;
+}
+
+.description-container {
+  width: calc(100% * 0.25);
+  border: 1px solid black;
+}
+
+.button-container {
+  position: relative;
+  top: 20%;
+
+  width: calc(100% * 0.75);
+  height: 60%;
+
+  border: 1px solid black;
+}
+
+.button1,
+.button2,
+.button3 {
+  margin-left: 10px;
+  width: calc((100% - 30px) / 3);
+  height: 100%;
+}
+ 

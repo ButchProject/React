@@ -1,18 +1,24 @@
 .layout {
-  position: absolute;
-  left: 90px;
   display: flex;
   flex-direction: row;
 }
 
-.chat-layout {
-  width: 384px;
+.mapContainer {
+  width: 100%;
   height: 100vh;
+}
+
+.chat-layout {
+  position: fixed;
+  left: 1%;
+  top: calc(1% + 74px);
+
+  width: 384px;
+  height: calc(98% - 74px);
 
   background-color: white;
   box-shadow: 0px 0px 5px gray;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 
   z-index: 9998;
 }
@@ -26,12 +32,13 @@
   height: 48px;
 
   border-radius: 5px;
-  border: 1.5px solid #c2c2c2;
-  background-color: #f1f1f1;
+  border: 2px solid #ffd600;
 }
 
 .search-input {
-  position: relative;
+  position: absolute;
+  top: 0px;
+
   width: calc(100% - 48px);
   height: 48px;
   background-color: transparent;
@@ -41,21 +48,20 @@
 }
 
 .search-button {
-  position: relative;
-  margin-left: 0px;
+  position: absolute;
+  right: 0px;
 
   width: 48px;
   height: 48px;
 
-  background-color: transparent;
   border: none;
+  background-color: transparent;
 }
 
 .chat-list {
   position: relative;
-  left: 6px;
 
-  width: calc(100% - 6px);
+  width: 100%;
   height: 80%;
 
   margin-top: 50px;
@@ -72,6 +78,22 @@
   display: flex;
   align-items: center;
 }
+
+.marker {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 8px;
+  background-color: transparent;
+
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.marker-selected {
+  background-color: #007ef2; /* 원하는 색상으로 변경하세요. */
+}
+
 
 .chatting-room:hover {
   background-color: #f1f1f1;
@@ -105,7 +127,7 @@
 
   font-size: 14px;
   font-weight: bold;
-  color: #e8004d;
+  color: #007ef2;
 }
 
 .container-fluid {
@@ -117,17 +139,20 @@
 .container-fluid.closed {
   width: 0;
   overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
-  transition: .5s ease; /* 애니메이션 효과 */
+  transition: none; /* 애니메이션 효과 */
 }
 
 .container-fluid.open {
-  width: 378px;
-  height: 100vh;
+  position: fixed;
+  left: calc(1% + 394px);
+  top: calc(1% + 74px);
+
+  width: 384px;
+  height: 600px;
 
   background-color: white;
   box-shadow: 0px 0px 5px gray;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
 
   z-index: 9997;
 }
@@ -151,7 +176,8 @@
   width: 100%;
   height: 64px;
   padding: 10px;
-  border-bottom: 1px solid #716d6d;
+  border-bottom: 1px solid #f1f1f1;
+  border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   position: relative;
   top: 0;
@@ -162,6 +188,7 @@
 
 .close-button {
   position: relative;
+  left: 220px; 
 
   width: 32px;
   height: 32px;
@@ -203,7 +230,7 @@
 
   font-size: 14px;
   font-weight: bold;
-  color: #e8004d;
+  color: #007ef2;
 }
 
 .user a:hover {
@@ -215,8 +242,8 @@
 }
 
 .chat_container {
-  height:calc(100vh - 113px);
-  background-color: black;
+  height: 478px;
+  background-color: white;
 }
 
 .chat_section {
@@ -258,7 +285,7 @@
 }
 
 .sent_msg p {
-  background: #050f8f none repeat scroll 0 0;
+  background: #007ef2 none repeat scroll 0 0;
   border-radius: 6px;
   font-size: 14px;
   margin: 0;
@@ -274,10 +301,18 @@
   float: right;
   width: 60%;
 }
+
 .input_msg_write {
   display: flex;
   align-items: center;
+  position: relative;
+  left: 11px;
+  width: calc(100% - 20px);
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 5px;
 }
+
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
@@ -291,15 +326,15 @@
 .type_msg {
   width: 100%;
   height: 48px;
-  border-top :1px solid #c4c4c4 ; 
-  position: relative;/* 'relative' 대신 'sticky' 사용 */ 
-  bottom:0 !important;/* bottom 값을 0으로 설정하여 항상 아래에 붙도록 함 */ 
+  position: relative; /* 'relative' 대신 'sticky' 사용 */
+  bottom: 0 !important; /* bottom 값을 0으로 설정하여 항상 아래에 붙도록 함 */
 }
 
 .msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
+  background: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
   border: medium none;
-  border-radius: 50%;
   color: #fff;
   cursor: pointer;
   font-size: 17px;
@@ -315,4 +350,9 @@
 .msg_history {
   height: 516px;
   overflow-y: auto;
+}
+
+.cmargin {
+  position: relative;
+  height: 8px;
 }
