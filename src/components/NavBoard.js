@@ -16,8 +16,21 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) { // If the token is expired or invalid
+      localStorage.removeItem('token'); // Remove the expired or invalid token
+      window.location = "/"; // Redirect to login page
+    }
+    return Promise.reject(error);
+  }
+);
 
-const NavBoard = () => {
+
+function NavBoard({ setLocations }) {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [ChatSidebarOpen, setChatSidebarOpen] = useState(false);
@@ -47,30 +60,47 @@ const NavBoard = () => {
 
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
-    axios
-      .get("http://localhost:8080/api/Board")
+    axios.get(`${process.env.REACT_APP_API_URL}/api/Board`)
       .then((response) => setData(response.data))
       .catch((error) => console.error("Error:", error));
   }, []);
 
   const handleCombinedClick = (boardId) => {
-    const token = localStorage.getItem("token"); // Get token from local storage
+    const token = localStorage.getItem('token'); // Get token from local storage
 
-    axios
-      .get(`http://localhost:8080/api/detailBoard/${boardId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Add token to request header
-        },
-      })
-      .then((response) => {
-        console.log("Received data:", response.data);
+    axios.get(`${process.env.REACT_APP_API_URL}/api/detailBoard/${boardId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}` // Add token to request header
+      }
+    })
+      .then(response => {
+        console.log('Received data:', response.data);
         setDetailData([response.data]);
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => console.error('Error:', error));
 
     setSidebarOpen(!sidebarOpen);
   };
+  const [RoomData, setRoomData] = useState([]);
 
+  const handleChatClick = (boardWriter) => {
+    const token = localStorage.getItem('token'); // Get token from local storage
+
+    axios.post(`${process.env.REACT_APP_API_URL}/api/chat/createRoom`, {
+      user2:boardWriter //여기가 body
+      }, {
+      headers: {
+        'Authorization': `Bearer ${token}` // Add token to request header
+      }
+    })
+      .then(response => {
+        console.log('Received data:', response.data);
+        setRoomData([response.data]);
+      })
+      .catch((error) => console.error('Error:', error));
+  };
+
+  //chat
   useEffect(() => {
     const eventSource = new EventSource(
       "http://localhost:8082/sender/ssar/receiver/cos"
@@ -129,6 +159,9 @@ const NavBoard = () => {
     setMessages([...messages, { msg, time, isSent: true }]);
   };
 
+
+//chat end
+
   const [selectedButton, setSelectedButton] = useState(null);
 
   const handleButtonClick = (id) => {
@@ -171,6 +204,8 @@ const NavBoard = () => {
           </button>
         </div>
         <div className="list-container">
+
+          
           <div className="list" onClick={() => setSidebarOpen(true)}>
             <button className="llist">
               <div className="left">
@@ -298,119 +333,80 @@ const NavBoard = () => {
           </div>
         </div>
         <div className="dcourse-container">
-          <h4 className="dcourse-guide">정류장 운영시간표</h4>
-          <div className="c1">
-            <div className="c2"></div>
-            <div className="c3">
-              <div className="circle"></div>
-              <div className="ctime">
-                <div className="chour">22</div>
-                <div className="divide">:</div>
-                <div className="cmin">00</div>
-              </div>
-              <div className="cplace">asdfasdf</div>
-            </div>
-            <div className="c3">
-              <div className="circle"></div>
-              <div className="ctime">
-                <div className="chour">22</div>
-                <div className="divide">:</div>
-                <div className="cmin">00</div>
-              </div>
-              <div className="cplace">asdfasdf</div>
-            </div>
-            <div className="c3">
-              <div className="circle"></div>
-              <div className="ctime">
-                <div className="chour">22</div>
-                <div className="divide">:</div>
-                <div className="cmin">00</div>
-              </div>
-              <div className="cplace">asdfasdf</div>
-            </div>
-            <div className="c3">
-              <div className="circle"></div>
-              <div className="ctime">
-                <div className="chour">22</div>
-                <div className="divide">:</div>
-                <div className="cmin">00</div>
-              </div>
-              <div className="cplace">asdfasdf</div>
-            </div>
-          </div>
-        </div>
-        <div className="number-container">
-          <div className="numberguide-container">
-            <h4 className="number-guide">현재 학생 수</h4>
-            <div className="num">
-              <h4 className="number">00</h4>
-              <h4 className="aud">명</h4>
-            </div>
-          </div>
-          <div className="bus-container">
-            <div className="ybox">
-              <h5 className="ybus-guide">12인승 버스</h5>
-              <h1 className="ybusnum">0</h1>
-              <img
-                className="bus"
-                src={`${process.env.PUBLIC_URL}/image/bus-y2.png`}
-                alt="ybus"
-              />
-            </div>
-            <div className="gbox">
-              <h5 className="gbus-guide">25인승 버스</h5>
-              <h1 className="gbusnum">0</h1>
-              <img
-                className="bus"
-                src={`${process.env.PUBLIC_URL}/image/bus-g2.png`}
-                alt="ybus"
-              />
-            </div>
-            <div className="bbox">
-              <h5 className="bbus-guide">45인승 버스</h5>
-              <h1 className="bbusnum">0</h1>
-              <img
-                className="bus"
-                src={`${process.env.PUBLIC_URL}/image/bus-b2.png`}
-                alt="ybus"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="dmemo-container">
-          <div className="memo-context">
-            메모메모메모메모메모메모메모메모메모메모메모메모메모메모메모메모메모메모메모메모
-          </div>
-        </div>
-        <div className="price-container">
-          <div className="total-container">
-            <h4 className="total-guide">총 버스 총합 금액</h4>
-            <div className="tprice">
-              <h4 className="total-money">0000</h4>
-              <h4 className="total-won">원</h4>
-            </div>
-          </div>
-          <div className="one-container">
-            <h4 className="one-guide">1인 버스 대여 금액</h4>
-            <div className="oprice">
-              <h4 className="one-money">0000</h4>
-              <h4 className="one-won">원</h4>
-            </div>
-          </div>
-        </div>
-        <div className="pay-container">
-          <h5 className="pay-guide">부담해야할 금액</h5>
-          <h2 className="pay-price">0000</h2>
-          <h2 className="pay-won">원</h2>
-        </div>
-        <button className="dchat-button" onClick={handleChatButtonClick}>
-          <img
-            className="chaticon"
-            src={`${process.env.PUBLIC_URL}/image/chat2.png`}
-            alt="ybus"
-          />
-          채팅하기
-        </button>
+  <h4 className="dcourse-guide">정류장 운영시간표</h4>
+  {item.nodeDTOList.map((node, nodeIndex) => (
+    <div className="c3" key={nodeIndex}>
+      <div className="circle"></div>
+      <div className="ctime">
+        <div className="chour">{node.nodeHour}</div>
+        <div className="divide">:</div>
+        <div className="cmin">{node.nodeMinute}</div>
+      </div>
+      <div className="cplace">{node.nodeName}</div>
+    </div>
+  ))}
+</div>
+
+<div className="number-container">
+  <div className="numberguide-container">
+    <h4 className="number-guide">현재 학생 수</h4>
+    <div className="num">
+      <h4 className="number">00</h4> {/* 이 값도 동적으로 받아와야 합니다 */}
+      <h4 className="aud">명</h4>
+    </div>
+  </div>
+  <div className="bus-container">
+    {item.busDTOList.map((bus, busIndex) => (
+      <div className={bus.type + "box"} key={busIndex}>
+        <h5 className={bus.type + "bus-guide"}>{bus.capacity}인승 버스</h5>
+        <h1 className={bus.type + "busnum"}>{bus.count}</h1>
+        <img
+          className="bus"
+          src={`${process.env.PUBLIC_URL}/image/bus-${bus.type}2.png`}
+          alt={bus.type + "bus"}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
+<div className="dmemo-container">
+  <div className="memo-context">
+    {item.boardDTO.boardDetail} {/* 메모 내용도 데이터로부터 받아와야 합니다 */}
+  </div>
+</div>
+
+<div className="price-container">
+  <div className="total-container">
+    <h4 className="total-guide">총 버스 총합 금액</h4>
+    <div className="tprice">
+      <h4 className="total-money">{item.totalPrice}</h4> {/* 이 값도 동적으로 받아와야 합니다 */}
+      <h4 className="total-won">원</h4>
+    </div>
+  </div>
+  <div className="one-container">
+    <h4 className="one-guide">1인 버스 대여 금액</h4>
+    <div className="oprice">
+      <h4 className="one-money">{item.pricePerPerson}</h4> {/* 이 값도 동적으로 받아와야 합니다 */}
+      <h4 className="one-won">원</h4>
+    </div>
+  </div>
+</div>
+
+<div className="pay-container">
+  <h5 className="pay-guide">부담해야할 금액</h5>
+  <h2 className="pay-price">{item.individualPayment}</h2> {/* 이 값도 동적으로 받아와야 합니다 */}
+  <h2 className="pay-won">원</h2>
+</div>
+
+<button className="dchat-button" onClick={() => handleChatClick(item.boardDTO.boardWriter)}>
+  <img
+    className="chaticon"
+    src={`${process.env.PUBLIC_URL}/image/chat2.png`}
+    alt="Chat Icon"
+  />
+  채팅하기
+</button>
       </div>
 
       <div className={`chat-sidebar ${ChatSidebarOpen ? "open" : "closed"}`}>
