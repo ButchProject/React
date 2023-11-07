@@ -242,7 +242,7 @@ const Chat = () => {
                   className="profile-icon"
                   style={{ backgroundImage: `url(${ProfileIcon})` }}
                 ></div>
-                <div className="chat-title">{item.otherUserAcademyName}</div>
+                <div className="chat-title">{item.user1Academy}</div>
               </button>
             </div>
           ))}
@@ -273,20 +273,14 @@ const Chat = () => {
                 </div>
                 <div className="chat_container">
                 <div className="chat_container chat_section" id="chat-box">
-                  {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
+                {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
                     <div
                       key={i}
-                      className={
-                        message.isSent ? "outgoing_msg" : "incoming_msg"
-                      }
+                      className={message.user1 === "song@gmail.com" ? "outgoing_msg" : "incoming_msg"}
                     >
-                      <div
-                        className={
-                          message.isSent ? "sent_msg" : "received_withd_msg"
-                        }
-                      >
-                        <p>{message.msg}</p>
-                        <span className="time_date">{message.time}</span>
+                      <div className={message.user1 === "song@gmail.com" ? "sent_msg" : "received_withd_msg"}>
+                        <p>{message.message}</p>
+                        <span className="time_date">{message.createdAt}</span>
                       </div>
                     </div>
                   ))}
