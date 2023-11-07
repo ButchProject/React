@@ -262,11 +262,11 @@ function NavBoard({ setLocations }) {
               <div className="list">
                 <button className="llist" onClick={() => handleCombinedClick(item.boardDTO.boardId)}>
                   <div className="left">
-                    <div className="lregion">운행지역(바꿔야함)</div>
+                    <div className="lregion">{item.boardDTO.boardCity}</div>
                     <div className="ltitle">{item.boardDTO.boardTitle}</div>
                   </div>
                   <div className="right">
-                    <div className="current">00(인원수바꿔야함)</div>
+                    <div className="current">{item.boardDTO.boardCurrentStudents}</div>
                     <img
                       className="person"
                       src={`${process.env.PUBLIC_URL}/image/personicon.png`}
@@ -306,7 +306,7 @@ function NavBoard({ setLocations }) {
               <div className="dacademy">학원명(고쳐야함)</div>
             </div>
             <div className="dregion-container">
-              <h4 className="dregion-guide">운행지역(고쳐야함)</h4>
+              <h4 className="dregion-guide">운행지역</h4>
               <div className="dregion">
                 <div className="dprovince">{item.boardDTO.boardState}</div>
                 <div className="dcity">{item.boardDTO.boardCity}</div>
