@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Profile from "../pages/Profile.js";
+import axios from 'axios';
 import "../styles/NavBar.css";
 
 axios.interceptors.request.use(
