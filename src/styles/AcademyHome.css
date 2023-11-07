@@ -1,3 +1,12 @@
+.layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f6f6f6;
+}
+
 .logo-black {
   position: absolute;
   top: 4rem;
@@ -17,7 +26,7 @@
   border: none;
 
   color: black;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .contents-container {
@@ -26,32 +35,171 @@
   left: 8rem;
 
   width: calc(100% - 16rem);
-  height: calc(100% - 20rem);
-  display: flex;
+  height: 60%;
 
-  border: 1px solid black;
 }
 
 .description-container {
-  width: calc(100% * 0.25);
-  border: 1px solid black;
-}
-
-.button-container {
   position: relative;
-  top: 20%;
-
-  width: calc(100% * 0.75);
-  height: 60%;
-
-  border: 1px solid black;
+  width: 50%;
+  height: 30%;
 }
 
-.button1,
-.button2,
-.button3 {
+.d1 {
+  position: relative;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.bigtitle {
+}
+
+.smalltitle {
+  position: relative;
+  width: 160px;
+  height: 30px;
   margin-left: 10px;
-  width: calc((100% - 30px) / 3);
-  height: 100%;
+
+  background-color: #11c042;
+  border-radius: 50px 50px 50px 50px; /* 픽셀 단위로 반원 모양을 만듭니다. */
+
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 가로 축을 중심으로 요소를 가운데로 정렬합니다. */
+  color: white;
 }
- 
+
+.d2 {
+  position: relative;
+}
+
+.button1 {
+  position: absolute;
+  bottom: 0;
+  right: 500px;
+  margin-left: 10px;
+  width: 240px;
+  height: 300px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.profilepic {
+  flex: 6;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 5px gray;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: transparent;
+}
+
+.profile-guide {
+  flex: 4;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 5px gray;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: white;
+}
+
+.button2 {
+  position: absolute;
+  bottom: 0;
+  right: 250px;
+  width: 240px;
+  height: 300px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.boardpic {
+  flex: 6;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0px 0px 5px gray;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: transparent;
+}
+
+.board-guide {
+  flex: 4;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 5px gray;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: white;
+}
+
+.button3 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 240px;
+  height: 300px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatpic {
+  flex: 6;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 5px gray;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: transparent;
+}
+
+.chat-guide {
+  flex: 4;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 5px gray;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: white;
+}
+
+.guide1 {
+  position: absolute;
+  top: 60%;
+  left: 20px;
+}
+
+.guide2 {
+  position: absolute;
+  top: 75%;
+  left: 20px;
+  width: 68%;
+  text-align: left;
+  word-wrap: break-word;
+  max-width: 168px;
+}
+
+.gonow {
+  position: absolute;
+  top: 85%;
+  right: 43px;
+  width: 50px;
+  display: inline-flex;
+}
+
+.gopic {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  width: 20px;
+  height: auto;
+}

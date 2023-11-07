@@ -16,7 +16,364 @@
   width: 384px;
   height: calc(98% - 74px);
 
-  background-color: white;
+  background-color: white;.layout {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .mapContainer {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .chat-layout {
+    position: fixed;
+    left: 1%;
+    top: calc(1% + 74px);
+  
+    width: 384px;
+    height: calc(98% - 74px);
+  
+    background-color: white;
+    box-shadow: 0px 0px 5px gray;
+    border-radius: 5px;
+  
+    z-index: 9998;
+  }
+  
+  .search-container {
+    position: relative;
+    left: 32px;
+    top: 16px;
+  
+    width: calc(100% - 58px);
+    height: 48px;
+  
+    border-radius: 5px;
+    border: 2px solid #ffd600;
+  }
+  
+  .search-input {
+    position: absolute;
+    top: 0px;
+  
+    width: calc(100% - 48px);
+    height: 48px;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    padding-left: 3%;
+  }
+  
+  .search-button {
+    position: absolute;
+    right: 0px;
+  
+    width: 48px;
+    height: 48px;
+  
+    border: none;
+    background-color: transparent;
+  }
+  
+  .chat-list {
+    position: relative;
+  
+    width: 100%;
+    height: 80%;
+  
+    margin-top: 50px;
+  }
+  
+  .chatting-room {
+    position: relative;
+    width: 100%;
+    height: 60px;
+  
+    background-color: white;
+    border: none;
+  
+    display: flex;
+    align-items: center;
+  }
+  
+  .marker {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 8px;
+    background-color: transparent;
+  
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .marker-selected {
+    background-color: #007ef2; /* 원하는 색상으로 변경하세요. */
+  }
+  
+  
+  .chatting-room:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .profile-icon {
+    position: relative;
+    left: 26px;
+  
+    width: 40px;
+    height: 40px;
+  
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 5px;
+  }
+  
+  .chat-title {
+    position: relative;
+    left: 26px;
+    margin-left: 10px;
+  
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .chat-academy {
+    position: relative;
+    left: 26px;
+    margin-left: 10px;
+  
+    font-size: 14px;
+    font-weight: bold;
+    color: #007ef2;
+  }
+  
+  .container-fluid {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 추가된 부분 */
+  }
+  
+  .container-fluid.closed {
+    width: 0;
+    overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+    transition: none; /* 애니메이션 효과 */
+  }
+  
+  .container-fluid.open {
+    position: fixed;
+    left: calc(1% + 394px);
+    top: calc(1% + 74px);
+  
+    width: 384px;
+    height: 600px;
+  
+    background-color: white;
+    box-shadow: 0px 0px 5px gray;
+    border-radius: 5px;
+  
+    z-index: 9997;
+  }
+  
+  .user {
+    border-bottom: 1px solid #716d6d;
+    padding: 10px;
+    width: 95%;
+  }
+  
+  .user_data {
+    position: relative;
+    top: auto;
+    background-color: transparent;
+    border-top: 5px solid #716d6d;
+    max-height: calc(100vh);
+  }
+  
+  .profile_name {
+    background-color: white;
+    width: 100%;
+    height: 64px;
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    position: relative;
+    top: 0;
+  
+    display: flex;
+    align-items: center;
+  }
+  
+  .close-button {
+    position: relative;
+    left: 220px; 
+  
+    width: 32px;
+    height: 32px;
+  
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .c-profile-icon {
+    position: relative;
+  
+    width: 32px;
+    height: 32px;
+  
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .c-title {
+    position: relative;
+    left: 10px;
+    margin-left: 10px;
+  
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .c-academy {
+    position: relative;
+    left: 10px;
+    margin-left: 10px;
+  
+    font-size: 14px;
+    font-weight: bold;
+    color: #007ef2;
+  }
+  
+  .user a:hover {
+    text-decoration: none;
+    color: #212529;
+  }
+  .user a {
+    color: #212529;
+  }
+  
+  .chat_container {
+    height: 478px;
+    background-color: white;
+  }
+  
+  .chat_section {
+    padding-top: 15px;
+    overflow-y: auto;
+  }
+  .incoming_msg_img {
+    display: inline-block;
+    width: 6%;
+  }
+  .received_msg {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    vertical-align: top;
+    width: 92%;
+  }
+  .received_withd_msg p {
+    background: #ebebeb none repeat scroll 0 0;
+    border-radius: 6px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+  }
+  .time_date {
+    color: #747474;
+    display: block;
+    font-size: 10px;
+    margin: 8px 0 0;
+  }
+  .received_withd_msg {
+    width: 57%;
+  }
+  .mesgs {
+    float: left;
+    padding: 30px 15px 0 25px;
+    width: 60%;
+  }
+  
+  .sent_msg p {
+    background: #007ef2 none repeat scroll 0 0;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 0;
+    color: #fff;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+  }
+  .outgoing_msg {
+    overflow: hidden;
+    margin: 26px 0 26px;
+  }
+  .sent_msg {
+    float: right;
+    width: 60%;
+  }
+  
+  .input_msg_write {
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: 11px;
+    width: calc(100% - 20px);
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .input_msg_write input {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: #4c4c4c;
+    font-size: 15px;
+    min-height: 48px;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .type_msg {
+    width: 100%;
+    height: 48px;
+    position: relative; /* 'relative' 대신 'sticky' 사용 */
+    bottom: 0 !important; /* bottom 값을 0으로 설정하여 항상 아래에 붙도록 함 */
+  }
+  
+  .msg_send_btn {
+    background: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: medium none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+    height: 33px;
+    position: sticky;
+    right: 0;
+    top: 11px;
+    width: 33px;
+  }
+  .messaging {
+    padding: 0 0 50px 0;
+  }
+  .msg_history {
+    height: 516px;
+    overflow-y: auto;
+  }
+  
+  .cmargin {
+    position: relative;
+    height: 8px;
+  }
   box-shadow: 0px 0px 5px gray;
   border-radius: 5px;
 
