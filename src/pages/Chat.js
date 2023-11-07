@@ -145,8 +145,8 @@ const Chat = () => {
     let otherUserFromData = currentRoom ? currentRoom.otherUserEmail : "";
 
     let chat = {
-      user1: myEmailFromData,  // 수정된 부분
-      user2: otherUserFromData,  // 수정된 부분
+      user2: myEmailFromData,  // 수정된 부분
+      user1: otherUserFromData,  // 수정된 부분
       message: messageInput,
       roomNum: currentRoomNumber,
     };
