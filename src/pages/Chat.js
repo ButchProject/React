@@ -40,6 +40,27 @@ const Chat = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
+  const handleRoomClick = async (roomNum) => {
+    setCurrentRoomNumber(roomNum);
+    handleButtonClick(roomNum);
+  
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/room`, {
+        params: {
+          roomNum: roomNum
+        }
+      });
+      // 기존의 메시지를 상태에 설정합니다.
+      setMessages(prevMessages => ({
+        ...prevMessages,
+        [roomNum]: response.data
+      }));
+  
+    } catch (error) {
+      console.error('데이터 가져오기 오류:', error);
+    }
+  };
+
 
   useEffect(() => {
     if (currentRoomNumber === null) {
@@ -116,10 +137,7 @@ const Chat = () => {
     setSelectedRoom(null);
   };
 
-  const handleRoomClick = (roomNum) => {
-    setCurrentRoomNumber(roomNum);
-    handleButtonClick(roomNum);
-  };
+
 
 
   const handleSendClick = async () => {
@@ -158,6 +176,7 @@ const Chat = () => {
       },
     });
 
+    addMessage(currentRoomNumber, messageInput, now);
     setMessageInput("");  // 메시지 입력 필드 초기화
 
     console.log(response);
@@ -254,45 +273,47 @@ const Chat = () => {
                   ></button>
                 </div>
                 <div className="chat_container">
-                  <div className="chat_container chat_section" id="chat-box">
-
-                    {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
+                <div className="chat_container chat_section" id="chat-box">
+                  {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
+                    <div
+                      key={i}
+                      className={
+                        message.isSent ? "outgoing_msg" : "incoming_msg"
+                      }
+                    >
                       <div
-                        key={i}
-                        className={message.user1 === "song@gmail.com" ? "outgoing_msg" : "incoming_msg"}
+                        className={
+                          message.isSent ? "sent_msg" : "received_withd_msg"
+                        }
                       >
-                        <div className={message.user1 === "song@gmail.com" ? "sent_msg" : "received_withd_msg"}>
-                          <p>{message.message}</p>
-                          <span className="time_date">{message.createdAt}</span>
-                        </div>
+                        <p>{message.msg}</p>
+                        <span className="time_date">{message.time}</span>
                       </div>
-                    ))}
-
-                  </div>
-                  <div className="type_msg">
-                    <div className="input_msg_write">
-                      <input
-                        id="chat-outgoing-msg"
-                        type="text"
-                        className="write_msg"
-                        placeholder="Type a message"
-                        value={messageInput}
-                        onChange={(e) => setMessageInput(e.target.value)}
-                        onKeyDown={(e) => e.keyCode === 13 && handleSendClick()}
-                      />
-                      <button
-                        id="chat-send"
-                        className="msg_send_btn"
-                        type="button"
-                        onClick={handleSendClick}
-                        style={{ backgroundImage: `url(${SendIcon})` }}
-                      >
-                        <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                      </button>
                     </div>
-                  </div>
-                  <div className="cmargin"></div>
+                  ))}
                 </div>
+                <div className="type_msg">
+                  <div className="input_msg_write">
+                    <input
+                      id="chat-outgoing-msg"
+                      type="text"
+                      className="write_msg"
+                      placeholder="Type a message"
+                      value={messageInput}
+                      onChange={(e) => setMessageInput(e.target.value)}
+                      onKeyDown={(e) => e.keyCode === 13 && handleSendClick()} 
+                    />
+                    <button
+                      id="chat-send"
+                      className="msg_send_btn"
+                      type="button"
+                      onClick={handleSendClick}
+                      >
+                      <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>
