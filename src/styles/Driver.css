@@ -1,0 +1,90 @@
+.layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f6f6f6;
+  }
+  
+  .logo-black {
+    position: absolute;
+    top: 4rem;
+    left: 8rem;
+  
+    width: 6rem;
+    height: auto;
+  }
+  
+  .go_login {
+    position: absolute;
+    top: 4rem;
+    right: 8rem;
+  
+    width: auto;
+    background-color: transparent;
+    border: none;
+  
+    color: black;
+    font-size: 15px;
+  }
+  
+  .contents-container {
+    position: absolute;
+    top: 8rem;
+    left: 8rem;
+  
+    width: calc(100% - 8rem);
+    height: calc(100% - 12rem);
+  }
+  
+  .description-container {
+    position: relative;
+    width: 30%;
+    height: 30%;
+  }
+  
+  .d1 {
+    position: relative;
+    height: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  .smalltitle {
+    position: relative;
+    width: 200px;
+    height: 30px;
+    margin-left: 10px;
+  
+    background-color: #007ef2;
+    border-radius: 50px 50px 50px 50px; /* 픽셀 단위로 반원 모양을 만듭니다. */
+  
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 가로 축을 중심으로 요소를 가운데로 정렬합니다. */
+    color: white;
+  }
+  
+.download {
+    position: absolute;
+    bottom: 0;
+
+    height: 10%;
+    width: 30%;
+
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 20px;
+}
+  
+.driverhome {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    height: 100%;
+}
