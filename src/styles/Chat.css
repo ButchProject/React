@@ -205,8 +205,8 @@
   }
   
   .close-button {
-    position: absolute;
-    left: 350px; 
+    position: relative;
+    left: 220px; 
   
     width: 32px;
     height: 32px;
@@ -279,7 +279,7 @@
     width: 92%;
   }
   .received_withd_msg p {
-    background: #ffd600 none repeat scroll 0 0;
+    background: #ebebeb none repeat scroll 0 0;
     border-radius: 6px;
     color: #646464;
     font-size: 14px;
@@ -618,7 +618,7 @@
   width: 92%;
 }
 .received_withd_msg p {
-  background: red none repeat scroll 0 0;
+  background: #ebebeb none repeat scroll 0 0;
   border-radius: 6px;
   color: #646464;
   font-size: 14px;
