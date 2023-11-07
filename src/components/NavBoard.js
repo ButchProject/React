@@ -42,7 +42,7 @@ function NavBoard({ setLocations }) {
   const [RoomData, setRoomData] = useState([]);
   const [selectedButton, setSelectedButton] = useState(null);
   const [currentRoomNumber, setCurrentRoomNumber] = useState(null); // Add this line
-
+  const [eventSource, setEventSource] = useState(null);
 
   const ProfileIcon = `${process.env.PUBLIC_URL}/image/profileicon.png`;
   const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
