@@ -651,12 +651,11 @@
   width: 100%;
 }
 .outgoing_msg {
-  float: right; /* 또는 display: flex; justify-content: flex-end; 를 사용할 수도 있습니다. */
-  clear: both;
   overflow: hidden;
   margin: 26px 0 26px;
 }
 .sent_msg {
+  float: right;
   width: 60%;
 }
 
