@@ -29,7 +29,7 @@ const Chat = () => {
   const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
   const SendIcon = `${process.env.PUBLIC_URL}/image/sendicon.png`;
 
-//채팅방 리스트 받아오는거
+//채팅방 리스트 받아오는거 + 채팅기록 불러오기
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
     axios.get(`${process.env.REACT_APP_API_URL}/api/chat/list`)
@@ -63,45 +63,22 @@ const Chat = () => {
 
 
   useEffect(() => {
-    if (currentRoomNumber === null) {
-      console.log('currentRoomNumber is null. Exiting useEffect.');
-      return;
-    }
-
-    console.log(`Setting up EventSource for room number: ${currentRoomNumber}`);
-
-    // 기존 EventSource 연결 닫기
-    if (eventSource) {
-      console.log('Closing existing EventSource connection.');
-      eventSource.close();
-    }
-
-    const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`);
-    console.log('Created new EventSource connection.');
-
-    newEventSource.onmessage = (event) => {
+    if (currentRoomNumber === null) return;
+  
+    const eventSource = new EventSource(
+      `${process.env.REACT_APP_API_URL}/api/chat/room`
+    );
+  
+    eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log('Received new message from EventSource:', data);
-      setMessages(prevMessages => ({
-        ...prevMessages,
-        [currentRoomNumber]: [...(prevMessages[currentRoomNumber] || []), data]
-      }));
+      // 실시간으로 수신된 메시지를 상태에 추가합니다.
+      addMessage(currentRoomNumber, data.message, data.createdAt);
     };
-
-    newEventSource.onerror = (error) => {
-      console.error('EventSource failed:', error);
-      newEventSource.close();
-    };
-
-    setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
-    console.log('Saved new EventSource instance to state.');
-
+  
     return () => {
-      console.log('useEffect cleanup. Closing EventSource connection.');
-      if (newEventSource) {
-        newEventSource.close(); // 컴포넌트 언마운트나 roomNumber 변경시 EventSource 종료
-      }
+      eventSource.close(); // 방을 바꿀 때 EventSource를 종료합니다.
     };
+  
   }, [currentRoomNumber]);
 
   useEffect(() => {
@@ -242,8 +219,7 @@ const Chat = () => {
                   className="profile-icon"
                   style={{ backgroundImage: `url(${ProfileIcon})` }}
                 ></div>
-                <div className="chat-title">{item.otherUserEmail}(바꿔야함)</div>
-                <div className="chat-academy">학원명(바꿔야함)</div>
+                <div className="chat-title">{item.user1Academy}</div>
               </button>
             </div>
           ))}
