@@ -4,6 +4,18 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Profile from "../pages/Profile.js";
 import "../styles/NavBar.css";
 
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = 'Bearer ' + token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 function NavBar() {
   const [isBoardHovered, setIsBoardHovered] = useState(false);
   const [isChatHovered, setIsChatHovered] = useState(false);
@@ -40,7 +52,27 @@ function NavBar() {
   const boardclick = `${process.env.PUBLIC_URL}/image/board-click.png`;
   const chatnormal = `${process.env.PUBLIC_URL}/image/chat.png`;
   const chatclick = `${process.env.PUBLIC_URL}/image/chat-click.png`;
+  
+  const [username, setUsername] = useState('');
 
+  // 컴포넌트 마운트 시 사용자 이름을 가져오기 위한 이펙트 훅
+  useEffect(() => {
+    // 사용자 이름을 가져오는 비동기 함수를 정의합니다.
+    const fetchUsername = async () => {
+      try {
+        // 'backend-endpoint'를 실제 API 엔드포인트로 교체하세요
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/navbar`);
+        const data = await response.json();
+        setUsername(data.username); // 반환되는 데이터 구조에 맞게 조정하세요
+      } catch (error) {
+        console.error("사용자 이름을 가져오는데 실패했습니다", error);
+      }
+    };
+
+    // fetch 함수를 호출합니다.
+    fetchUsername();
+  }, []); 
+  
   return (
     <div>
       <div className="dock-window">
