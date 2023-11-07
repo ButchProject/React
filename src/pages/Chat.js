@@ -29,7 +29,7 @@ const Chat = () => {
   const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
   const SendIcon = `${process.env.PUBLIC_URL}/image/sendicon.png`;
 
-  //채팅방 리스트 받아오는거
+//채팅방 리스트 받아오는거
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
     axios.get(`${process.env.REACT_APP_API_URL}/api/chat/list`)
@@ -43,7 +43,7 @@ const Chat = () => {
   const handleRoomClick = async (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick(roomNum);
-
+  
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/room`, {
         params: {
@@ -55,7 +55,7 @@ const Chat = () => {
         ...prevMessages,
         [roomNum]: response.data
       }));
-
+  
     } catch (error) {
       console.error('데이터 가져오기 오류:', error);
     }
@@ -186,6 +186,15 @@ const Chat = () => {
     console.log(parseResponse);
   };
 
+
+
+  const handleKeyPress = (e) => {
+    console.log(e.keyCode);
+    if (e.keyCode === 13) {
+      handleSendClick();
+    }
+  };
+
   const addMessage = (roomNumber, msg, time) => { // Change this line
     setMessages(prevMessages => ({
       ...prevMessages,
@@ -264,51 +273,49 @@ const Chat = () => {
                   ></button>
                 </div>
                 <div className="chat_container">
-                  <div className="chat_container chat_section" id="chat-box">
-                    {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => {
-                      // 현재 사용자의 이메일 주소를 가져옵니다. (예를 들어 상태에서)
-                      const currentUserEmail = localStorage.getItem('currentUserEmail');
-                      // 메시지가 현재 사용자에 의해 보내진 것인지 확인합니다.
-                      const isOutgoingMessage = message.user1 === currentUserEmail;
-
-                      return (
-                        <div
-                          key={i}
-                          className={isOutgoingMessage ? "outgoing_msg" : "incoming_msg"}
-                        >
-                          <div className={isOutgoingMessage ? "sent_msg" : "received_withd_msg"}>
-                            <p>{message.message}</p>
-                            <span className="time_date">{message.createdAt}</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div className="type_msg">
-                    <div className="input_msg_write">
-                      <input
-                        id="chat-outgoing-msg"
-                        type="text"
-                        className="write_msg"
-                        placeholder="메시지를 작성하세요."
-                        value={messageInput}
-                        onChange={(e) => setMessageInput(e.target.value)}
-                        onKeyDown={(e) => e.keyCode === 13 && handleSendClick()}
-                      />
-                      <button
-                        id="chat-send"
-                        className="msg_send_btn"
-                        type="button"
-                        style={{ backgroundImage: `url(${SendIcon})` }}
-                        onClick={handleSendClick}
+                <div className="chat_container chat_section" id="chat-box">
+                  {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
+                    <div
+                      key={i}
+                      className={
+                        message.isSent ? "outgoing_msg" : "incoming_msg"
+                      }
+                    >
+                      <div
+                        className={
+                          message.isSent ? "sent_msg" : "received_withd_msg"
+                        }
                       >
-                        <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                      </button>
+                        <p>{message.msg}</p>
+                        <span className="time_date">{message.time}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="cmargin"></div>
+                  ))}
                 </div>
+                <div className="type_msg">
+                  <div className="input_msg_write">
+                    <input
+                      id="chat-outgoing-msg"
+                      type="text"
+                      className="write_msg"
+                      placeholder="메시지를 작성하세요."
+                      value={messageInput}
+                      onChange={(e) => setMessageInput(e.target.value)}
+                      onKeyDown={(e) => e.keyCode === 13 && handleSendClick()} 
+                    />
+                    <button
+                      id="chat-send"
+                      className="msg_send_btn"
+                      type="button"
+                      style={{ backgroundImage: `url(${SendIcon})` }}
+                      onClick={handleSendClick}
+                      >
+                      <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="cmargin"></div>
+              </div>
               </div>
             </div>
           </div>
