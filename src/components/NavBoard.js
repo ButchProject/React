@@ -393,7 +393,7 @@ function NavBoard({ setLocations }) {
             </div>
 
             <button
-              className="chat-button"
+              className="dchat-button"
               onClick={() => handleChatClick(item.boardDTO.boardWriter)} // boardUserEmail should be provided in your API response.
             >
               <img
