@@ -43,22 +43,6 @@ const Chat = () => {
   const handleRoomClick = async (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick(roomNum);
-  
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/room`, {
-        params: {
-          roomNum: roomNum
-        }
-      });
-      // 기존의 메시지를 상태에 설정합니다.
-      setMessages(prevMessages => ({
-        ...prevMessages,
-        [roomNum]: response.data
-      }));
-  
-    } catch (error) {
-      console.error('데이터 가져오기 오류:', error);
-    }
   };
 
 
