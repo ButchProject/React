@@ -43,6 +43,8 @@ function NavBoard({ setLocations }) {
   const [selectedButton, setSelectedButton] = useState(null);
   const [currentRoomNumber, setCurrentRoomNumber] = useState(null); // Add this line
   const [eventSource, setEventSource] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
 
   const ProfileIcon = `${process.env.PUBLIC_URL}/image/profileicon.png`;
   const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
@@ -214,6 +216,11 @@ function NavBoard({ setLocations }) {
     };
   }, [currentRoomNumber]);
 
+
+  const handleClose = () => {
+    setSidebarOpen(false);
+    setSelectedRoom(null);
+  };
 
 
   return (
@@ -403,9 +410,81 @@ function NavBoard({ setLocations }) {
               />
               채팅하기
             </button>
+            <button className="dsign-button">신청하기</button>
           </div>
         ))}
       </div >
+      
+
+      {data.map((item) => (
+        <div className={`container-fluid ${sidebarOpen ? "open" : "closed"}`}>
+          <div className="row">
+            <div className="col-sm-12">
+              <div id="user_chat_data" className="user_chat_data">
+                <div className="profile_name">
+                  <div
+                    className="c-profile-icon"
+                    style={{ backgroundImage: `url(${ProfileIcon})` }}
+                  ></div>
+                  <div className="c-title">제목(바꿔야함)</div>
+                  <div className="c-academy">학원명(바꿔야함)</div>
+                  <button
+                    className="close-button"
+                    onClick={handleClose}
+                    style={{ backgroundImage: `url(${XIcon})` }}
+                  ></button>
+                </div>
+                <div className="chat_container">
+                <div className="chat_container chat_section" id="chat-box">
+                  {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
+                    <div
+                      key={i}
+                      className={
+                        message.isSent ? "outgoing_msg" : "incoming_msg"
+                      }
+                    >
+                      <div
+                        className={
+                          message.isSent ? "sent_msg" : "received_withd_msg"
+                        }
+                      >
+                        <p>{message.msg}</p>
+                        <span className="time_date">{message.time}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="type_msg">
+                  <div className="input_msg_write">
+                    <input
+                      id="chat-outgoing-msg"
+                      type="text"
+                      className="write_msg"
+                      placeholder="메시지를 작성하세요."
+                      value={messageInput}
+                      onChange={(e) => setMessageInput(e.target.value)}
+                      onKeyDown={(e) => e.keyCode === 13 && handleSendClick()} 
+                    />
+                    <button
+                      id="chat-send"
+                      className="msg_send_btn"
+                      type="button"
+                      style={{ backgroundImage: `url(${SendIcon})` }}
+                      onClick={handleSendClick}
+                      >
+                      <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="cmargin"></div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+
     </div >
   );
 };

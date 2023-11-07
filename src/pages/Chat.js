@@ -29,7 +29,7 @@ const Chat = () => {
   const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
   const SendIcon = `${process.env.PUBLIC_URL}/image/sendicon.png`;
 
-
+//채팅방 리스트 받아오는거
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
     axios.get(`${process.env.REACT_APP_API_URL}/api/chat/list`)
@@ -298,7 +298,7 @@ const Chat = () => {
                       id="chat-outgoing-msg"
                       type="text"
                       className="write_msg"
-                      placeholder="Type a message"
+                      placeholder="메시지를 작성하세요."
                       value={messageInput}
                       onChange={(e) => setMessageInput(e.target.value)}
                       onKeyDown={(e) => e.keyCode === 13 && handleSendClick()} 
@@ -307,12 +307,14 @@ const Chat = () => {
                       id="chat-send"
                       className="msg_send_btn"
                       type="button"
+                      style={{ backgroundImage: `url(${SendIcon})` }}
                       onClick={handleSendClick}
                       >
                       <i className="fa fa-paper-plane" aria-hidden="true"></i>
                     </button>
                   </div>
                 </div>
+                <div className="cmargin"></div>
               </div>
               </div>
             </div>

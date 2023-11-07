@@ -133,7 +133,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
-  border: none;
+  border: 1px solid black;
 }
 
 .left,
@@ -220,6 +220,8 @@
   border-radius: 5px;
 
   z-index: 9998;
+
+  overflow: auto;
 }
 
 .detail-top {
@@ -591,6 +593,31 @@
   color: white;
   font-size: 15px;
   font-weight: 900;
+}
+
+.dsign-button {
+  position: relative;
+  left: 32px;
+  top: 90px;
+  margin-top: 10px;
+
+  width: calc(100% - 58px);
+  height: 40px;
+
+  border-radius: 5px;
+  border-color: transparent;
+  background-color: #11c042;
+  color: white;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.dmargin {
+  position: relative;
+  left: 32px;
+  top: 90px;
+  width: calc(100% - 58px);
+  height: 40px;
 }
 
 .chaticon {
