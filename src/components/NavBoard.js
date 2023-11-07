@@ -417,7 +417,8 @@ function NavBoard({ setLocations }) {
       
 
       {data.map((item) => (
-        <div className={`container-fluid ${ChatSidebarOpen ? "open" : "closed"}`}>
+        <div className={`chat-sidebar ${ChatSidebarOpen ? "open" : "closed"}`}>
+
           <div className="row">
             <div className="col-sm-12">
               <div id="user_chat_data" className="user_chat_data">
