@@ -337,14 +337,14 @@ function NavBoard({ setLocations }) {
               <div className="numberguide-container">
                 <h4 className="number-guide">현재 학생 수</h4>
                 <div className="num">
-                  <h4 className="number">00</h4>
+                  <h4 className="number">{item.BoardDTO.boardCurrentStudents}</h4>
                   <h4 className="aud">명</h4>
                 </div>
               </div>
               <div className="bus-container">
                 <div className="ybox">
                   <h5 className="ybus-guide">12인승 버스</h5>
-                  <h1 className="ybusnum">0</h1>
+                  <h1 className="ybusnum">{item.BoardDTO.boardBus12}</h1>
                   <img
                     className="bus"
                     src={`${process.env.PUBLIC_URL}/image/bus-y2.png`}
@@ -353,7 +353,7 @@ function NavBoard({ setLocations }) {
                 </div>
                 <div className="gbox">
                   <h5 className="gbus-guide">25인승 버스</h5>
-                  <h1 className="gbusnum">0</h1>
+                  <h1 className="gbusnum">{item.BoardDTO.boardBus25}</h1>
                   <img
                     className="bus"
                     src={`${process.env.PUBLIC_URL}/image/bus-g2.png`}
@@ -362,7 +362,7 @@ function NavBoard({ setLocations }) {
                 </div>
                 <div className="bbox">
                   <h5 className="bbus-guide">45인승 버스</h5>
-                  <h1 className="bbusnum">0</h1>
+                  <h1 className="bbusnum">{item.BoardDTO.boardBus45}</h1>
                   <img
                     className="bus"
                     src={`${process.env.PUBLIC_URL}/image/bus-b2.png`}
@@ -380,14 +380,14 @@ function NavBoard({ setLocations }) {
               <div className="total-container">
                 <h4 className="total-guide">총 버스 총합 금액</h4>
                 <div className="tprice">
-                  <h4 className="total-money">0000</h4>
+                  <h4 className="total-money">{item.BoardDTO.boardBusSumMoney}</h4>
                   <h4 className="total-won">원</h4>
                 </div>
               </div>
               <div className="one-container">
                 <h4 className="one-guide">1인 버스 대여 금액</h4>
                 <div className="oprice">
-                  <h4 className="one-money">0000</h4>
+                  <h4 className="one-money">{item.BoardDTO.boardSoloMoney}</h4>
                   <h4 className="one-won">원</h4>
                 </div>
               </div>
@@ -395,7 +395,7 @@ function NavBoard({ setLocations }) {
 
             <div className="pay-container">
               <h5 className="pay-guide">부담해야할 금액</h5>
-              <h2 className="pay-price">0000</h2>
+              <h2 className="pay-price">{item.BoardDTO.boardBusSaleMoney}</h2>
               <h2 className="pay-won">원</h2>
             </div>
 
