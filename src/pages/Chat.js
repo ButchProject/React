@@ -223,7 +223,7 @@ const Chat = () => {
                   className="profile-icon"
                   style={{ backgroundImage: `url(${ProfileIcon})` }}
                 ></div>
-                <div className="chat-title">제목(바꿔야함)</div>
+                <div className="chat-title">{item.otherUserEmail}(바꿔야함)</div>
                 <div className="chat-academy">학원명(바꿔야함)</div>
               </button>
             </div>
