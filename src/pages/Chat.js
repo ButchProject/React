@@ -242,7 +242,7 @@ const Chat = () => {
                   className="profile-icon"
                   style={{ backgroundImage: `url(${ProfileIcon})` }}
                 ></div>
-                <div className="chat-title">{item.user1Academy}</div>
+                <div className="chat-title">{item.otherUserAcademy}</div>
               </button>
             </div>
           ))}
@@ -263,7 +263,7 @@ const Chat = () => {
                     className="c-profile-icon"
                     style={{ backgroundImage: `url(${ProfileIcon})` }}
                   ></div>
-                  <div className="c-title">{item.user1Academy}</div>
+                  <div className="c-title">{item.otherUserAcademy}</div>
                   <button
                     className="close-button"
                     onClick={handleClose}
