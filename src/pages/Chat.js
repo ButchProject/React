@@ -63,22 +63,45 @@ const Chat = () => {
 
 
   useEffect(() => {
-    if (currentRoomNumber === null) return;
-  
-    const eventSource = new EventSource(
-      `${process.env.REACT_APP_API_URL}/api/chat/room`
-    );
-  
-    eventSource.onmessage = (event) => {
+    if (currentRoomNumber === null) {
+      console.log('currentRoomNumber is null. Exiting useEffect.');
+      return;
+    }
+
+    console.log(`Setting up EventSource for room number: ${currentRoomNumber}`);
+
+    // 기존 EventSource 연결 닫기
+    if (eventSource) {
+      console.log('Closing existing EventSource connection.');
+      eventSource.close();
+    }
+
+    const newEventSource = new EventSource(`${process.env.REACT_APP_API_URL}/api/chat/room?roomNum=${currentRoomNumber}`);
+    console.log('Created new EventSource connection.');
+
+    newEventSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      // 실시간으로 수신된 메시지를 상태에 추가합니다.
-      addMessage(currentRoomNumber, data.message, data.createdAt);
+      console.log('Received new message from EventSource:', data);
+      setMessages(prevMessages => ({
+        ...prevMessages,
+        [currentRoomNumber]: [...(prevMessages[currentRoomNumber] || []), data]
+      }));
     };
-  
+
+    newEventSource.onerror = (error) => {
+      console.error('EventSource failed:', error);
+      newEventSource.close();
+    };
+
+    setEventSource(newEventSource); // 새 EventSource 인스턴스를 상태에 저장
+    console.log('Saved new EventSource instance to state.');
+
     return () => {
-      eventSource.close(); // 방을 바꿀 때 EventSource를 종료합니다.
+      console.log('useEffect cleanup. Closing EventSource connection.');
+      if (newEventSource) {
+        newEventSource.close(); // 컴포넌트 언마운트나 roomNumber 변경시 EventSource 종료
+      }
     };
-  
   }, [currentRoomNumber]);
 
   useEffect(() => {
@@ -250,20 +273,14 @@ const Chat = () => {
                 </div>
                 <div className="chat_container">
                 <div className="chat_container chat_section" id="chat-box">
-                  {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
+                {messages[currentRoomNumber] && messages[currentRoomNumber].map((message, i) => (
                     <div
                       key={i}
-                      className={
-                        message.isSent ? "outgoing_msg" : "incoming_msg"
-                      }
+                      className={message.user1 === "song@gmail.com" ? "outgoing_msg" : "incoming_msg"}
                     >
-                      <div
-                        className={
-                          message.isSent ? "sent_msg" : "received_withd_msg"
-                        }
-                      >
-                        <p>{message.msg}</p>
-                        <span className="time_date">{message.time}</span>
+                      <div className={message.user1 === "song@gmail.com" ? "sent_msg" : "received_withd_msg"}>
+                        <p>{message.message}</p>
+                        <span className="time_date">{message.createdAt}</span>
                       </div>
                     </div>
                   ))}

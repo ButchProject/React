@@ -205,8 +205,8 @@
   }
   
   .close-button {
-    position: relative;
-    left: 220px; 
+    position: absolute;
+    left: 350px; 
   
     width: 32px;
     height: 32px;
