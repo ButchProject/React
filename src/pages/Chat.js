@@ -264,7 +264,7 @@ const Chat = () => {
                     className="c-profile-icon"
                     style={{ backgroundImage: `url(${ProfileIcon})` }}
                   ></div>
-                  <div className="c-title">{item.otherUserAcademy}</div>
+                  <div className="c-title">{item.otherUserAcademyName}</div>
                   <button
                     className="close-button"
                     onClick={handleClose}
