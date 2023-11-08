@@ -1,0 +1,151 @@
+.dock-window {
+  width: 98%;
+  height: 64px;
+  position: fixed;
+  top: 1%;
+  left: 1%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white;
+
+  box-shadow :0px 0px 5px gray;
+
+  border-radius: 5px;
+
+  z-index : 9999;
+}
+
+.navbar-logo {
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 110px;
+  height: auto;
+}
+
+.button-group {
+  position: absolute;
+  left: 250px;
+
+  width: 250px;
+  height: 100%;
+  display: flex;
+}
+
+.board-button {
+  position: relative;
+  transform: translateY(-50%);
+  top: 50%;
+
+  width: 100px;
+  height: 48px;
+
+  background-position: center;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  
+  border: none;
+}
+
+.chat-button {
+  position: relative;
+  transform: translateY(-50%);
+  top: 50%;
+  margin-left: 50px;
+
+  width: 100px;
+  height: 48px;
+
+  background-position: center;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  
+  border: none;
+}
+
+.hover-underbar {
+  position: relative;
+  top: 6px;
+  left: 5px;
+
+  width: 90px;
+  height: 8px;
+  
+  background-color: #FFD600;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.hover-underbarc {
+  position: relative;
+  top: 6px;
+  left: 55px;
+
+  width: 90px;
+  height: 8px;
+  
+  background-color: #FFD600;
+
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.user-container {
+  position: absolute;
+  right: 100px;
+
+  height: 100%;
+  width: auto;
+
+  display: flex;
+  align-items: center;
+}
+
+.profileicon {
+  height: 50%;
+  width: auto;
+}
+
+.username {
+  margin-left: 15px;
+}
+
+.tri {
+  margin-left: 5px;
+}
+
+.dropdown {
+  width: 300px;
+  height: calc(98% - 74px);
+  position: fixed;
+  top: calc(1% + 74px);
+  right: 1%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: white;
+
+  box-shadow :0px 0px 5px gray;
+
+  border-radius: 5px;
+
+  z-index : 9999;
+}
+
+.logout-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+
+  width: 80px;
+  
+  background-color: transparent;
+  border: none;
+
+  color: gray;
+  font-size: 16px;
+  text-decoration: underline;
+}
