@@ -18,6 +18,7 @@ axios.interceptors.request.use(
 const Chat = () => {
   const [messages, setMessages] = useState({}); // Change this line
   const [currentRoomNumber, setCurrentRoomNumber] = useState(null); // Add this line
+  const [currentRoomDetails, setCurrentRoomDetails] = useState({});
 
   const [messageInput, setMessageInput] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -44,7 +45,7 @@ const Chat = () => {
   const handleRoomClick = async (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick(roomNum);
-  
+    setCurrentRoomDetails(roomDetails);
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/room`, {
         params: {
@@ -264,7 +265,7 @@ const Chat = () => {
                     className="c-profile-icon"
                     style={{ backgroundImage: `url(${ProfileIcon})` }}
                   ></div>
-                  <div className="c-title">{item.otherUserAcademyName}</div>
+                  <div className="c-title">{currentRoomDetails.otherUserAcademyName}</div>
                   <button
                     className="close-button"
                     onClick={handleClose}
