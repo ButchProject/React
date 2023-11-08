@@ -45,7 +45,7 @@ const Profile = () => {
       <p className="puser">{profileData.memberEmail}</p>
       <h4 className="pguide">비밀번호</h4>
       <p className="puser">{profileData.memberPassword}</p>
-      <h4 className="pguide">전화번호</h4>
+      <h4 className="pguide">전화번호</h4>//
       <p className="puser">{profileData.phoneNumber}</p>
       <h4 className="pguide">학원이름</h4>
       <p className="puser">{profileData.academyName}</p>
