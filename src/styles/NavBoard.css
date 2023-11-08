@@ -133,6 +133,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
+  border: none;
 }
 
 .left,
