@@ -222,7 +222,6 @@ function NavBoard({ setLocations }) {
     setSelectedRoom(null);
   };
 
-
   return (
     <div>
       <div className="sidebar">
