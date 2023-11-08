@@ -51,7 +51,11 @@ function AppContainer() {
 
   useEffect(() => {
     const loadPages = [
-      "/main"
+      "/main",
+      "/profilepage",
+      "/chat", 
+      "/board",
+      "/writeboard",
     ];
     if (loadPages.includes(pathname)) {
       setIsLoading(true);
