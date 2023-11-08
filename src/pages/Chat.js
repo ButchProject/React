@@ -43,9 +43,12 @@ const Chat = () => {
 
   //방을 클릭했을 때, 해당 방의 메세지 가져오기
   const handleRoomClick = async (roomNum) => {
+    const roomDetails = data.find(room => room.roomNum === roomNum);
+    setCurrentRoomDetails(roomDetails);
+    
     setCurrentRoomNumber(roomNum);
     handleButtonClick(roomNum);
-    setCurrentRoomDetails(roomDetails);
+    
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/room`, {
         params: {
