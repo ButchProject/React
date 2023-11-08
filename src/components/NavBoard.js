@@ -426,11 +426,11 @@ function NavBoard({ setLocations }) {
                     className="c-profile-icon"
                     style={{ backgroundImage: `url(${ProfileIcon})` }}
                   ></div>
-                  <div className="c-title">제목(바꿔야함)</div>
-                  <div className="c-academy">학원명(바꿔야함)</div>
+                  <div className="c-title">영통역 근처 구해요</div>
+                  <div className="c-academy">버치학원</div>
                   <button
                     className="close-button"
-                    onClick={handleClose}
+                    onClick={setChatSidebarOpen}
                     style={{ backgroundImage: `url(${XIcon})` }}
                   ></button>
                 </div>
