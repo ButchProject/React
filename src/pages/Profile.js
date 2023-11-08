@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 const Profile = () => {
-    const navigate = useNavigate();
-    const editProfile = () => {
-        navigate('/profile/edit');
-      };
+  const navigate = useNavigate();
+  const editProfile = () => {
+    navigate('/profile/edit');
+  };
   const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
@@ -20,26 +20,35 @@ const Profile = () => {
         Authorization: `Bearer ${token}`
       }
     })
-    .then(response => {
-      setProfileData(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
+      .then(response => {
+        setProfileData(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
   if (!profileData) return <div>Loading...</div>;
 
   return (
     <div>
-        <h1>asdf</h1>
-        <h1>{profileData.memberName}</h1>
-        <p>Email: {profileData.memberEmail}</p>
-        <p>Password: {profileData.memberPassword}</p> {/* 보안상의 이유로 비밀번호는 보통 표시하지 않습니다 */}
-        <p>Phone Number: {profileData.phoneNumber}</p>
-        <p>Academy Name: {profileData.academyName}</p>
-        <button onClick={editProfile}>Edit Profile</button>
-   </div>
+      <img
+        className="bigprofile"
+        src={`${process.env.PUBLIC_URL}/image/bigprofile.png`}
+        alt="bp"
+      />
+      <h4 className="pguide">이름</h4>
+      <p className="puser">{profileData.memberName}</p>
+      <h4 className="pguide">이메일</h4>
+      <p className="puser">{profileData.memberEmail}</p>
+      <h4 className="pguide">비밀번호</h4>
+      <p className="puser">{profileData.memberPassword}</p>
+      <h4 className="pguide">전화번호</h4>
+      <p className="puser">{profileData.phoneNumber}</p>
+      <h4 className="pguide">학원이름</h4>
+      <p className="puser">{profileData.academyName}</p>
+      <button className="editbutton" onClick={editProfile}>Edit Profile</button>
+    </div>
   );
 };
 

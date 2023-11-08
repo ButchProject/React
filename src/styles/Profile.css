@@ -1,0 +1,36 @@
+.bigprofile {
+    position: relative;
+    top: 10%;
+    transform: translateX(-50%);
+    left: 50%;
+
+    height: 20%;
+    width: auto;
+}
+
+.pguide {
+    position: relative;
+    top: 4rem;
+    margin-top: 3rem;
+    left: 2rem;
+    width: calc(100% - 4rem);
+    height: 2rem;
+}
+
+.puser {
+    position: relative;
+    top: 4rem;
+    margin-top: 1rem;
+    left: 2rem;
+    width: calc(100% - 4rem);
+    height: 2rem;
+}
+
+.editbutton {
+    position: relative;
+    top: 4rem;
+    margin-top: 10rem;
+    left: 2rem;
+    width: calc(100% - 4rem);
+    height: 2rem;
+}
