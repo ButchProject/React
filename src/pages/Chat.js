@@ -29,7 +29,7 @@ const Chat = () => {
   const XIcon = `${process.env.PUBLIC_URL}/image/x.png`;
   const SendIcon = `${process.env.PUBLIC_URL}/image/sendicon.png`;
 
-//채팅방 리스트 받아오는거 + 채팅기록 불러오기
+//채팅방 리스트 받아오는거
   useEffect(() => {
     // Use axios instead of fetch for requests to automatically include the Authorization header.
     axios.get(`${process.env.REACT_APP_API_URL}/api/chat/list`)
@@ -40,6 +40,7 @@ const Chat = () => {
       .catch((error) => console.error("Error:", error));
   }, []);
 
+  //방을 클릭했을 때, 해당 방의 메세지 가져오기
   const handleRoomClick = async (roomNum) => {
     setCurrentRoomNumber(roomNum);
     handleButtonClick(roomNum);
@@ -242,7 +243,7 @@ const Chat = () => {
                   className="profile-icon"
                   style={{ backgroundImage: `url(${ProfileIcon})` }}
                 ></div>
-                <div className="chat-title">{item.otherUserAcademy}</div>
+                <div className="chat-title">{item.otherUserAcademyName}</div>
               </button>
             </div>
           ))}
@@ -284,8 +285,8 @@ const Chat = () => {
                           message.isSent ? "sent_msg" : "received_withd_msg"
                         }
                       >
-                        <p>{message.msg}</p>
-                        <span className="time_date">{message.time}</span>
+                        <p>{message.message}</p>
+                        <span className="time_date">{message.createdAt}</span>
                       </div>
                     </div>
                   ))}
